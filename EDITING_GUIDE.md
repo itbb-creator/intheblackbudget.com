@@ -55,14 +55,19 @@ This works but is slower than Option 2. **Recommended: move hosting to Vercel/Ne
 
 ### One-time setup to make Option 2 auto-deploy (do this once):
 
-**Vercel (recommended, free):**
+**Netlify (Recommended & pre-configured with `netlify.toml`):**
+1. Go to [netlify.com](https://app.netlify.com/) → **Add new site** → **Import an existing project** → Connect to GitHub (`itbb-creator/intheblackbudget.com`)
+2. Build settings: 
+   - Build command: *(leave empty)*
+   - Publish directory: `.`
+3. Click **Deploy site**.
+4. (Optional) In Netlify → Domain settings, add custom domain `intheblackbudget.com` and update DNS records in Squarespace.
+5. Done! Every future edit to `content.json` or `index.html` auto-deploys in ~30 seconds.
+
+**Vercel (Alternative, free):**
 1. Go to vercel.com → Add New Project → Import `itbb-creator/intheblackbudget.com`
 2. Framework: `Other` (static), no build command needed
-3. Deploy → copy the Vercel URL
-4. In Squarespace → Domains → DNS → change A record / CNAME to point to Vercel (Vercel shows you exactly what to paste)
-5. Done. Every future `content.json` edit auto-deploys in ~30 seconds.
-
-Same steps work for **Netlify** or **Cloudflare Pages**.
+3. Deploy → copy URL and configure DNS.
 
 ---
 

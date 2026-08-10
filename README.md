@@ -17,15 +17,20 @@ Or just tell your Arena agent: **"Change the price to $X"** — I'll do it.
 - `MARKETING_HOOKS.md` — 27 research-backed ad hooks that make it *hard not to click* + 3 copy-paste ad packages for Meta/TikTok/YouTube + testing plan.
 - `images/` — Drop your 3 screenshots here: `budget-input.png`, `dashboard.png`, `charts.png`
 
-## 🚀 First-time setup (do once)
+## 🚀 First-time setup & Netlify Deployment (do once)
 
-Connect to Vercel (free):
-1. vercel.com → Import `itbb-creator/intheblackbudget.com`
-2. Framework: Other, no build command
-3. In Squarespace Domains → DNS → point to Vercel (they give you the record)
-4. Future edits auto-deploy in 30s
+Connect to **Netlify** (recommended & configured via `netlify.toml`):
+1. Go to [netlify.com](https://app.netlify.com/) → **Add new site** → **Import an existing project** → Connect to GitHub
+2. Select repository `itbb-creator/intheblackbudget.com`
+3. Branch: `arena/019fede1-intheblackbudget-com` (or `main`)
+4. Build settings: 
+   - Build command: *(leave blank)*
+   - Publish directory: `.` (or root)
+5. Click **Deploy site**.
+6. (Optional) In Netlify → Domain settings → Custom domains, add `intheblackbudget.com` and update your DNS records at Squarespace / your registrar.
+7. Future edits to `content.json` or `index.html` auto-deploy in ~30 seconds!
 
-See `EDITING_GUIDE.md` for full steps + how to wire forms with Formspree (free).
+*(Alternatively works with Vercel or Cloudflare Pages using same settings).*
 
 ## 💳 When you're ready to sell
 
