@@ -1,9 +1,34 @@
 {
-  "_comment": "EDIT THIS FILE TO CHANGE YOUR SITE - NO HTML NEEDED. Change price, email, link, then push. Site updates automatically.",
+  "_comment": "EDIT THIS FILE TO CHANGE YOUR SITE — pricing, Stripe links, email. No HTML needed. Replace # with your real Stripe Payment Links when ready.",
+  "contactEmail": "ITBB@intheblackbudget.com",
   "price": "$19",
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",
-  "contactEmail": "hello@intheblackbudget.com",
+  "stripeLinks": {
+    "essentials": "#",
+    "complete": "#",
+    "premium": "#"
+  },
+  "pricing": {
+    "essentials": {
+      "name": "In The Black Essentials",
+      "price": "$19",
+      "compareAt": "$29",
+      "blurb": "BASIC FINANCES — STARTER"
+    },
+    "complete": {
+      "name": "In The Black Complete",
+      "price": "$39",
+      "blurb": "ADVANCED TRACKING — DEBT & WEALTH"
+    },
+    "premium": {
+      "name": "In The Black Premium",
+      "price": "$49",
+      "compareAt": "$58",
+      "blurb": "BOTH COMBINED — THE SYSTEM",
+      "hook": "$49 once still crushes $109/yr"
+    }
+  },
   "socialLinks": {
     "instagram": "",
     "tiktok": "",
@@ -21,21 +46,6 @@
     {
       "name": "Priya K.",
       "text": "My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does."
-    }
-  ],
-  "features": [
-    "Color-coded Budget Input tab (Income / Expense / Taxes / Investing)",
-    "Automated Feedback Dashboard with plain-English guidance",
-    "Editable benchmarks — make the rules your own",
-    "Subscription tracker with creep detection",
-    "Built-in charts for visual learners",
-    "Works in Excel, Google Sheets & Numbers",
-    "Free updates to future versions"
-  ],
-  "faq": [
-    {
-      "q": "What do I actually get?",
-      "a": "One spreadsheet file, delivered instantly after checkout — no app, no account, no login."
     }
   ]
 }

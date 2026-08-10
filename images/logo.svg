@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="none"/>
+  <!-- Red circle left -->
+  <circle cx="195" cy="256" r="145" fill="#C23B33"/>
+  <!-- Green circle right -->
+  <circle cx="317" cy="256" r="145" fill="#1C7A3D"/>
+  <!-- Overlap - multiply blend for darker olive (approx) -->
+  <path d="M 265 120 A 145 145 0 0 0 265 392 A 145 145 0 0 0 265 120 Z" fill="#143620"/>
+</svg>
