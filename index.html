@@ -10,9 +10,41 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png" />
   <link rel="icon" type="image/png" sizes="180x180" href="./images/apple-touch-icon.png" />
   <link rel="apple-touch-icon" href="./images/apple-touch-icon.png" />
+  <!-- SEO / social -->
+  <link rel="canonical" href="https://intheblackbudget.com/" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="In The Black Budget" />
+  <meta property="og:url" content="https://intheblackbudget.com/" />
+  <meta property="og:title" content="In The Black — A budget spreadsheet that talks back" />
+  <meta property="og:description" content="One spreadsheet, one payment. A budget that tells you where you stand — no subscription, no app, no bank login." />
+  <meta property="og:image" content="https://intheblackbudget.com/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="In The Black — A budget spreadsheet that talks back" />
+  <meta name="twitter:description" content="One spreadsheet, one payment. No subscription, no app, no bank login." />
+  <meta name="twitter:image" content="https://intheblackbudget.com/images/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "In The Black Budget",
+    "url": "https://intheblackbudget.com/",
+    "image": "https://intheblackbudget.com/images/og-image.png",
+    "description": "One spreadsheet, one payment. A budget that tells you where you stand — no subscription, no app, no bank login. Works in Excel, Google Sheets & Apple Numbers.",
+    "brand": { "@type": "Brand", "name": "In The Black" },
+    "offers": [
+      { "@type": "Offer", "name": "In The Black Essentials", "price": "19", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+      { "@type": "Offer", "name": "In The Black Complete", "price": "39", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+      { "@type": "Offer", "name": "In The Black Premium", "price": "49", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+    ]
+  }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -26,41 +58,72 @@
   <style>
     html{scroll-behavior:smooth}
     .grid-pattern{background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px); background-size: 24px 24px;}
+    /* Sticky-nav anchor offset */
+    #how,#inside,#pricing,#faq{scroll-margin-top:5rem}
+    /* Keyboard focus */
+    a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:6px}
+    /* Reveal on scroll */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+    .reveal.in{opacity:1;transform:none}
+    /* Card hover lift */
+    .lift{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1)}
+    .lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px -16px rgba(10,10,10,.18)}
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1;transform:none;transition:none}
+      .lift,.lift:hover{transform:none;box-shadow:none;transition:none}
+    }
   </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:text-sm">Skip to content</a>
 
   <!-- Nav -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-line">
+  <header id="top" class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-line">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5 font-extrabold tracking-tight text-lg">
-        <img src="./images/logo.svg" alt="In The Black logo" class="w-8 h-8 rounded-full object-contain" width="32" height="32" />
-        IN THE BLACK<span class="font-normal text-muted"> — BUDGET</span>
+      <a href="#top" class="flex items-center gap-2.5 font-extrabold tracking-tight text-lg" aria-label="In The Black Budget — home">
+        <img src="./images/logo.svg" alt="" class="w-8 h-8 rounded-full object-contain" width="32" height="32" />
+        IN THE BLACK<span class="font-normal text-muted hidden sm:inline"> — BUDGET</span>
       </a>
-      <nav class="hidden md:flex gap-6 text-sm text-muted">
-        <a href="#how" class="hover:text-ink">How it works</a>
-        <a href="#inside" class="hover:text-ink">Inside</a>
-        <a href="#pricing" class="hover:text-ink">Pricing</a>
-        <a href="#faq" class="hover:text-ink">FAQ</a>
+      <nav class="hidden md:flex gap-6 text-sm text-muted" aria-label="Primary">
+        <a href="#how" class="hover:text-ink transition-colors">How it works</a>
+        <a href="#inside" class="hover:text-ink transition-colors">Inside</a>
+        <a href="#pricing" class="hover:text-ink transition-colors">Pricing</a>
+        <a href="#faq" class="hover:text-ink transition-colors">FAQ</a>
       </nav>
-      <a id="nav-buy" href="#pricing" class="bg-ink text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition">Buy now — $19</a>
+      <div class="flex items-center gap-2.5">
+        <a id="nav-buy" href="#pricing" aria-label="Buy In The Black — from $19" class="bg-ink text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-black hover:-translate-y-px transition">Buy now — $19</a>
+        <button id="menu-btn" type="button" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-line bg-white" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4.5" x2="16" y2="4.5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13.5" x2="16" y2="13.5"/></svg>
+          <svg id="menu-icon-close" class="hidden" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2.5" y1="2.5" x2="13.5" y2="13.5"/><line x1="13.5" y1="2.5" x2="2.5" y2="13.5"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-line bg-white">
+      <nav class="max-w-6xl mx-auto px-6 py-3 flex flex-col text-sm" aria-label="Mobile">
+        <a href="#how" class="py-3 border-b border-zinc-100 font-medium">How it works</a>
+        <a href="#inside" class="py-3 border-b border-zinc-100 font-medium">Inside</a>
+        <a href="#pricing" class="py-3 border-b border-zinc-100 font-medium">Pricing</a>
+        <a href="#faq" class="py-3 font-medium">FAQ</a>
+      </nav>
     </div>
   </header>
 
+  <main id="main">
   <!-- Hero -->
   <section class="max-w-6xl mx-auto px-6 pt-16 pb-10 md:pt-24 md:pb-16">
-    <div class="max-w-3xl">
+    <div class="max-w-3xl reveal">
       <p class="text-sm font-mono text-muted mb-4">FOR PEOPLE WHO CANCELED A BUDGETING APP</p>
       <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-[0.95]">
-        Budgeting apps want <span class="underline decoration-4 decoration-zinc-200">$12 a month</span>.<br>
-        Your bank app wants to sell you a <span class="underline decoration-4 decoration-zinc-200">credit card</span>.
+        Budgeting apps want <span class="underline decoration-4 decoration-zinc-200 underline-offset-4">$12 a month</span>.<br>
+        Your bank app wants to sell you a <span class="underline decoration-4 decoration-zinc-200 underline-offset-4">credit card</span>.
       </h1>
       <p class="text-lg md:text-xl text-muted mt-6 leading-relaxed max-w-2xl">
         All you actually wanted to know was: <em class="text-ink font-medium">am I doing okay?</em> This is one spreadsheet, one payment, that just answers that question — every month, for as long as you use it.
       </p>
       <div class="flex flex-wrap gap-3 mt-8">
-        <a id="hero-buy" href="#pricing" class="bg-ink text-white px-7 py-3.5 rounded-full font-semibold hover:bg-black transition">Buy now — $19 →</a>
-        <a href="#inside" class="px-7 py-3.5 rounded-full font-semibold border border-line hover:bg-zinc-50 transition">See inside</a>
+        <a id="hero-buy" href="#pricing" aria-label="Buy In The Black — from $19" class="bg-ink text-white px-7 py-3.5 rounded-full font-semibold hover:bg-black hover:-translate-y-0.5 transition">Buy now — $19 →</a>
+        <a href="#inside" class="px-7 py-3.5 rounded-full font-semibold border border-line hover:bg-zinc-50 hover:-translate-y-0.5 transition">See inside</a>
       </div>
       <p class="text-xs text-muted mt-3">One-time payment • Works in Excel, Google Sheets & Numbers • No login required</p>
     </div>
@@ -69,19 +132,19 @@
   <!-- How it works -->
   <section id="how" class="bg-zinc-50 border-y border-line">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Three steps. No tutorial required.</h2>
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Three steps. No tutorial required.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
-        <div class="bg-white border border-line rounded-2xl p-7">
+        <div class="bg-white border border-line rounded-2xl p-7 reveal lift">
           <div class="font-mono text-xs text-muted">01</div>
           <h3 class="font-bold mt-2">Buy & download</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">Get the file instantly — it opens right up in Excel, Google Sheets, or Numbers. No account, no install.</p>
         </div>
-        <div class="bg-white border border-line rounded-2xl p-7">
+        <div class="bg-white border border-line rounded-2xl p-7 reveal lift" style="transition-delay:90ms">
           <div class="font-mono text-xs text-muted">02</div>
           <h3 class="font-bold mt-2">Plug in your numbers</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">Income, expenses, taxes, investing — each row colors itself automatically as you type. Green in, red out.</p>
         </div>
-        <div class="bg-white border border-line rounded-2xl p-7">
+        <div class="bg-white border border-line rounded-2xl p-7 reveal lift" style="transition-delay:180ms">
           <div class="font-mono text-xs text-muted">03</div>
           <h3 class="font-bold mt-2">Read your dashboard</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">A feedback tab tallies everything up and tells you, category by category, where you stand — and what to fix first.</p>
@@ -92,31 +155,109 @@
 
   <!-- Inside -->
   <section id="inside" class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Three tabs. Every one of them doing something.</h2>
-    <p class="text-muted mt-3 max-w-2xl">These are real screenshots straight from the spreadsheet — not mockups. This is exactly what opens on your screen.</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Three tabs. Every one of them doing something.</h2>
+    <p class="text-muted mt-3 max-w-2xl reveal">These are real screenshots straight from the spreadsheet — not mockups. This is exactly what opens on your screen.</p>
 
-    <div class="grid md:grid-cols-1 gap-12 mt-12">
+    <div class="grid gap-12 mt-12">
       <!-- Tab 1 -->
-      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8">
+      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
         <div>
           <p class="font-mono text-xs text-muted">TAB 01 — BUDGET INPUT</p>
           <h3 class="text-xl font-bold mt-2">See it before you feel it</h3>
           <p class="text-sm text-muted mt-3 leading-relaxed">Type “Expense” next to your rent and the whole row turns red. Type “Income” next to your paycheck and it turns green. Taxes go gray, investing goes purple. Your budget explains itself before you've read a single number.</p>
           <ul class="text-sm mt-4 space-y-1.5">
-            <li><span class="inline-block w-3 h-3 bg-emerald-500 rounded-sm align-middle mr-2"></span> Green = Income</li>
-            <li><span class="inline-block w-3 h-3 bg-red-500 rounded-sm align-middle mr-2"></span> Red = Expense</li>
-            <li><span class="inline-block w-3 h-3 bg-zinc-400 rounded-sm align-middle mr-2"></span> Gray = Taxes &nbsp; <span class="inline-block w-3 h-3 bg-violet-500 rounded-sm align-middle ml-2 mr-2"></span> Purple = Investing</li>
+            <li><span class="inline-block w-3 h-3 bg-emerald-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Green = Income</li>
+            <li><span class="inline-block w-3 h-3 bg-red-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Red = Expense</li>
+            <li><span class="inline-block w-3 h-3 bg-zinc-400 rounded-sm align-middle mr-2" aria-hidden="true"></span> Gray = Taxes &nbsp; <span class="inline-block w-3 h-3 bg-violet-500 rounded-sm align-middle ml-2 mr-2" aria-hidden="true"></span> Purple = Investing</li>
           </ul>
         </div>
-        <div class="bg-zinc-900 rounded-2xl aspect-[4/3] grid-pattern flex items-center justify-center text-zinc-400 text-sm border border-zinc-800">
-          <!-- REPLACE with real screenshot: /images/budget-input.png -->
-          <span class="bg-white text-ink px-3 py-1 rounded-full text-xs font-mono border">Your screenshot: /images/budget-input.png</span>
+        <!-- Real screenshot auto-replaces this mockup: drop /images/budget-input.png in the repo (see images/README.txt) -->
+        <div class="rounded-2xl border border-line bg-white shadow-sm overflow-hidden select-none" data-shot="budget-input.png" data-alt="Budget Input tab — rows color themselves green for income, red for expenses" role="img" aria-label="Budget Input tab preview: color-coded rows for paycheck, rent, taxes, groceries and investing">
+          <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-line bg-zinc-50">
+            <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+            <span class="ml-2 text-[10px] font-mono text-zinc-400">in-the-black.xlsx</span>
+          </div>
+          <div class="text-[10px] sm:text-xs">
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-zinc-50 font-mono text-zinc-400">
+              <div class="py-1.5 border-r border-line"></div>
+              <div class="px-2 py-1.5 border-r border-line text-center">A</div>
+              <div class="px-2 py-1.5 border-r border-line text-center">B</div>
+              <div class="px-2 py-1.5 text-center">C</div>
+            </div>
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-emerald-50/80">
+              <div class="py-2 text-center text-zinc-400 font-mono border-r border-line bg-white">1</div>
+              <div class="px-2 py-2 font-medium truncate">Paycheck</div>
+              <div class="px-2 py-2 font-semibold text-emerald-700 border-l border-line">Income</div>
+              <div class="px-2 py-2 font-mono text-right text-emerald-800 border-l border-line">$4,200</div>
+            </div>
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-red-50/80">
+              <div class="py-2 text-center text-zinc-400 font-mono border-r border-line bg-white">2</div>
+              <div class="px-2 py-2 font-medium truncate">Rent</div>
+              <div class="px-2 py-2 font-semibold text-red-700 border-l border-line ring-2 ring-inset ring-emerald-500/70">Expense</div>
+              <div class="px-2 py-2 font-mono text-right text-red-800 border-l border-line">$1,650</div>
+            </div>
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-zinc-100/80">
+              <div class="py-2 text-center text-zinc-400 font-mono border-r border-line bg-white">3</div>
+              <div class="px-2 py-2 font-medium truncate">Federal tax</div>
+              <div class="px-2 py-2 font-semibold text-zinc-500 border-l border-line">Taxes</div>
+              <div class="px-2 py-2 font-mono text-right text-zinc-600 border-l border-line">$690</div>
+            </div>
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-red-50/80">
+              <div class="py-2 text-center text-zinc-400 font-mono border-r border-line bg-white">4</div>
+              <div class="px-2 py-2 font-medium truncate">Groceries</div>
+              <div class="px-2 py-2 font-semibold text-red-700 border-l border-line">Expense</div>
+              <div class="px-2 py-2 font-mono text-right text-red-800 border-l border-line">$420</div>
+            </div>
+            <div class="grid grid-cols-[26px_minmax(0,1fr)_72px_74px] sm:grid-cols-[30px_minmax(0,1fr)_88px_90px] border-b border-line bg-violet-50/80">
+              <div class="py-2 text-center text-zinc-400 font-mono border-r border-line bg-white">5</div>
+              <div class="px-2 py-2 font-medium truncate">401(k)</div>
+              <div class="px-2 py-2 font-semibold text-violet-700 border-l border-line">Investing</div>
+              <div class="px-2 py-2 font-mono text-right text-violet-800 border-l border-line">$510</div>
+            </div>
+          </div>
+          <div class="flex gap-1 px-3 py-2 bg-zinc-50 text-[9px] font-mono text-zinc-500">
+            <span class="px-2 py-0.5 rounded bg-white border border-line text-ink font-semibold">Budget</span>
+            <span class="px-2 py-0.5">Dashboard</span>
+            <span class="px-2 py-0.5">Charts</span>
+          </div>
         </div>
       </div>
       <!-- Tab 2 -->
-      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8">
-        <div class="bg-zinc-900 rounded-2xl aspect-[4/3] grid-pattern flex items-center justify-center text-zinc-400 text-sm border border-zinc-800 md:order-first order-last">
-          <span class="bg-white text-ink px-3 py-1 rounded-full text-xs font-mono border">Your screenshot: /images/dashboard.png</span>
+      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
+        <!-- Real screenshot auto-replaces this mockup: drop /images/dashboard.png in the repo (see images/README.txt) -->
+        <div class="rounded-2xl border border-line bg-white shadow-sm overflow-hidden select-none md:order-first order-last" data-shot="dashboard.png" data-alt="Dashboard tab — category checks against benchmarks: housing on track, subscriptions creeping up" role="img" aria-label="Dashboard preview: housing on track, subscriptions creeping up, dining over, savings rate on track">
+          <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-line bg-zinc-50">
+            <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+            <span class="ml-2 text-[10px] font-mono text-zinc-400">in-the-black.xlsx</span>
+          </div>
+          <div class="p-4 sm:p-5 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-[10px] text-zinc-400 tracking-wide">FEEDBACK — THIS MONTH</p>
+              <p class="font-mono text-[9px] text-zinc-300">auto-updates as you type</p>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg border border-line px-3 py-2.5">
+              <div><p class="text-xs sm:text-sm font-semibold">Housing</p><p class="font-mono text-[9px] text-zinc-400">28% OF INCOME · BENCHMARK 30%</p></div>
+              <span class="shrink-0 font-mono text-[9px] font-semibold rounded-full px-2 py-1 bg-emerald-100 text-emerald-800 border border-emerald-200">✓ ON TRACK</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg border border-amber-200 bg-amber-50/60 px-3 py-2.5">
+              <div><p class="text-xs sm:text-sm font-semibold">Subscriptions</p><p class="font-mono text-[9px] text-zinc-400">$142/MO · UP 12% IN 3 MONTHS</p></div>
+              <span class="shrink-0 font-mono text-[9px] font-semibold rounded-full px-2 py-1 bg-amber-100 text-amber-800 border border-amber-200">↑ CREEPING UP</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg border border-red-200 bg-red-50/60 px-3 py-2.5">
+              <div><p class="text-xs sm:text-sm font-semibold">Dining out</p><p class="font-mono text-[9px] text-zinc-400">9% OF INCOME · BENCHMARK 8%</p></div>
+              <span class="shrink-0 font-mono text-[9px] font-semibold rounded-full px-2 py-1 bg-red-100 text-red-700 border border-red-200">✗ OVER</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg border border-line px-3 py-2.5">
+              <div><p class="text-xs sm:text-sm font-semibold">Savings rate</p><p class="font-mono text-[9px] text-zinc-400">18% · TARGET 15%</p></div>
+              <span class="shrink-0 font-mono text-[9px] font-semibold rounded-full px-2 py-1 bg-emerald-100 text-emerald-800 border border-emerald-200">✓ ON TRACK</span>
+            </div>
+            <p class="font-mono text-[9px] text-zinc-400 pt-1">Benchmarks are editable — make the rules yours.</p>
+          </div>
+          <div class="flex gap-1 px-3 py-2 bg-zinc-50 border-t border-line text-[9px] font-mono text-zinc-500">
+            <span class="px-2 py-0.5">Budget</span>
+            <span class="px-2 py-0.5 rounded bg-white border border-line text-ink font-semibold">Dashboard</span>
+            <span class="px-2 py-0.5">Charts</span>
+          </div>
         </div>
         <div>
           <p class="font-mono text-xs text-muted">TAB 02 — DASHBOARD</p>
@@ -125,14 +266,60 @@
         </div>
       </div>
       <!-- Tab 3 -->
-      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8">
+      <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
         <div>
           <p class="font-mono text-xs text-muted">TAB 03 — VISUAL SUMMARY</p>
           <h3 class="text-xl font-bold mt-2">For the visual learners</h3>
           <p class="text-sm text-muted mt-3 leading-relaxed">Prefer a picture to a paragraph? Built-in charts — where your money comes from, where it goes, and how each category stacks up — all generated automatically.</p>
         </div>
-        <div class="bg-zinc-900 rounded-2xl aspect-[4/3] grid-pattern flex items-center justify-center text-zinc-400 text-sm border border-zinc-800">
-          <span class="bg-white text-ink px-3 py-1 rounded-full text-xs font-mono border">Your screenshot: /images/charts.png</span>
+        <!-- Real screenshot auto-replaces this mockup: drop /images/charts.png in the repo (see images/README.txt) -->
+        <div class="rounded-2xl border border-line bg-white shadow-sm overflow-hidden select-none" data-shot="charts.png" data-alt="Charts tab — money in versus money out bars and spending by category" role="img" aria-label="Charts preview: income bars outpacing spending, category breakdown">
+          <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-line bg-zinc-50">
+            <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span><span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+            <span class="ml-2 text-[10px] font-mono text-zinc-400">in-the-black.xlsx</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 p-4 sm:p-5">
+            <div>
+              <p class="font-mono text-[9px] text-zinc-400 mb-3 tracking-wide">MONEY IN VS OUT</p>
+              <div class="flex items-end justify-center gap-6 h-28 border-b border-line">
+                <div class="flex flex-col items-center gap-1">
+                  <span class="font-mono text-[9px] text-emerald-700">$4,200</span>
+                  <div class="w-9 sm:w-11 h-24 rounded-t bg-emerald-500"></div>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <span class="font-mono text-[9px] text-red-700">$3,470</span>
+                  <div class="w-9 sm:w-11 h-[4.5rem] rounded-t bg-red-400"></div>
+                </div>
+              </div>
+              <div class="flex justify-center gap-6 sm:gap-8 mt-1.5 font-mono text-[9px] text-zinc-400">
+                <span class="w-9 sm:w-11 text-center">IN</span><span class="w-9 sm:w-11 text-center">OUT</span>
+              </div>
+            </div>
+            <div class="space-y-3">
+              <p class="font-mono text-[9px] text-zinc-400 tracking-wide">WHERE IT GOES</p>
+              <div>
+                <div class="flex justify-between font-mono text-[9px] text-zinc-500 mb-1"><span>HOUSING</span><span>$1,650</span></div>
+                <div class="h-2 rounded-full bg-zinc-100"><div class="h-2 rounded-full bg-red-400" style="width:50%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between font-mono text-[9px] text-zinc-500 mb-1"><span>FOOD</span><span>$420</span></div>
+                <div class="h-2 rounded-full bg-zinc-100"><div class="h-2 rounded-full bg-red-400/70" style="width:26%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between font-mono text-[9px] text-zinc-500 mb-1"><span>DINING</span><span>$310</span></div>
+                <div class="h-2 rounded-full bg-zinc-100"><div class="h-2 rounded-full bg-red-400/50" style="width:19%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between font-mono text-[9px] text-zinc-500 mb-1"><span>INVESTING</span><span>$510</span></div>
+                <div class="h-2 rounded-full bg-zinc-100"><div class="h-2 rounded-full bg-violet-500" style="width:31%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-1 px-3 py-2 bg-zinc-50 border-t border-line text-[9px] font-mono text-zinc-500">
+            <span class="px-2 py-0.5">Budget</span>
+            <span class="px-2 py-0.5">Dashboard</span>
+            <span class="px-2 py-0.5 rounded bg-white border border-line text-ink font-semibold">Charts</span>
+          </div>
         </div>
       </div>
     </div>
@@ -141,42 +328,42 @@
   <!-- Social proof -->
   <section class="bg-ink text-white">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Mostly bought by people who canceled a budgeting app first.</h2>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight reveal">Mostly bought by people who canceled a budgeting app first.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-          <div class="text-amber-400">★★★★★</div>
-          <p class="text-sm mt-3 leading-relaxed text-zinc-200">“I've bought three budgeting apps and canceled all three. This is the first one that just lives in a spreadsheet I already know how to use.”</p>
-          <p class="text-xs font-mono text-zinc-500 mt-4">Maya R.</p>
-        </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-          <div class="text-amber-400">★★★★★</div>
-          <p class="text-sm mt-3 leading-relaxed text-zinc-200">“The red-and-green thing sounds simple but it's honestly the reason I keep opening it every week instead of avoiding it.”</p>
-          <p class="text-xs font-mono text-zinc-500 mt-4">Devon T.</p>
-        </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-          <div class="text-amber-400">★★★★★</div>
-          <p class="text-sm mt-3 leading-relaxed text-zinc-200">“My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does.”</p>
-          <p class="text-xs font-mono text-zinc-500 mt-4">Priya K.</p>
-        </div>
+        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift">
+          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“I've bought three budgeting apps and canceled all three. This is the first one that just lives in a spreadsheet I already know how to use.”</blockquote>
+          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Maya R.</figcaption>
+        </figure>
+        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift" style="transition-delay:90ms">
+          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“The red-and-green thing sounds simple but it's honestly the reason I keep opening it every week instead of avoiding it.”</blockquote>
+          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Devon T.</figcaption>
+        </figure>
+        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift" style="transition-delay:180ms">
+          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does.”</blockquote>
+          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Priya K.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- Pricing — 3 products -->
   <section id="pricing" class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">One payment. Yours for good.</h2>
-    <p class="text-muted mt-2">No subscription, no recurring charge, no account required.</p>
-    
+    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">One payment. Yours for good.</h2>
+    <p class="text-muted mt-2 reveal">No subscription, no recurring charge, no account required.</p>
+
     <!-- Hook banner -->
-    <div class="mt-6 inline-flex flex-wrap items-center gap-2 bg-ink text-white rounded-full px-5 py-2.5 text-sm font-semibold">
+    <div class="mt-6 inline-flex flex-wrap items-center gap-2 bg-ink text-white rounded-full px-5 py-2.5 text-sm font-semibold reveal">
       <span class="bg-emerald-500 text-ink px-2 py-0.5 rounded-full text-xs font-extrabold">$49 ONCE</span>
       still crushes $109/yr — and it's yours forever. <span class="text-zinc-400 font-normal">YNAB is $109 every year.</span>
     </div>
-    <p class="text-xs text-muted mt-2">All three are one-time payments. Buy once, keep updates. No login, no bank connection.</p>
+    <p class="text-xs text-muted mt-2 reveal">All three are one-time payments. Buy once, keep updates. No login, no bank connection.</p>
 
     <div class="grid md:grid-cols-3 gap-6 mt-10">
       <!-- Essentials — Basic budget only -->
-      <div class="border border-line rounded-3xl p-7 bg-white flex flex-col">
+      <div class="border border-line rounded-3xl p-7 bg-white flex flex-col reveal lift">
         <h3 class="font-bold text-lg leading-tight">In The Black<br>Essentials</h3>
         <p class="text-xs font-mono text-muted mt-1.5">BASIC FINANCES — STARTER</p>
         <div class="flex items-baseline gap-2 mt-4">
@@ -194,12 +381,12 @@
           <li>✓ Works in Excel, Google Sheets & Numbers</li>
           <li>✓ Free updates</li>
         </ul>
-        <a href="#" data-stripe="essentials" class="buy-btn mt-7 block text-center bg-white border-2 border-ink text-ink py-3 rounded-full font-semibold hover:bg-zinc-50 transition">Buy Essentials — $19</a>
+        <a href="#" data-stripe="essentials" aria-label="Buy In The Black Essentials — $19, one-time payment" class="buy-btn mt-7 block text-center bg-white border-2 border-ink text-ink py-3 rounded-full font-semibold hover:bg-zinc-50 transition">Buy Essentials — $19</a>
         <p class="text-[11px] text-center text-zinc-400 mt-2">Perfect if you just want to know: am I okay?</p>
       </div>
 
       <!-- Complete — Advanced tracking -->
-      <div class="border border-line rounded-3xl p-7 bg-zinc-50 flex flex-col">
+      <div class="border border-line rounded-3xl p-7 bg-zinc-50 flex flex-col reveal lift" style="transition-delay:90ms">
         <h3 class="font-bold text-lg leading-tight">In The Black<br>Complete</h3>
         <p class="text-xs font-mono text-muted mt-1.5">ADVANCED TRACKING — DEBT & WEALTH</p>
         <div class="flex items-baseline gap-2 mt-4">
@@ -215,12 +402,12 @@
           <li>✓ Interest saved / payoff acceleration visuals</li>
           <li>✓ Works in Excel, Google Sheets & Numbers</li>
         </ul>
-        <a href="#" data-stripe="complete" class="buy-btn mt-7 block text-center bg-ink text-white py-3 rounded-full font-semibold hover:bg-black transition">Buy Complete — $39</a>
+        <a href="#" data-stripe="complete" aria-label="Buy In The Black Complete — $39, one-time payment" class="buy-btn mt-7 block text-center bg-ink text-white py-3 rounded-full font-semibold hover:bg-black transition">Buy Complete — $39</a>
         <p class="text-[11px] text-center text-zinc-400 mt-2">For debt payoff & wealth building. Pair with Essentials for full picture.</p>
       </div>
 
       <!-- Premium — Both combined = HERO -->
-      <div class="border-2 border-ink rounded-3xl p-7 bg-white relative flex flex-col shadow-lg">
+      <div class="border-2 border-ink rounded-3xl p-7 bg-white relative flex flex-col shadow-lg reveal lift" style="transition-delay:180ms">
         <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-ink text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">MOST POPULAR • BEST VALUE</div>
         <h3 class="font-bold text-lg leading-tight">In The Black<br>Premium</h3>
         <p class="text-xs font-mono text-emerald-700 font-semibold mt-1.5">BOTH COMBINED — THE SYSTEM</p>
@@ -240,7 +427,7 @@
           <span class="font-bold text-emerald-800">$58 if bought separately</span>
           <span class="text-emerald-700"> — Premium saves $9 and you get the exclusive Annual Review tab.</span>
         </div>
-        <a href="#" data-stripe="premium" id="buy-button" class="buy-btn mt-5 block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Get Premium — $49</a>
+        <a href="#" data-stripe="premium" id="buy-button" aria-label="Get In The Black Premium — $49, one-time payment" class="buy-btn mt-5 block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Get Premium — $49</a>
         <p class="text-xs text-center text-muted mt-3">Credit / Debit • Apple Pay • Google Pay via Stripe</p>
       </div>
     </div>
@@ -250,21 +437,21 @@
   <!-- Feedback -->
   <section class="bg-zinc-50 border-y border-line">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">What would you like to see?</h2>
-      <p class="text-muted mt-2">This product gets better based on what people actually ask for. Tell us what's missing.</p>
-      <form id="feedback-form" class="mt-8 bg-white border border-line rounded-2xl p-6 max-w-2xl">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">What would you like to see?</h2>
+      <p class="text-muted mt-2 reveal">This product gets better based on what people actually ask for. Tell us what's missing.</p>
+      <form id="feedback-form" class="mt-8 bg-white border border-line rounded-2xl p-6 max-w-2xl reveal">
         <p class="text-sm font-semibold">What are you most interested in? (pick any that apply)</p>
         <div class="flex flex-wrap gap-2 mt-3" id="feedback-choices">
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Debt payoff calculator"> Debt payoff calculator</label>
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Home affordability tool"> Home affordability tool</label>
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Multi-month tracking"> Multi-month tracking</label>
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Mobile-friendly version"> Mobile-friendly version</label>
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="More chart types"> More chart types</label>
-          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Something else"> Something else</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Debt payoff calculator"> Debt payoff calculator</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Home affordability tool"> Home affordability tool</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Multi-month tracking"> Multi-month tracking</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Mobile-friendly version"> Mobile-friendly version</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="More chart types"> More chart types</label>
+          <label class="border border-line rounded-full px-4 py-2 text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink"><input type="checkbox" class="hidden" value="Something else"> Something else</label>
         </div>
         <textarea id="feedback-more" placeholder="Tell us more..." class="mt-4 w-full border border-line rounded-xl p-3 text-sm min-h-[90px]"></textarea>
         <input id="feedback-email" type="email" placeholder="Email (optional — only if you'd like a reply)" class="mt-3 w-full border border-line rounded-xl p-3 text-sm" />
-        <button type="submit" class="mt-4 bg-ink text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black">Send feedback</button>
+        <button type="submit" class="mt-4 bg-ink text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition">Send feedback</button>
         <p class="text-xs text-muted mt-3">This now sends directly to <a href="mailto:ITBB@intheblackbudget.com" class="underline">ITBB@intheblackbudget.com</a> via your email app. For automatic saving without email, upgrade free to Formspree — see <code>EDITING_GUIDE.md</code> → “Wiring up forms”.</p>
       </form>
     </div>
@@ -272,18 +459,19 @@
 
   <!-- FAQ -->
   <section id="faq" class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Good questions.</h2>
-    <div class="mt-8 max-w-3xl divide-y divide-line border-y border-line">
-      <details class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">What do I actually get? <span class="text-muted group-open:rotate-45 transition">+</span></summary><p class="text-sm text-muted mt-3 leading-relaxed">One spreadsheet file, delivered instantly after checkout — no app, no account, no login. Open in Excel, Google Sheets, or Numbers.</p></details>
-      <details class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Do I need Excel? <span class="text-muted group-open:rotate-45 transition">+</span></summary><p class="text-sm text-muted mt-3">No — it works in Excel, Google Sheets, and Apple Numbers.</p></details>
-      <details class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Is this financial advice? <span class="text-muted group-open:rotate-45 transition">+</span></summary><p class="text-sm text-muted mt-3">No. The feedback is built on common, widely-used personal finance guidelines for general education — not personalized advice.</p></details>
-      <details class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">What if it's not for me? <span class="text-muted group-open:rotate-45 transition">+</span></summary><p class="text-sm text-muted mt-3">Because this is a digital download delivered instantly, all sales are final. If you're having trouble opening or using the file, reach out and we'll help.</p></details>
-      <details class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Can I reuse it every month? <span class="text-muted group-open:rotate-45 transition">+</span></summary><p class="text-sm text-muted mt-3">Yes — duplicate the tab for a new month, or just clear last month's numbers and start again.</p></details>
+    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Good questions.</h2>
+    <div class="mt-8 max-w-3xl divide-y divide-line border-y border-line reveal">
+      <details name="faq" class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">What do I actually get? <span class="text-muted group-open:rotate-45 transition" aria-hidden="true">+</span></summary><p class="text-sm text-muted mt-3 leading-relaxed">One spreadsheet file, delivered instantly after checkout — no app, no account, no login. Open in Excel, Google Sheets, or Numbers.</p></details>
+      <details name="faq" class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Do I need Excel? <span class="text-muted group-open:rotate-45 transition" aria-hidden="true">+</span></summary><p class="text-sm text-muted mt-3">No — it works in Excel, Google Sheets, and Apple Numbers.</p></details>
+      <details name="faq" class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Is this financial advice? <span class="text-muted group-open:rotate-45 transition" aria-hidden="true">+</span></summary><p class="text-sm text-muted mt-3">No. The feedback is built on common, widely-used personal finance guidelines for general education — not personalized advice.</p></details>
+      <details name="faq" class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">What if it's not for me? <span class="text-muted group-open:rotate-45 transition" aria-hidden="true">+</span></summary><p class="text-sm text-muted mt-3">Because this is a digital download delivered instantly, all sales are final. If you're having trouble opening or using the file, reach out and we'll help.</p></details>
+      <details name="faq" class="py-5 group"><summary class="font-semibold cursor-pointer list-none flex justify-between">Can I reuse it every month? <span class="text-muted group-open:rotate-45 transition" aria-hidden="true">+</span></summary><p class="text-sm text-muted mt-3">Yes — duplicate the tab for a new month, or just clear last month's numbers and start again.</p></details>
     </div>
   </section>
+  </main>
 
-  <!-- Contact -->
-  <section class="bg-ink text-white">
+  <!-- Contact / footer -->
+  <footer class="bg-ink text-white">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Get in touch.</h2>
       <div class="grid md:grid-cols-3 gap-10 mt-10">
@@ -294,17 +482,20 @@
         </div>
         <form id="contact-form" class="md:col-span-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
           <div class="grid md:grid-cols-2 gap-4">
-            <input id="contact-name" placeholder="Name" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500" />
-            <input id="contact-email-input" placeholder="Email" type="email" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500" />
+            <input id="contact-name" placeholder="Name" aria-label="Your name" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500" />
+            <input id="contact-email-input" placeholder="Email" aria-label="Your email" type="email" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500" />
           </div>
-          <textarea id="contact-message" placeholder="Message" required class="mt-4 w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm min-h-[110px] text-white placeholder:text-zinc-500"></textarea>
-          <button type="submit" class="mt-4 bg-white text-ink px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-100">Send message</button>
+          <textarea id="contact-message" placeholder="Message" aria-label="Your message" required class="mt-4 w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm min-h-[110px] text-white placeholder:text-zinc-500"></textarea>
+          <button type="submit" class="mt-4 bg-white text-ink px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-100 transition">Send message</button>
           <p class="text-[11px] text-zinc-500 mt-2">Opens your email app to send to <a href="mailto:ITBB@intheblackbudget.com" class="underline">ITBB@intheblackbudget.com</a>. No data is stored on our servers.</p>
         </form>
       </div>
-      <p class="text-xs text-zinc-500 mt-12">© <span id="year"></span> In The Black Budget. All rights reserved. Not financial advice.</p>
+      <div class="flex flex-wrap items-center justify-between gap-3 mt-12 text-xs text-zinc-500">
+        <p>© <span id="year">2026</span> In The Black Budget. All rights reserved. Not financial advice.</p>
+        <a href="#top" class="hover:text-zinc-300 transition-colors">Back to top ↑</a>
+      </div>
     </div>
-  </section>
+  </footer>
 
   <script>
     // Load pricing + contact from content.json — edit there, no HTML needed
@@ -329,6 +520,39 @@
       }
     }).catch(()=>{});
     document.getElementById('year').textContent=new Date().getFullYear();
+
+    // MOBILE MENU
+    const menuBtn=document.getElementById('menu-btn'), mobileMenu=document.getElementById('mobile-menu');
+    const iconOpen=document.getElementById('menu-icon-open'), iconClose=document.getElementById('menu-icon-close');
+    function setMenu(open){
+      mobileMenu.classList.toggle('hidden',!open);
+      iconOpen.classList.toggle('hidden',open);
+      iconClose.classList.toggle('hidden',!open);
+      menuBtn.setAttribute('aria-expanded',String(open));
+    }
+    menuBtn?.addEventListener('click',()=>setMenu(mobileMenu.classList.contains('hidden')));
+    mobileMenu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+    // REVEAL ON SCROLL
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    }),{threshold:.12,rootMargin:'0px 0px -4% 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // REAL SCREENSHOT SWAP — drop files into /images (see images/README.txt) and they
+    // automatically replace the built-in mockups. Filenames: budget-input.png, dashboard.png, charts.png
+    document.querySelectorAll('[data-shot]').forEach(box=>{
+      const src='./images/'+box.getAttribute('data-shot');
+      const img=new Image();
+      img.onload=()=>{
+        box.className='rounded-2xl overflow-hidden border border-line shadow-sm';
+        box.removeAttribute('role');box.removeAttribute('aria-label');
+        img.src=src;img.alt=box.getAttribute('data-alt')||'Product screenshot';
+        img.className='w-full h-auto block';img.loading='lazy';
+        box.replaceChildren(img);
+      };
+      img.src=src;
+    });
 
     // CONTACT FORM — opens user's email app to ITBB@intheblackbudget.com
     document.getElementById('contact-form')?.addEventListener('submit', e=>{

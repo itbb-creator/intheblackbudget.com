@@ -62,7 +62,14 @@ This works but is slower than Option 2. **Recommended: move hosting to Vercel/Ne
 4. In Squarespace → Domains → DNS → change A record / CNAME to point to Vercel (Vercel shows you exactly what to paste)
 5. Done. Every future `content.json` edit auto-deploys in ~30 seconds.
 
-Same steps work for **Netlify** or **Cloudflare Pages**.
+**Netlify (also free) — this repo is pre-configured:**
+1. Go to app.netlify.com → **Add new site → Import an existing project → GitHub** → pick `itbb-creator/intheblackbudget.com`
+2. Netlify auto-reads `netlify.toml` in this repo (publish: repo root, no build command, branded 404) — just click **Deploy**
+3. Site goes live on a `*.netlify.app` URL instantly. Future commits to your deploy branch auto-publish.
+4. In Squarespace → Domains → DNS → point `intheblackbudget.com` to Netlify (they show the exact A/CNAME records), or transfer DNS to Netlify DNS.
+5. Optional CLI: `npm i -g netlify-cli` → `netlify deploy --prod` from the repo folder.
+
+Same general steps work for **Cloudflare Pages**.
 
 ---
 
