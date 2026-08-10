@@ -1,0 +1,41 @@
+{
+  "_comment": "EDIT THIS FILE TO CHANGE YOUR SITE - NO HTML NEEDED. Change price, email, link, then push. Site updates automatically.",
+  "price": "$19",
+  "compareAtPrice": "$29",
+  "stripePaymentLink": "#",
+  "contactEmail": "hello@intheblackbudget.com",
+  "socialLinks": {
+    "instagram": "",
+    "tiktok": "",
+    "etsy": ""
+  },
+  "testimonials": [
+    {
+      "name": "Maya R.",
+      "text": "I've bought three budgeting apps and canceled all three. This is the first one that just lives in a spreadsheet I already know how to use."
+    },
+    {
+      "name": "Devon T.",
+      "text": "The red-and-green thing sounds simple but it's honestly the reason I keep opening it every week instead of avoiding it."
+    },
+    {
+      "name": "Priya K.",
+      "text": "My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does."
+    }
+  ],
+  "features": [
+    "Color-coded Budget Input tab (Income / Expense / Taxes / Investing)",
+    "Automated Feedback Dashboard with plain-English guidance",
+    "Editable benchmarks — make the rules your own",
+    "Subscription tracker with creep detection",
+    "Built-in charts for visual learners",
+    "Works in Excel, Google Sheets & Numbers",
+    "Free updates to future versions"
+  ],
+  "faq": [
+    {
+      "q": "What do I actually get?",
+      "a": "One spreadsheet file, delivered instantly after checkout — no app, no account, no login."
+    }
+  ]
+}
