@@ -1,0 +1,15 @@
+{
+  "name": "In The Black Premium Toolkit",
+  "short_name": "In The Black",
+  "description": "A practical interactive toolkit for building a clearer, calmer money plan.",
+  "start_url": "/toolkit.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/images/favicon-32.png", "sizes": "32x32", "type": "image/png" }
+  ]
+}

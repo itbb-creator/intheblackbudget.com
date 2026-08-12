@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In The Black — Premium Toolkit Download</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .download-btn {
+      @apply flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg hover:border-gray-400 hover:shadow-md transition-all cursor-pointer;
+    }
+    .download-btn:hover .download-icon {
+      @apply text-blue-600;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-3xl mx-auto px-4 py-6">
+      <div class="flex items-center gap-3">
+        <img src="../images/logo.svg" alt="Logo" class="w-10 h-10 rounded-full">
+        <div>
+          <h1 class="text-xl font-bold">In The Black — Premium Toolkit</h1>
+          <p class="text-sm text-gray-500">Download for Google Sheets or Excel</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    
+    <!-- Instructions Card -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+      <h2 class="text-lg font-bold mb-4">📥 How to Download & Import</h2>
+      
+      <div class="space-y-4 text-sm">
+        <div class="flex gap-4">
+          <span class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold flex-shrink-0">1</span>
+          <div>
+            <p class="font-semibold">Click "Download All" below</p>
+            <p class="text-gray-500">This downloads a ZIP file with all spreadsheet files</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold flex-shrink-0">2</span>
+          <div>
+            <p class="font-semibold">Unzip the file</p>
+            <p class="text-gray-500">Extract all files to a folder</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold flex-shrink-0">3</span>
+          <div>
+            <p class="font-semibold">Open Google Sheets</p>
+            <p class="text-gray-500">Create a new blank spreadsheet at sheets.google.com</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold flex-shrink-0">4</span>
+          <div>
+            <p class="font-semibold">Import each CSV file</p>
+            <p class="text-gray-500">File → Import → Upload each file (use "Insert new sheet" for each)</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold flex-shrink-0">5</span>
+          <div>
+            <p class="font-semibold">Link the sheets together</p>
+            <p class="text-gray-500">Follow the instructions in SETUP_INSTRUCTIONS.txt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Download Button -->
+    <div class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl p-6 mb-8 text-center">
+      <h3 class="text-white text-xl font-bold mb-2">Download Complete Package</h3>
+      <p class="text-gray-300 text-sm mb-4">ZIP file with all 11 tabs + setup guide + bonus HTML toolkit</p>
+      <a href="./InTheBlack_PremiumToolkit.zip" download class="inline-flex items-center gap-2 bg-white text-gray-800 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Download ZIP
+      </a>
+    </div>
+
+    <!-- Individual Files List -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h3 class="font-bold">Or download individual files</h3>
+      </div>
+      
+      <div class="divide-y divide-gray-100">
+        
+        <!-- Getting Started -->
+        <a href="./00_Getting_Started.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">0</span>
+            <div>
+              <p class="font-medium">00_Getting_Started.csv</p>
+              <p class="text-xs text-gray-500">Checklist & instructions</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Financial Health Score -->
+        <a href="./01_Financial_Health_Score.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">1</span>
+            <div>
+              <p class="font-medium">01_Financial_Health_Score.csv</p>
+              <p class="text-xs text-gray-500">Overall financial wellness rating</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Feedback Dashboard -->
+        <a href="./02_Feedback_Dashboard.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-gray-100 text-gray-600 flex items-center justify-center font-bold text-sm">2</span>
+            <div>
+              <p class="font-medium">02_Feedback_Dashboard.csv</p>
+              <p class="text-xs text-gray-500">Budget vs actual with plain-English guidance</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Unified Dashboard -->
+        <a href="./03_Unified_Dashboard.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">3</span>
+            <div>
+              <p class="font-medium">03_Unified_Dashboard.csv</p>
+              <p class="text-xs text-gray-500">Complete financial picture at a glance</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Debt Payoff -->
+        <a href="./04_Debt_Payoff.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm">4</span>
+            <div>
+              <p class="font-medium">04_Debt_Payoff.csv</p>
+              <p class="text-xs text-gray-500">Snowball & avalanche with payoff timeline</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Net Worth -->
+        <a href="./05_Net_Worth.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">5</span>
+            <div>
+              <p class="font-medium">05_Net_Worth.csv</p>
+              <p class="text-xs text-gray-500">Assets vs liabilities tracking</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Emergency Fund -->
+        <a href="./06_Emergency_Fund.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-yellow-100 text-yellow-700 flex items-center justify-center font-bold text-sm">6</span>
+            <div>
+              <p class="font-medium">06_Emergency_Fund.csv</p>
+              <p class="text-xs text-gray-500">Safety net planning & runway calculator</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Mortgage Estimator -->
+        <a href="./07_Mortgage_Estimator.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">7</span>
+            <div>
+              <p class="font-medium">07_Mortgage_Estimator.csv</p>
+              <p class="text-xs text-gray-500">Home purchase planning & amortization</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Interest Saved -->
+        <a href="./08_Interest_Saved.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm">8</span>
+            <div>
+              <p class="font-medium">08_Interest_Saved.csv</p>
+              <p class="text-xs text-gray-500">Extra payment impact calculator</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Annual Review -->
+        <a href="./09_Annual_Review.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-sm">9</span>
+            <div>
+              <p class="font-medium">09_Annual_Review.csv</p>
+              <p class="text-xs text-gray-500">Year-at-a-glance financial snapshot</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- History & Trends -->
+        <a href="./10_History_Trends.csv" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold text-sm">10</span>
+            <div>
+              <p class="font-medium">10_History_Trends.csv</p>
+              <p class="text-xs text-gray-500">Long-term progress tracking</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Setup Instructions -->
+        <a href="./SETUP_INSTRUCTIONS.txt" download class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-gray-800 text-white flex items-center justify-center font-bold text-sm">📋</span>
+            <div>
+              <p class="font-medium">SETUP_INSTRUCTIONS.txt</p>
+              <p class="text-xs text-gray-500">Step-by-step setup guide & formula references</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </a>
+
+        <!-- Bonus Interactive HTML -->
+        <a href="../toolkit.html" class="download-btn m-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center font-bold text-sm">★</span>
+            <div>
+              <p class="font-medium">Bonus: Interactive HTML Toolkit</p>
+              <p class="text-xs text-gray-500">Live preview in browser — no setup required!</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 download-icon transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- What's Included -->
+    <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6">
+      <h3 class="font-bold mb-4">What's Included</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 text-lg">✓</span>
+          <div>
+            <p class="font-medium">11 Interactive Tabs</p>
+            <p class="text-gray-500">All the tools from the Premium Toolkit</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 text-lg">✓</span>
+          <div>
+            <p class="font-medium">Sample Data Included</p>
+            <p class="text-gray-500">Realistic numbers to get started</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 text-lg">✓</span>
+          <div>
+            <p class="font-medium">Formula References</p>
+            <p class="text-gray-500">Copy-paste formulas for sheet linking</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 text-lg">✓</span>
+          <div>
+            <p class="font-medium">Step-by-Step Instructions</p>
+            <p class="text-gray-500">Setup guide included</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Link -->
+    <div class="mt-8 text-center">
+      <a href="../" class="text-gray-500 hover:text-gray-700 text-sm">← Back to main site</a>
+    </div>
+
+  </main>
+
+  <footer class="mt-16 py-8 text-center text-sm text-gray-400">
+    <p>© 2025 In The Black Budget. All rights reserved.</p>
+    <p class="mt-1">Questions? <a href="mailto:ITBB@intheblackbudget.com" class="underline">ITBB@intheblackbudget.com</a></p>
+  </footer>
+
+</body>
+</html>

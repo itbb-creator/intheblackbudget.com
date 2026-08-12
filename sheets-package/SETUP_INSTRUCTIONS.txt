@@ -1,0 +1,212 @@
+═══════════════════════════════════════════════════════════════════════════════
+    IN THE BLACK — PREMIUM TOOLKIT
+    Google Sheets / Excel Setup Guide
+═══════════════════════════════════════════════════════════════════════════════
+
+OPTION 1: IMPORT INTO GOOGLE SHEETS (Recommended)
+───────────────────────────────────────────────────
+
+Step 1: Create a New Google Sheet
+  1. Go to sheets.google.com
+  2. Click "Blank" to create a new spreadsheet
+  3. Name it "In The Black Premium Toolkit"
+
+Step 2: Import Each CSV File
+  For each CSV file in this folder (00 through 10):
+
+  1. Click the sheet name at the bottom → Click "Add new sheet"
+  2. Double-click the new sheet name and rename it (use the number prefix)
+  3. Click the new sheet to make it active
+  4. Go to File → Import → Upload
+  5. Select the CSV file
+  6. Choose "Replace spreadsheet" for the FIRST file
+     OR "Insert new sheet" for ALL OTHER files
+  7. Select the correct delimiter (Comma)
+  8. Click "Import"
+
+Step 3: Rename Sheets Appropriately
+  • 00_Getting_Started → "Getting Started"
+  • 01_Financial_Health_Score → "Health Score"
+  • 02_Feedback_Dashboard → "Feedback Dashboard"
+  • 03_Unified_Dashboard → "Unified Dashboard"
+  • 04_Debt_Payoff → "Debt Payoff"
+  • 05_Net_Worth → "Net Worth"
+  • 06_Emergency_Fund → "Emergency Fund"
+  • 07_Mortgage_Estimator → "Mortgage"
+  • 08_Interest_Saved → "Interest Saved"
+  • 09_Annual_Review → "Annual Review"
+  • 10_History_Trends → "History & Trends"
+
+Step 4: Link Sheets Together (Create Formulas)
+  Select the cells with formulas and copy them to link sheets.
+
+  Key Links to Create:
+  
+  A) Unified Dashboard pulls from other sheets:
+     • Cell B4 (Monthly Income): 
+       ='Feedback Dashboard'!B10
+     
+     • Cell B5 (Monthly Expenses): 
+       ='Feedback Dashboard'!B11
+     
+     • Cell B6 (Cash Flow): 
+       ='Feedback Dashboard'!B12
+     
+     • Cell B8 (Health Score): 
+       ='Financial Health Score'!B3
+     
+     • Cell B10 (Total Debt): 
+       ='Debt Payoff'!B4
+     
+     • Cell B12 (Total Assets): 
+       ='Net Worth'!B23
+     
+     • Cell B13 (Total Liabilities): 
+       ='Net Worth'!B35
+     
+     • Cell B14 (Net Worth): 
+       ='Net Worth'!B38
+
+  B) Financial Health Score pulls from other sheets:
+     • Cell B5 (Debt-to-Income): 
+       ='Debt Payoff'!B4/'Feedback Dashboard'!B10
+     
+     • Cell B6 (Emergency Fund): 
+       ='Emergency Fund'!B5
+     
+     • Cell B8 (Net Worth): 
+       ='Net Worth'!B38
+
+  C) Emergency Fund pulls monthly expenses from Feedback Dashboard:
+     • Cell B4 (Monthly Expenses): 
+       ='Feedback Dashboard'!B11
+
+  D) Feedback Dashboard is your main input tab
+     • Enter actual spending in Column D
+     • Yellow highlighted cells are inputs
+     • Green cells calculate automatically
+
+Step 5: Color-Code for Easy Reference
+  Highlight cells by type:
+  • Yellow: User input cells
+  • Light Green: Calculated cells
+  • Light Blue: Reference cells from other sheets
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+OPTION 2: IMPORT INTO EXCEL
+───────────────────────────────────────────────────────────────────────────
+
+Step 1: Open Excel and Create New Workbook
+  1. Open Excel
+  2. Create a new blank workbook
+  3. Save as "InTheBlack_Premium_Toolkit.xlsx"
+
+Step 2: Import Each CSV
+  For each CSV file:
+  1. Create a new sheet (click + at bottom)
+  2. Rename the sheet
+  3. Go to Data → From Text/CSV
+  4. Select the CSV file
+  5. Choose "Comma" as delimiter
+  6. Click "Load"
+
+Step 3: Create Same Formulas as Google Sheets Above
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+HOW THE DATA FLOWS
+───────────────────────────────────────────────────────────────────────────
+
+Primary Input Tab:     Feedback Dashboard
+  ↓                    (Enter your actual income & expenses here)
+  │
+  ├──→ Unified Dashboard (pulls totals automatically)
+  │
+  ├──→ Health Score (calculates debt ratio, savings rate)
+  │
+  └──→ History & Trends (track progress over time)
+       │
+       └──→ Annual Review (year-end summary)
+
+Other Input Tabs:
+  • Debt Payoff → Net Worth, Unified Dashboard
+  • Net Worth → Unified Dashboard, Health Score
+  • Emergency Fund → Unified Dashboard, Health Score
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+QUICK START CHECKLIST
+───────────────────────────────────────────────────────────────────────────
+
+□ Download all CSV files
+□ Create new Google Sheet
+□ Import all 11 CSV files as separate sheets
+□ Rename sheets according to the list above
+□ Update the Feedback Dashboard with YOUR numbers
+□ Update Net Worth with YOUR assets & liabilities
+□ Update Debt Payoff with YOUR debts
+□ Update Emergency Fund with YOUR savings
+□ Watch the Unified Dashboard update automatically!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+FORMULAS REFERENCE
+───────────────────────────────────────────────────────────────────────────
+
+Feedback Dashboard:
+  • Variance: =Actual - Budget
+  • Status: =IF(Variance<=0,"✓",IF(Variance/Budget<0.1,"~","!"))
+  • Cash Flow: =Total Income - Total Expenses
+
+Net Worth:
+  • Net Worth: =Total Assets - Total Liabilities
+
+Emergency Fund:
+  • Months Covered: =Current Savings / Monthly Expenses
+  • Remaining: =Target - Current Savings
+  • Months to Goal: =Remaining / Monthly Contribution
+
+Debt Payoff:
+  • Total Debt: =SUM(Balance column)
+  • Interest Saved: =Min Interest - Extra Interest
+
+Mortgage (Excel):
+  • Monthly Payment: =PMT(Rate/12, Years*12, -Loan)
+  • Total Interest: =Payment×Payments - Loan
+
+═══════════════════════════════════════════════════════════════════════════════
+
+TIPS FOR SUCCESS
+───────────────────────────────────────────────────────────────────────────
+
+1. START WITH FEEDBACK DASHBOARD
+   This is your main input tab. Enter your actual income and expenses
+   here each month.
+
+2. UPDATE DEBT PAYOFF REGULARLY
+   As you make payments, update the balances. Watch the payoff date
+   and interest saved update automatically.
+
+3. TRACK NET WORTH MONTHLY
+   Update your asset values at least quarterly. Watch your net worth
+   trend over time.
+
+4. USE THE CHECKLIST
+   The Getting Started tab tracks your progress. Check off items as
+   you complete them.
+
+5. SET REMINDERS
+   • Monthly: Update Feedback Dashboard
+   • Monthly: Log in History & Trends
+   • Quarterly: Update Net Worth
+   • Annually: Complete Annual Review
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Questions? Contact: ITBB@intheblackbudget.com
+
+═══════════════════════════════════════════════════════════════════════════════
