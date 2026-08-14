@@ -14,18 +14,18 @@
       "name": "In The Black Essentials",
       "price": "$19",
       "compareAt": "$29",
-      "blurb": "BASIC FINANCES — STARTER"
+      "blurb": "Monthly Clarity"
     },
     "complete": {
       "name": "In The Black Complete",
       "price": "$39",
-      "blurb": "ADVANCED TRACKING — DEBT & WEALTH"
+      "blurb": "Debt & Asset Engine"
     },
     "premium": {
       "name": "In The Black Premium",
       "price": "$49",
       "compareAt": "$58",
-      "blurb": "BOTH COMBINED — THE SYSTEM",
+      "blurb": "The Financial System",
       "hook": "$49 once crushes $109/yr"
     }
   },
