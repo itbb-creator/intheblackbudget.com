@@ -578,18 +578,74 @@
       const email = c.contactEmail || 'ITBB@intheblackbudget.com';
       const ce = document.getElementById('contact-email');
       if(ce && c.contactEmail) ce.innerHTML = `<a href="mailto:${email}" class="underline decoration-zinc-700 hover:decoration-white">${email}</a>`;
-      
+
       const map = c.stripeLinks || {};
       if(c.stripePaymentLink && c.stripePaymentLink !== '#') map.premium = c.stripePaymentLink;
+      // Edge-function base for the licensed-checkout flow (create-checkout → Stripe).
+      // Empty until you deploy the Supabase functions (see docs/LICENSED_DELIVERY_SETUP.md).
+      const fnBase = (c.functionsBaseUrl || '').replace(/\/+$/,'');
+
+      // Inline status line for checkout problems (shown above the pricing grid)
+      const firstBtn = document.querySelector('[data-stripe]');
+      const status = document.createElement('p');
+      status.id = 'checkout-status';
+      status.style.cssText = 'display:none;text-align:center;font-size:.8rem;line-height:1.5;margin:0 auto 1.25rem;max-width:36rem;font-weight:500;';
+      if (firstBtn && firstBtn.closest('.grid') && firstBtn.closest('.grid').parentElement) {
+        firstBtn.closest('.grid').parentElement.insertBefore(status, firstBtn.closest('.grid'));
+      }
+      const showStatus = (msg, ok) => {
+        status.textContent = msg;
+        status.style.display = 'block';
+        status.style.color = ok ? '#047857' : '#b91c1c';
+      };
+
       document.querySelectorAll('[data-stripe]').forEach(a=>{
         const key = a.getAttribute('data-stripe');
-        if(map[key] && map[key] !== '#') a.href = map[key];
-        else if(key==='premium' && c.stripePaymentLink) a.href = c.stripePaymentLink;
+        let legacy = map[key] && map[key] !== '#' ? map[key] : null;
+        if (!legacy && key === 'premium' && c.stripePaymentLink && c.stripePaymentLink !== '#') legacy = c.stripePaymentLink;
+
+        if (fnBase) {
+          // Licensed checkout: server-side Stripe session → license pipeline →
+          // personalized workbook + download page + email.
+          a.addEventListener('click', async (ev)=>{
+            ev.preventDefault();
+            if (a.dataset.loading === '1') return;
+            const original = a.textContent;
+            a.dataset.loading = '1';
+            a.textContent = 'Redirecting to secure checkout…';
+            a.style.pointerEvents = 'none';
+            status.style.display = 'none';
+            try {
+              const res = await fetch(fnBase + '/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ product: key })
+              });
+              const data = await res.json().catch(()=>({}));
+              if (data.url) { window.location.href = data.url; return; }
+              showStatus((data.error || 'Checkout is not available right now.') + (data.detail ? ' ' + data.detail : ''), false);
+            } catch (err) {
+              showStatus('Could not reach checkout. Please try again in a moment.', false);
+            }
+            a.textContent = original;
+            a.dataset.loading = '0';
+            a.style.pointerEvents = '';
+          });
+          if (legacy) a.href = legacy; // no-JS fallback
+        } else if (legacy) {
+          a.href = legacy;
+        } else {
+          a.href = '#pricing';
+          a.addEventListener('click', ev=>{
+            ev.preventDefault();
+            showStatus('Checkout is being connected — check back shortly, or email ' + email + '.', false);
+          });
+        }
       });
-      
-      if(map.premium && map.premium !== '#'){
-        const hn = document.getElementById('nav-buy'); if(hn) hn.href = map.premium;
-        const hb = document.getElementById('hero-buy'); if(hb) hb.href = map.premium;
+
+      if (map.premium && map.premium !== '#' && !fnBase) {
+        const hn = document.getElementById('nav-buy'); if (hn) hn.href = map.premium;
+        const hb = document.getElementById('hero-buy'); if (hb) hb.href = map.premium;
       }
     }).catch(()=>{});
     document.getElementById('year').textContent=new Date().getFullYear();

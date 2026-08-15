@@ -1,0 +1,9 @@
+# Local secrets — never commit
+.env
+.env.supabase
+
+# Pipeline test/demo output
+test-output/
+
+# Dependencies
+node_modules/
