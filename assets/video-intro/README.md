@@ -133,3 +133,65 @@ cover only part of the video. Paid-tier feature.
 the whole video, auto-faded and auto-mixed *under* your existing audio. Tella
 does **not** support importing a standalone voiceover or recording narration
 over an existing clip - the mic has to be captured while recording.
+
+---
+
+## Adding narration or music: `scripts/add-audio.sh`
+
+Mixes an external audio file (AI-generated narration, music, anything) into a
+video. The video stream is **copied, not re-encoded**, so it is fast and
+visually lossless.
+
+```bash
+./scripts/add-audio.sh video.mp4 narration.mp3
+# -> video-audio.mp4
+```
+
+### Modes
+
+| `MODE=` | Behaviour |
+|---|---|
+| `voiceover` *(default)* | New audio in front, original recording ducked to 15% underneath |
+| `replace` | New audio replaces the original audio entirely |
+| `music` | New audio as background music, sidechain-ducked under the original whenever the original is loud |
+
+### Options
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `DELAY` | `0` | Seconds of silence before the new audio starts |
+| `GAIN` | `1.0` | Linear gain on the new audio |
+| `DUCK` | `0.15` | Level the original drops to in `voiceover` mode |
+| `MUSIC_VOL` | `0.25` | Music level in `music` mode |
+| `FADE` | `0.5` | Fade in / out on the new audio |
+| `LOOP` | `0` | Loop the audio to fill the video (auto-on for `music`) |
+| `NORMALIZE` | `1` | Loudness-normalise the new audio to -16 LUFS (broadcast/YouTube target) |
+
+```bash
+# narration that starts 1.5s in, over a silent screen capture
+MODE=replace DELAY=1.5 ./scripts/add-audio.sh demo.mp4 narration.mp3
+
+# quiet background bed under an existing voice track
+MODE=music MUSIC_VOL=0.18 ./scripts/add-audio.sh demo.mp4 bed.mp3
+```
+
+Audio shorter than the video is padded with silence; audio longer than the
+video is trimmed to length. Output duration always equals the source video.
+
+### Full pipeline
+
+```bash
+./scripts/add-intro.sh raw-export.mp4 stage1.mp4
+MODE=replace ./scripts/add-audio.sh stage1.mp4 narration.mp3 final.mp4
+```
+
+Run the intro splice first, then the audio, so narration timing lines up with
+the finished cut.
+
+### Verified
+
+Tested across voiceover / replace / music modes, sources with and without an
+existing audio track, and audio both shorter and longer than the video.
+Spectral analysis confirmed the intended mix in each mode: narration 13:1 over
+the ducked original in `voiceover`, original fully absent in `replace`, and
+music at ~0.2 relative level in `music`.
