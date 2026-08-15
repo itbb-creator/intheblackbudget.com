@@ -1,0 +1,17 @@
+{
+  "name": "intheblackbudget.com",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "In The Black Budget — static site + licensed workbook delivery pipeline (Supabase Edge Functions)",
+  "scripts": {
+    "masters": "node scripts/make-placeholder-masters.mjs",
+    "seed": "node scripts/seed-masters.mjs",
+    "simulate": "node --experimental-strip-types scripts/simulate-purchase.mjs",
+    "test": "node --experimental-strip-types scripts/test-personalize.mjs",
+    "demo": "node --experimental-strip-types scripts/demo-server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

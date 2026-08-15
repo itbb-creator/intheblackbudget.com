@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download your workbook — In The Black Budget</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink: #0a0a0a; --muted: #6b7280; --line: #e5e7eb; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #fafafa; color: var(--ink); min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    .wrap { width: 100%; max-width: 34rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; flex: 1; }
+    header { padding: 1.5rem 1.25rem 0; display: flex; justify-content: center; }
+    .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: -.01em; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+    .brand img { width: 30px; height: 30px; border-radius: 50%; }
+    .card {
+      background: #fff; border: 1px solid var(--line); border-radius: 1.25rem;
+      padding: 2rem 1.75rem; margin-top: 1.75rem; box-shadow: 0 1px 2px rgba(10,10,10,.03);
+    }
+    h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+    .sub { color: var(--muted); font-size: .95rem; line-height: 1.6; margin-top: .75rem; }
+    .spinner {
+      width: 2rem; height: 2rem; border-radius: 50%;
+      border: 3px solid var(--line); border-top-color: var(--ink);
+      animation: spin .8s linear infinite; margin: 1.5rem 0 .5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .mono-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+      font-size: .8rem; font-weight: 600; color: var(--ink);
+      background: #f4f4f5; border: 1px solid var(--line);
+      padding: .5rem .9rem; border-radius: 999px; margin: 1.1rem 0 0;
+    }
+    .details {
+      margin-top: 1.25rem; border: 1px solid var(--line); border-radius: .9rem;
+      font-size: .85rem; color: var(--muted); overflow: hidden;
+    }
+    .details div { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 1rem; }
+    .details div + div { border-top: 1px solid #f4f4f5; }
+    .details b { color: var(--ink); font-weight: 600; text-align: right; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      background: var(--ink); color: #fff; text-decoration: none;
+      font-size: 1rem; font-weight: 600; padding: .95rem 1.6rem; border-radius: 999px;
+      margin-top: 1.6rem; width: 100%; transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover { background: #000; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn.ghost {
+      background: #fff; color: var(--ink); border: 1.5px solid var(--ink);
+    }
+    .note { color: var(--muted); font-size: .8rem; line-height: 1.55; margin-top: 1.1rem; text-align: center; }
+    .note a { color: var(--ink); text-decoration: underline; }
+    .error { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; border-radius: .9rem; padding: 1rem 1.1rem; font-size: .9rem; line-height: 1.55; margin-top: 1.25rem; }
+    .hidden { display: none !important; }
+    footer { text-align: center; color: #9ca3af; font-size: .75rem; padding: 1.5rem 1rem 2rem; }
+    .kbd { font-family: 'JetBrains Mono', monospace; font-size: .75rem; background:#f4f4f5; border:1px solid var(--line); border-radius:.4rem; padding:.1rem .35rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">
+      <img src="./images/logo.png" alt="In The Black Budget logo" width="30" height="30" />
+      IN THE BLACK<span style="color:var(--muted);font-weight:500;"> — BUDGET</span>
+    </a>
+  </header>
+
+  <main class="wrap">
+    <div class="card" id="card">
+      <!-- State: processing (polling after checkout) -->
+      <div id="state-processing">
+        <h1>Preparing your workbook…</h1>
+        <p class="sub">Payment received. We're stamping your copy with your license — this takes a few seconds.</p>
+        <div class="spinner" aria-hidden="true"></div>
+      </div>
+
+      <!-- State: ready -->
+      <div id="state-ready" class="hidden">
+        <h1>Your workbook is ready.</h1>
+        <p class="sub" id="ready-copy">Here's your personally licensed copy, <b id="ready-name">there</b>. Download it and open it in Excel, Google Sheets, or Numbers.</p>
+        <div class="mono-badge" id="ready-license"></div>
+        <div class="details">
+          <div><span>Product</span><b id="ready-product"></b></div>
+          <div><span>File</span><b id="ready-file"></b></div>
+        </div>
+        <a class="btn" id="btn-download" href="#" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download My Workbook
+        </a>
+        <p class="note">For security, download links expire — this page creates a fresh one each time you visit, so <b>bookmark it</b>. It's also where future workbook updates will be delivered.</p>
+      </div>
+
+      <!-- State: failed -->
+      <div id="state-failed" class="hidden">
+        <h1>We hit a snag.</h1>
+        <div class="error" id="fail-message">We couldn't find your purchase just yet. If you paid a moment ago, give it a few seconds and refresh this page.</div>
+        <a class="btn ghost" href="./#faq">Back to intheblackbudget.com</a>
+        <p class="note">Still stuck? Email <a href="mailto:ITBB@intheblackbudget.com">ITBB@intheblackbudget.com</a> with your receipt — we'll sort it out fast.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>In The Black Budget · One spreadsheet, one payment.</footer>
+
+  <script>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var params = new URLSearchParams(window.location.search);
+      var license = params.get('license');
+      var sessionId = params.get('session_id');
+
+      var cfg = null; // { functionsBaseUrl } from content.json
+      var polling = false;
+
+      function show(state) {
+        ['processing', 'ready', 'failed'].forEach(function (s) {
+          $(('state-' + s)).classList.toggle('hidden', s !== state);
+        });
+      }
+
+      function fail(message) {
+        $('fail-message').textContent = message;
+        show('failed');
+      }
+
+      function tryLookup() {
+        if (!cfg || !cfg.functionsBaseUrl) {
+          fail('Checkout is still being connected on this site. If you already paid, email ITBB@intheblackbudget.com with your receipt and we\'ll send your workbook right away.');
+          return;
+        }
+        var q = license
+          ? 'license=' + encodeURIComponent(license.trim().toUpperCase())
+          : 'session_id=' + encodeURIComponent(sessionId || '');
+        if (!q) { fail('No license or session was found in this link. Use the link from your email.'); return; }
+
+        var base = cfg.functionsBaseUrl.replace(/\/+$/, '');
+        fetch(base + '/get-download?' + q)
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.status === 'ready') {
+              $('ready-name').textContent = (data.customerName || 'there').split(' ')[0];
+              $('ready-license').textContent = data.licenseId;
+              $('ready-product').textContent = data.productName;
+              $('ready-file').textContent = data.fileName;
+              var btn = $('btn-download');
+              btn.href = data.downloadUrl;
+              btn.setAttribute('download', data.fileName || '');
+              // If the download came from a signed URL the browser will save it;
+              // keep the button usable for repeat visits too.
+              show('ready');
+              polling = false;
+            } else if (data.status === 'processing' && sessionId && !license) {
+              // Webhook hasn't finished issuing the license yet — poll briefly.
+              polling = true;
+              setTimeout(tryLookup, (data.retryInSeconds || 3) * 1000);
+            } else if (data.status === 'rate_limited' || data.status === 'failed') {
+              fail(data.message || 'We couldn\'t prepare your download.');
+            } else {
+              fail(data.message || 'Something went wrong. Please try again.');
+            }
+          })
+          .catch(function () { fail('We couldn\'t reach the download service. Check your connection and try again.'); });
+      }
+
+      fetch('./content.json')
+        .then(function (r) { return r.json(); })
+        .then(function (c) { cfg = c; tryLookup(); })
+        .catch(function () { cfg = {}; tryLookup(); });
+
+      // Safety: stop polling after 2 minutes regardless.
+      setTimeout(function () { if (polling) fail('Your download is taking longer than expected. Don\'t worry — you\'ll also get the link by email. If not, contact us and we\'ll resend it.'); }, 120000);
+    })();
+  </script>
+</body>
+</html>

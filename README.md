@@ -27,11 +27,27 @@ Connect to Vercel (free):
 
 See `EDITING_GUIDE.md` for full steps + how to wire forms with Formspree (free).
 
-## 💳 When you're ready to sell
+## 💳 Selling — licensed workbook delivery (automated)
 
-1. Create Stripe Payment Link in Stripe Dashboard
-2. Paste it into `content.json` → `stripePaymentLink`
-3. Commit. Buy button goes live everywhere.
+Buy buttons → Stripe Checkout → webhook → license ID (`ITB-7K4X9P2M`) →
+your master workbook personalized ("Licensed To: John Smith / john@email.com")
+→ private storage → temporary download link → "Your toolkit is ready" email.
+
+It runs on **Supabase Edge Functions** (this site stays static). Full walkthrough:
+**`docs/LICENSED_DELIVERY_SETUP.md`** — and a clickable demo of the whole flow:
+
+```bash
+npm run demo          # localhost:4321 — Buy → mock checkout → real personalized download
+npm test              # verifies personalization on all three masters
+npm run simulate -- --product premium --name "Test Buyer" --email test@example.com
+```
+
+Quick checklist when you're ready to go live:
+1. Run `supabase/migrations/20260814000000_licensing.sql` in Supabase SQL Editor
+2. Create your Stripe products/prices → deploy functions + secrets (guide has commands)
+3. Drop your real master into `assets/masters/` → `npm run seed`
+4. Set `functionsBaseUrl` in `content.json` → commit
+5. Email: flip `EMAIL_PROVIDER=resend` later — the pipeline already renders & stores every email
 
 ## 📣 Marketing
 

@@ -4,6 +4,7 @@
   "price": "$19",
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",
+  "functionsBaseUrl": "",
   "stripeLinks": {
     "essentials": "#",
     "complete": "#",
