@@ -87,3 +87,49 @@ screen content. Just place the zoom after the slide ends.
 All three use `images/logo.png` and the site tagline. Regenerate or restyle them any time
 — tell me the wording, colors, or an aspect ratio (9:16 for Shorts/Reels) and I'll
 rebuild them.
+
+---
+
+## Automated splice: `scripts/add-intro.sh`
+
+Prepend the 3-second logo card to any exported video in one command:
+
+```bash
+./scripts/add-intro.sh my-focusee-export.mp4
+# -> my-focusee-export-with-intro.mp4
+```
+
+The script reads the source video's resolution, frame rate and audio layout,
+renders the card to match, and concatenates. It handles videos with or without
+an audio track, and any resolution (1080p, 1440p, 4K, vertical 9:16).
+
+Options:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `INTRO_SECONDS` | `3` | Card duration |
+| `INTRO_FADE` | `0.4` | Fade in / fade out length |
+| `INTRO_SLIDE` | `intro-slide-2160-dark.png` | Swap in the light card |
+
+```bash
+INTRO_SECONDS=4 INTRO_SLIDE=assets/video-intro/intro-slide-1080-light.png \
+  ./scripts/add-intro.sh demo.mp4
+```
+
+Verified against 1920x1080@30 with audio and 2560x1440@60 without audio;
+output durations were exact (3s + source) in both cases.
+
+## Audio in FocuSee and Tella
+
+**FocuSee — yes.** Left panel > **Audio Control** (mute, boost to 300%, noise
+reduction), then scroll to **Background Music**. Use `Import Local Music`
+(MP3, M4A, AAC, WAV) or the built-in royalty-free library (Focus, Business,
+Tech, Chill). One track per project. Per-track controls: trim, volume 0-100%,
+fade in, fade out, loop (on by default), and Start/End time so the music can
+cover only part of the video. Paid-tier feature.
+
+**Tella — background music only.** Sidebar > **audio** tab > pick a preset or
+`Browse all` > Music library > **Personal** > `Upload`. One track, applied to
+the whole video, auto-faded and auto-mixed *under* your existing audio. Tella
+does **not** support importing a standalone voiceover or recording narration
+over an existing clip - the mic has to be captured while recording.
