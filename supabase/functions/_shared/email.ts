@@ -91,7 +91,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
         <tr><td style="padding:24px 40px 32px;border-top:1px solid #e5e7eb;margin-top:8px;">
           <p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">
             Questions? Just reply to this email, or write to <a href="mailto:${ctx.supportEmail}" style="color:#0a0a0a;text-decoration:underline;">${ctx.supportEmail}</a>.<br/>
-            Works in Microsoft Excel, Google Sheets &amp; Apple Numbers. No subscription. No login.
+            Works in Microsoft Excel &amp; Google Sheets. No subscription. No login.
           </p>
         </td></tr>
       </table>
