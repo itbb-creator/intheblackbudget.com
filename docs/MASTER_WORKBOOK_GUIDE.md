@@ -58,8 +58,6 @@ in Excel to see them in context (the License sheet doubles as a reference).
   macro warning on open; that's an Excel security prompt, not a file problem.
 - Google Sheets: export your final workbook via **File → Download →
   Microsoft Excel (.xlsx)** before using it as the master.
-- Apple Numbers: export to Excel format. Spot-check formulas after export —
-  Numbers can rewrite some function names.
 
 ## Swapping in your real workbook
 

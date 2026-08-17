@@ -36,7 +36,7 @@ This is $19. Once.
 
 It lives in a spreadsheet you already own. No app to learn. No bank login. Just green when money's in, red when it's out, and a dashboard that tells you what to fix first.
 
-Works in Excel, Google Sheets & Numbers. One payment. Yours for good.
+Works in Excel and Google Sheets. One payment. Yours for good.
 ```
 
 **Primary Text (Option B — shorter, for Reels):**

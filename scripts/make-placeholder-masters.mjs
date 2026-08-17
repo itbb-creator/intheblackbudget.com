@@ -1,7 +1,7 @@
 /**
  * Generates the three placeholder master workbooks in assets/masters/.
  *
- * These are REAL .xlsx files (Excel / Google Sheets / Numbers can open them)
+ * These are REAL .xlsx files (Excel and Google Sheets can open them)
  * containing exactly the placeholder tokens the pipeline replaces:
  *
  *   License sheet:  License ID = ITB-XXXXXXXX
