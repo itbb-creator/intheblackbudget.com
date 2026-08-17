@@ -1,0 +1,86 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate required site files
+        shell: bash
+        run: |
+          required_files=(
+            index.html
+            content.json
+            download.html
+            404.html
+            robots.txt
+            sitemap.xml
+            favicon.svg
+            images/logo.svg
+          )
+
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "Required site file is missing: $file" >&2
+              exit 1
+            fi
+          done
+
+      - name: Parse content.json
+        run: node -e "JSON.parse(require('node:fs').readFileSync('content.json', 'utf8')); console.log('content.json is valid JSON')"
+
+      - name: Prevent Apple Numbers marketing regressions
+        shell: bash
+        run: |
+          if grep --ignore-case --line-number --extended-regexp \
+            'Apple[[:space:]]+Numbers|Excel[^<]{0,80}Numbers|Google Sheets[^<]{0,80}Numbers' \
+            index.html supabase/functions/_shared/email.ts; then
+            echo "Apple Numbers marketing must not appear on customer-facing sales or email surfaces." >&2
+            exit 1
+          fi
+
+      - name: Check master workbooks
+        shell: bash
+        run: |
+          for workbook in essentials complete premium; do
+            file="assets/masters/${workbook}.xlsx"
+            if [[ ! -f "$file" ]]; then
+              echo "Master workbook is missing: $file" >&2
+              exit 1
+            fi
+          done
+
+      - name: Run workbook personalization tests
+        run: npm test
+
+      - name: Reject tracked secret environment files
+        shell: bash
+        run: |
+          while IFS= read -r file; do
+            case "$file" in
+              .env|*/.env|.env.*|*/.env.*)
+                case "$file" in
+                  *.example|*.sample|*.template) continue ;;
+                esac
+                echo "Secret environment file is tracked: $file" >&2
+                exit 1
+                ;;
+            esac
+          done < <(git ls-files)
