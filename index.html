@@ -50,7 +50,7 @@
       theme: {
         extend: {
           fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['JetBrains Mono','monospace'] },
-          colors: { ink: '#0a0a0a', muted: '#6b7280', line: '#e5e7eb' }
+          colors: { ink: '#0a0a0a', muted: '#4b5563', line: '#d1d5db' }
         }
       }
     }
@@ -98,6 +98,9 @@
     .row-shimmer-income {
       animation: rowShimmer 4s ease-in-out infinite;
     }
+    .hero-shell{background:linear-gradient(135deg,#f0fdf4 0%,#fff 48%,#fff1f2 100%);position:relative;overflow:hidden}
+    .hero-shell:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(16,185,129,.13) 0 2px,transparent 2px),radial-gradient(circle at 85% 70%,rgba(244,63,94,.1) 0 2px,transparent 2px);background-size:34px 34px,42px 42px;pointer-events:none}
+    .contact-pill:has(input:checked){background:#fff;color:#0a0a0a;border-color:#fff}
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
@@ -115,7 +118,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 font-extrabold tracking-tight text-base sm:text-lg" aria-label="In The Black Budget — home">
         <img src="./images/logo.svg" alt="In The Black Budget logo" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-contain" width="28" height="28" />
-        <span>IN THE BLACK<span class="font-normal text-muted hidden sm:inline"> — BUDGET</span></span>
+        <span>IN THE BLACK</span>
       </a>
       <nav class="hidden md:flex gap-6 text-sm text-muted" aria-label="Primary">
         <a href="#how" class="hover:text-ink transition-colors">How it works</a>
@@ -143,24 +146,25 @@
 
   <main id="main">
   <!-- Hero -->
-  <section class="max-w-6xl mx-auto px-6 pt-12 pb-10 md:pt-20 md:pb-16">
+  <section class="hero-shell border-b border-emerald-200">
+  <div class="relative max-w-6xl mx-auto px-6 pt-12 pb-12 md:pt-20 md:pb-20">
     <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
       
       <!-- Left Column: Copy & CTAs -->
       <div class="lg:col-span-7 reveal">
-        <p class="text-xs sm:text-sm font-mono text-muted mb-4 tracking-wide">FOR PEOPLE WHO CANCELED A BUDGETING APP</p>
+        <p class="inline-flex items-center gap-2 text-sm font-mono font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 rounded-full px-4 py-2 mb-5 tracking-wide">ONE PAYMENT. ZERO SUBSCRIPTIONS.</p>
         <h1 class="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.03]">
-          Budgeting apps want <span class="underline decoration-4 decoration-zinc-200 underline-offset-4">$12 a month</span>.<br>
-          Your bank app wants to sell you a <span class="underline decoration-4 decoration-zinc-200 underline-offset-4">credit card</span>.
+          See where your money goes.<br>
+          Know <span class="underline decoration-4 decoration-emerald-400 underline-offset-4">what to fix next.</span>
         </h1>
-        <p class="text-base sm:text-lg md:text-xl text-muted mt-6 leading-relaxed max-w-2xl">
-          All you actually wanted to know was: <em class="text-ink font-medium">am I doing okay?</em> This is one spreadsheet, one payment, that just answers that question — every month, for as long as you use it.
+        <p class="text-base sm:text-lg md:text-xl text-zinc-700 mt-6 leading-relaxed max-w-2xl">
+          A guided personal-finance system that shows what is happening now, how quickly debt can disappear, what home you can comfortably afford, and when your investments could reach your goal.
         </p>
         <div class="flex flex-wrap gap-3 mt-8">
           <a id="hero-buy" href="#pricing" aria-label="Buy In The Black" class="bg-ink text-white px-7 py-3.5 rounded-full font-semibold hover:bg-black hover:-translate-y-0.5 transition">Buy now</a>
           <a href="#inside" class="px-7 py-3.5 rounded-full font-semibold border border-line hover:bg-zinc-50 hover:-translate-y-0.5 transition">See inside</a>
         </div>
-        <p class="text-xs text-muted mt-3">One-time payment • Works in Excel and Google Sheets • No login required</p>
+        <p class="text-sm font-semibold text-zinc-700 mt-3">Subscription-free forever • Works in Excel and Google Sheets • No bank login required</p>
       </div>
 
       <!-- Right Column: Moving Graphic -->
@@ -187,7 +191,7 @@
           </div>
 
           <!-- Top Mini Dashboard Strip -->
-          <div class="grid grid-cols-3 gap-2 p-3 bg-zinc-50/50 border-b border-line text-center text-xs font-mono">
+          <div class="grid grid-cols-3 gap-2 p-3 bg-zinc-50/50 border-b border-line text-center text-xs font-mono" aria-label="Example monthly financial snapshot">
             <div class="bg-white p-2 rounded-lg border border-line shadow-xs">
               <p class="text-[10px] text-zinc-400">INCOME</p>
               <p class="font-bold text-emerald-700 text-sm mt-0.5">+$4,850</p>
@@ -272,6 +276,7 @@
             <span class="px-2 py-0.5 rounded bg-white border border-line text-ink font-semibold shadow-xs">Budget</span>
             <span class="px-2 py-0.5">Dashboard</span>
             <span class="px-2 py-0.5">Charts</span>
+            <span class="px-2 py-0.5 rounded bg-violet-100 text-violet-800">Investments</span>
           </div>
 
         </div>
@@ -286,12 +291,13 @@
       </div>
 
     </div>
+  </div>
   </section>
 
   <!-- How it works -->
   <section id="how" class="bg-zinc-50 border-y border-line">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Three steps. No tutorial required.</h2>
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Three steps. That’s it.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
         <div class="bg-white border border-line rounded-2xl p-7 reveal lift">
           <div class="font-mono text-xs text-muted">01</div>
@@ -305,7 +311,7 @@
         </div>
         <div class="bg-white border border-line rounded-2xl p-7 reveal lift" style="transition-delay:180ms">
           <div class="font-mono text-xs text-muted">03</div>
-          <h3 class="font-bold mt-2">Read your dashboard</h3>
+          <h3 class="font-bold mt-2">Read your feedback</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">A feedback tab tallies everything up and tells you, category by category, where you stand — and what to fix first. All based on your standards.</p>
         </div>
       </div>
@@ -323,11 +329,12 @@
         <div>
           <p class="font-mono text-xs text-muted">TAB 01 — BUDGET INPUT</p>
           <h3 class="text-xl font-bold mt-2">See it before you feel it</h3>
-          <p class="text-sm text-muted mt-3 leading-relaxed">Select “Expense” next to your rent and the row turns red. Type “Income” next to your paycheck and it turns green. Taxes go gray, investing goes purple. Your budget explains itself before you've read a single number.</p>
+          <p class="text-sm text-muted mt-3 leading-relaxed">Select “Expense” next to your rent and the row turns red. Type “Income” next to your paycheck and it turns green. Taxes go gray, investing goes purple, and subscriptions go amber. Your budget explains itself before you've read a single number.</p>
           <ul class="text-sm mt-4 space-y-1.5">
             <li><span class="inline-block w-3 h-3 bg-emerald-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Green = Income</li>
             <li><span class="inline-block w-3 h-3 bg-red-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Red = Expense</li>
             <li><span class="inline-block w-3 h-3 bg-zinc-400 rounded-sm align-middle mr-2" aria-hidden="true"></span> Gray = Taxes &nbsp; <span class="inline-block w-3 h-3 bg-violet-500 rounded-sm align-middle ml-2 mr-2" aria-hidden="true"></span> Purple = Investing</li>
+            <li><span class="inline-block w-3 h-3 bg-amber-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Amber = Subscriptions</li>
           </ul>
         </div>
         <div class="rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="budget-input.png" data-alt="Budget Input tab — rows color themselves green for income, red for expenses">
@@ -341,7 +348,7 @@
           <img src="./images/dashboard.png" alt="Dashboard tab — category checks against benchmarks: housing on track, subscriptions creeping up" class="w-full h-auto block" loading="lazy" />
         </div>
         <div>
-          <p class="font-mono text-xs text-muted">TAB 02 — DASHBOARD</p>
+          <p class="font-mono text-xs text-muted">TAB 02 — FEEDBACK DASHBOARD</p>
           <h3 class="text-xl font-bold mt-2">A dashboard that actually says something</h3>
           <p class="text-sm text-muted mt-3 leading-relaxed">Every category gets checked against a real benchmark — is your housing under 30% of income? Is your subscription list creeping up? Cells highlight green or red automatically, and the dashboard tells you why in plain language.</p>
         </div>
@@ -364,7 +371,7 @@
   <!-- Social proof -->
   <section class="bg-ink text-white">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight reveal">Mostly bought by people who canceled a budgeting app first.</h2>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight reveal">Clarity people can keep coming back to.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
         <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift">
           <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
@@ -466,6 +473,7 @@
             <li>✓ Premium unified dashboard linking budget → debt → net worth</li>
             <li>✓ Emergency fund — runway calculator &amp; target planner</li>
             <li>✓ Financial health score — multi-metric automated rating</li>
+            <li>✓ Investment calculator — project growth and goal timing</li>
           </ul>
         </div>
         <div class="mt-8 pt-2">
@@ -491,22 +499,25 @@
         <!-- Checkbox Bubbles / Pills -->
         <div class="flex flex-wrap gap-2 mt-3.5" id="feedback-choices">
           <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
-            <input type="checkbox" name="interest[]" class="hidden" value="Web app"> Web app
+            <input type="checkbox" name="interest[]" class="sr-only" value="Web app"> Web app
           </label>
           <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
-            <input type="checkbox" name="interest[]" class="hidden" value="Mobile app"> Mobile App
+            <input type="checkbox" name="interest[]" class="sr-only" value="Mobile app"> Mobile App
           </label>
           <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
-            <input type="checkbox" name="interest[]" class="hidden" value="More visuals"> More Visuals
+            <input type="checkbox" name="interest[]" class="sr-only" value="More visuals"> More Visuals
           </label>
           <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
-            <input type="checkbox" name="interest[]" class="hidden" value="Other feature idea"> Other Feature Idea
+            <input type="checkbox" name="interest[]" class="sr-only" value="Other feature idea"> Other Feature Idea
           </label>
         </div>
 
-        <textarea id="feedback-more" name="details" placeholder="What would you like to see added? Any other feedback..." class="mt-4 w-full border border-line rounded-xl p-3 text-sm min-h-[95px] focus:outline-none focus:ring-2 focus:ring-ink"></textarea>
+        <label for="feedback-more" class="sr-only">Feedback details</label>
+        <textarea id="feedback-more" name="details" placeholder="What would you like to see added? Any other feedback..." class="mt-4 w-full border border-line rounded-xl p-3 text-base min-h-[95px] focus:outline-none focus:ring-2 focus:ring-ink"></textarea>
         
-        <input id="feedback-email" name="email" type="email" placeholder="Email (optional — only if you'd like a reply)" class="mt-3 w-full border border-line rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-ink" />
+        <label for="feedback-email" class="sr-only">Email address, optional</label>
+        <input id="feedback-email" name="email" type="email" autocomplete="email" placeholder="Email (optional — only if you'd like a reply)" class="mt-3 w-full border border-line rounded-xl p-3 text-base focus:outline-none focus:ring-2 focus:ring-ink" />
+        <label class="mt-4 flex items-start gap-2 text-sm text-zinc-700"><input type="checkbox" name="testimonial_permission" value="yes" class="mt-1"> <span>You may contact me to ask permission to use this feedback as a testimonial. Nothing will be published without my approval.</span></label>
         
         <div class="mt-4 flex items-center gap-3">
           <button type="submit" id="feedback-submit-btn" class="bg-ink text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition">Send feedback</button>
@@ -538,21 +549,30 @@
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Get in touch.</h2>
       <div class="grid md:grid-cols-3 gap-10 mt-10">
-        <div class="space-y-6 text-sm text-zinc-300">
-          <div><p class="font-mono text-xs text-zinc-500">EMAIL</p><p id="contact-email" class="mt-1 text-white"><a href="mailto:ITBB@intheblackbudget.com" class="underline decoration-zinc-700 hover:decoration-white">ITBB@intheblackbudget.com</a></p></div>
-          <div><p class="font-mono text-xs text-zinc-500">RESPONSE TIME</p><p class="mt-1 text-white">Within 1–2 business days</p></div>
-          <div><p class="font-mono text-xs text-zinc-500">ELSEWHERE</p><p class="mt-1 text-zinc-400">Social channels coming soon</p></div>
+        <div class="space-y-6 text-sm text-zinc-200">
+          <div><p class="font-mono text-sm text-zinc-300">EMAIL</p><p id="contact-email" class="mt-1 text-white"><a href="mailto:ITBB@intheblackbudget.com" class="underline decoration-zinc-400 hover:decoration-white">ITBB@intheblackbudget.com</a></p></div>
+          <div><p class="font-mono text-sm text-zinc-300">RESPONSE TIME</p><p class="mt-1 text-white">Within 1–2 business days</p></div>
+          <div><p class="font-mono text-xs text-zinc-300">ELSEWHERE</p><div class="mt-2 flex flex-wrap gap-3"><a class="underline hover:text-white" href="https://www.facebook.com/profile.php?id=61593162213256" target="_blank" rel="noopener noreferrer">Facebook</a><a class="underline hover:text-white" href="https://www.instagram.com/intheblackbudget1/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="underline hover:text-white" href="https://www.tiktok.com/@intheblackbudget" target="_blank" rel="noopener noreferrer">TikTok</a></div></div>
         </div>
         
         <form id="contact-form" name="contact" method="POST" data-netlify="true" class="md:col-span-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
           <input type="hidden" name="form-name" value="contact" />
+          <fieldset><legend class="text-sm font-semibold">How can we help?</legend><div class="flex flex-wrap gap-2 mt-3">
+            <label class="contact-pill border border-zinc-600 rounded-full px-3.5 py-2 text-sm cursor-pointer"><input class="sr-only" type="radio" name="topic" value="Technical support" required>Technical support</label>
+            <label class="contact-pill border border-zinc-600 rounded-full px-3.5 py-2 text-sm cursor-pointer"><input class="sr-only" type="radio" name="topic" value="Billing">Billing</label>
+            <label class="contact-pill border border-zinc-600 rounded-full px-3.5 py-2 text-sm cursor-pointer"><input class="sr-only" type="radio" name="topic" value="Complaint">Complaint</label>
+            <label class="contact-pill border border-zinc-600 rounded-full px-3.5 py-2 text-sm cursor-pointer"><input class="sr-only" type="radio" name="topic" value="Other">Other</label>
+          </div></fieldset>
           
-          <div class="grid md:grid-cols-2 gap-4">
-            <input id="contact-name" name="name" placeholder="Name" aria-label="Your name" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500" />
-            <input id="contact-email-input" name="email" placeholder="Email" aria-label="Your email" type="email" required class="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500" />
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div><label for="contact-name" class="block text-sm font-medium mb-1.5">Name</label><input id="contact-name" name="name" autocomplete="name" required class="w-full bg-zinc-800 border border-zinc-600 rounded-xl p-3 text-base text-white focus:ring-2 focus:ring-white" /></div>
+            <div><label for="contact-email-input" class="block text-sm font-medium mb-1.5">Email</label><input id="contact-email-input" name="email" autocomplete="email" type="email" required class="w-full bg-zinc-800 border border-zinc-600 rounded-xl p-3 text-base text-white focus:ring-2 focus:ring-white" /></div>
           </div>
+          <label for="contact-license" class="block text-sm font-medium mt-4 mb-1.5">License ID <span class="text-zinc-300 font-normal">(if you have one)</span></label>
+          <input id="contact-license" name="license_id" autocomplete="off" placeholder="Example: ITB-7K4X9P2M" class="w-full bg-zinc-800 border border-zinc-600 rounded-xl p-3 text-base text-white placeholder:text-zinc-400 focus:ring-2 focus:ring-white" />
           
-          <textarea id="contact-message" name="message" placeholder="Message" aria-label="Your message" required class="mt-4 w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-sm min-h-[110px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500"></textarea>
+          <label for="contact-message" class="block text-sm font-medium mt-4 mb-1.5">Message</label>
+          <textarea id="contact-message" name="message" required class="w-full bg-zinc-800 border border-zinc-600 rounded-xl p-3 text-base min-h-[110px] text-white focus:ring-2 focus:ring-white"></textarea>
           
           <div class="mt-4 flex items-center gap-3">
             <button type="submit" id="contact-submit-btn" class="bg-white text-ink px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-100 transition">Send message</button>
@@ -565,8 +585,8 @@
         </form>
       </div>
       
-      <div class="flex flex-wrap items-center justify-between gap-3 mt-12 text-xs text-zinc-500">
-        <p>© <span id="year">2026</span> In The Black Budget. All rights reserved. Not financial advice.</p>
+      <div class="flex flex-wrap items-center justify-between gap-3 mt-12 text-sm text-zinc-300">
+        <p>© <span id="year">2026</span> In The Black Budget. All rights reserved. Not financial advice. <a href="./terms.html" class="underline hover:text-zinc-200">Terms of Use</a> · <a href="./privacy.html" class="underline hover:text-zinc-200">Privacy Policy</a></p>
         <a href="#top" class="hover:text-zinc-300 transition-colors">Back to top ↑</a>
       </div>
     </div>

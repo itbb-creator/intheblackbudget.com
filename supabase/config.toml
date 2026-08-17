@@ -1,0 +1,14 @@
+# Public entry points called by the static site or Stripe. Each function applies
+# its own authorization/validation in code; none accepts database credentials
+# from the browser.
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.get-download]
+verify_jwt = false
+
+[functions.preview-email]
+verify_jwt = false
