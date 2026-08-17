@@ -119,7 +119,7 @@ These are designed for Meta Reels / TikTok / YouTube Shorts first 2 seconds. Hoo
 > This is $19. Once.
 > No subscription, no bank login, no 5th tutorial.
 > Just a spreadsheet that turns green when money's in, red when it's out, and tells you — in plain English — what to fix first.
-> Works in Excel, Google Sheets, Numbers.
+> Works in Excel and Google Sheets.
 
 **Headline:** Own Your Budget for $19
 **Description:** One payment. Yours for good.
