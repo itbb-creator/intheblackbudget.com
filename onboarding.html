@@ -27,8 +27,14 @@
   </script>
   <style>
     html{scroll-behavior:smooth}
-    a:focus-visible{outline:3px solid #e0a000;outline-offset:3px;border-radius:6px}
+    a:focus-visible,button:focus-visible{outline:3px solid #e0a000;outline-offset:3px;border-radius:6px}
     .dot-grid{background-image:radial-gradient(circle,#d9e2e4 1px,transparent 1px);background-size:24px 24px}
+    .plan-card{transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease,background-color .2s ease}
+    .plan-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(15,61,66,.10)}
+    .plan-card:has(.plan-button[aria-pressed="true"]){border-color:#477f8d;box-shadow:0 0 0 2px #477f8d,0 16px 36px rgba(15,61,66,.12);background:#fff}
+    .plan-pill[aria-pressed="true"]{background:#102f34;color:#fff;box-shadow:0 5px 14px rgba(16,47,52,.18)}
+    .video-shell{position:relative;overflow:hidden;width:100%;background:#071b1e}
+    .video-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   </style>
 </head>
@@ -66,15 +72,19 @@
       <div class="text-center max-w-2xl mx-auto">
         <p class="font-mono text-xs tracking-[.16em] text-teal">GUIDED WALKTHROUGH</p>
         <h2 id="video-heading" class="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">Onboarding video</h2>
-        <p class="mt-4 text-slate-600">The guided video is being prepared. The complete written setup is available below now.</p>
+        <p class="mt-4 text-slate-600">Choose your edition, then work alongside the matching walkthrough.</p>
       </div>
-      <!-- Replace this placeholder with the Vimeo iframe after publishing the onboarding video. -->
-      <div class="mt-8 aspect-video rounded-2xl border border-line bg-slate-950 text-white shadow-xl flex items-center justify-center p-8 text-center">
-        <div>
-          <div class="mx-auto w-16 h-16 rounded-full bg-gold text-ink grid place-items-center text-2xl" aria-hidden="true">▶</div>
-          <p class="mt-5 text-xl font-bold">Video coming soon</p>
-          <p class="mt-2 text-sm text-slate-300">Continue with the edition-specific checklist below.</p>
+      <div class="mt-7 flex justify-center" aria-label="Choose a video edition">
+        <div class="inline-grid grid-cols-3 gap-1 rounded-full border border-line bg-slate-50 p-1.5 w-full sm:w-auto">
+          <button type="button" class="plan-pill rounded-full px-3 sm:px-6 py-2.5 text-sm font-bold text-slate-600 transition" data-plan="essentials" aria-pressed="false">Essentials</button>
+          <button type="button" class="plan-pill rounded-full px-3 sm:px-6 py-2.5 text-sm font-bold text-slate-600 transition" data-plan="complete" aria-pressed="false">Complete</button>
+          <button type="button" class="plan-pill rounded-full px-3 sm:px-6 py-2.5 text-sm font-bold text-slate-600 transition" data-plan="premium" aria-pressed="false">Premium</button>
         </div>
+      </div>
+      <div id="video-player" class="video-shell mt-5 aspect-video rounded-2xl border border-slate-700 shadow-xl" aria-live="polite"></div>
+      <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
+        <div><span class="block font-mono text-[10px] tracking-[.14em] text-teal">NOW PLAYING</span><strong id="active-video-title" class="text-sm">ITB Essentials Onboarding</strong></div>
+        <a id="vimeo-link" href="https://vimeo.com/1219674330" target="_blank" rel="noopener" class="text-sm font-bold underline underline-offset-4 hover:text-teal">Open on Vimeo <span aria-hidden="true">↗</span></a>
       </div>
     </section>
     <section id="edition" class="bg-slate-50 border-y border-line scroll-mt-20">
@@ -85,27 +95,36 @@
           <p class="mt-4 text-slate-600">Every edition starts with Budget Input. The difference is where debt, planning, and long-term tracking happen next.</p>
         </div>
         <div class="grid md:grid-cols-3 gap-5 mt-10">
-          <article class="bg-white rounded-2xl border border-line p-6 shadow-sm">
-            <p class="font-mono text-xs text-teal">MONTHLY CLARITY</p>
-            <h3 class="mt-2 text-2xl font-extrabold">Essentials</h3>
+          <article class="plan-card bg-white rounded-2xl border border-line p-6 shadow-sm">
+            <button type="button" data-plan="essentials" aria-pressed="false" class="plan-button block w-full text-left">
+              <span class="block font-mono text-xs text-teal">MONTHLY CLARITY</span>
+              <span class="block mt-2 text-2xl font-extrabold">Essentials <span class="text-teal" aria-hidden="true">→</span></span>
+              <span class="sr-only">Select the Essentials onboarding video</span>
+            </button>
             <ol class="mt-5 space-y-3 text-sm text-slate-600 list-decimal pl-5">
               <li>Replace the sample rows on Budget Input.</li>
               <li>Enter debt payments once under the Debt Payments category.</li>
               <li>Review totals, Feedback, subscriptions, and charts.</li>
             </ol>
           </article>
-          <article class="bg-white rounded-2xl border-2 border-teal p-6 shadow-sm">
-            <p class="font-mono text-xs text-teal">DEBT &amp; ASSET ENGINE</p>
-            <h3 class="mt-2 text-2xl font-extrabold">Complete</h3>
+          <article class="plan-card bg-white rounded-2xl border border-line p-6 shadow-sm">
+            <button type="button" data-plan="complete" aria-pressed="false" class="plan-button block w-full text-left">
+              <span class="block font-mono text-xs text-teal">DEBT &amp; ASSET ENGINE</span>
+              <span class="block mt-2 text-2xl font-extrabold">Complete <span class="text-teal" aria-hidden="true">→</span></span>
+              <span class="sr-only">Select the Complete onboarding video</span>
+            </button>
             <ol class="mt-5 space-y-3 text-sm text-slate-600 list-decimal pl-5">
               <li>Complete Budget Input, then enter each debt on Debt Payoff.</li>
               <li>Use Interest Saved to test extra-payment scenarios.</li>
               <li>Build Net Worth and test Mortgage Estimator scenarios.</li>
             </ol>
           </article>
-          <article class="bg-white rounded-2xl border border-line p-6 shadow-sm">
-            <p class="font-mono text-xs text-teal">THE FINANCIAL SYSTEM</p>
-            <h3 class="mt-2 text-2xl font-extrabold">Premium</h3>
+          <article class="plan-card bg-white rounded-2xl border border-line p-6 shadow-sm">
+            <button type="button" data-plan="premium" aria-pressed="false" class="plan-button block w-full text-left">
+              <span class="block font-mono text-xs text-teal">THE FINANCIAL SYSTEM</span>
+              <span class="block mt-2 text-2xl font-extrabold">Premium <span class="text-teal" aria-hidden="true">→</span></span>
+              <span class="sr-only">Select the Premium onboarding video</span>
+            </button>
             <ol class="mt-5 space-y-3 text-sm text-slate-600 list-decimal pl-5">
               <li>Complete Budget Input, Debt Payoff, Net Worth, and Emergency Fund.</li>
               <li>Use Unified Dashboard and the Financial Health Score as your compass.</li>
@@ -143,5 +162,41 @@
       </div>
     </div>
   </footer>
+  <script>
+    const onboardingVideos = {
+      essentials: { id: '1219674330', title: 'ITB Essentials Onboarding', ratio: '16 / 9', url: 'https://vimeo.com/1219674330?share=copy&fl=sv&fe=ci' },
+      complete: { id: '1219418665', title: 'ITB Complete Onboarding', ratio: '4 / 3', url: 'https://vimeo.com/1219418665?share=copy&fl=sv&fe=ci' },
+      premium: { id: '1219411827', title: 'ITB Premium Onboarding', ratio: '16 / 9', url: 'https://vimeo.com/1219411827?share=copy' }
+    };
+    const player = document.querySelector('#video-player');
+    const title = document.querySelector('#active-video-title');
+    const vimeoLink = document.querySelector('#vimeo-link');
+    const controls = [...document.querySelectorAll('[data-plan]')];
+
+    function selectPlan(plan, updateUrl = true) {
+      const selectedPlan = onboardingVideos[plan] ? plan : 'essentials';
+      const video = onboardingVideos[selectedPlan];
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${video.id}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1`;
+      iframe.title = video.title;
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'eager';
+      player.style.aspectRatio = video.ratio;
+      player.replaceChildren(iframe);
+      title.textContent = video.title;
+      vimeoLink.href = video.url;
+      controls.forEach((control) => control.setAttribute('aria-pressed', String(control.dataset.plan === selectedPlan)));
+      if (updateUrl) history.replaceState(null, '', `${location.pathname}?plan=${selectedPlan}#video-player`);
+    }
+
+    controls.forEach((control) => control.addEventListener('click', () => {
+      selectPlan(control.dataset.plan);
+      if (control.classList.contains('plan-button')) player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }));
+    const requestedPlan = new URLSearchParams(location.search).get('plan')?.toLowerCase();
+    selectPlan(requestedPlan, false);
+  </script>
 </body>
 </html>
