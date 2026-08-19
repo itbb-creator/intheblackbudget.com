@@ -4,7 +4,7 @@
   "price": "$19",
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",
-  "functionsBaseUrl": "",
+  "functionsBaseUrl": "https://vtrdkoeydzvrhtiuykja.supabase.co/functions/v1",
   "stripeLinks": {
     "essentials": "#",
     "complete": "#",
