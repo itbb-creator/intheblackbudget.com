@@ -222,6 +222,7 @@ const server = createServer(async (req, res) => {
     return json(res, {
       status: 'ready',
       licenseId: lic.licenseId,
+      productId: lic.productId,
       productName: lic.productName,
       customerName: lic.customerName,
       fileName: lic.fileName,

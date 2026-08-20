@@ -58,6 +58,11 @@
     .btn.ghost {
       background: #fff; color: var(--ink); border: 1.5px solid var(--ink);
     }
+    .next-step { margin-top: 1.6rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+    .next-step h2 { font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em; }
+    .next-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .next-actions .btn { margin-top: 1rem; padding-inline: 1rem; font-size: .9rem; }
+    @media (max-width: 28rem) { .next-actions { grid-template-columns: 1fr; gap: 0; } }
     .note { color: var(--muted); font-size: .8rem; line-height: 1.55; margin-top: 1.1rem; text-align: center; }
     .note a { color: var(--ink); text-decoration: underline; }
     .error { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; border-radius: .9rem; padding: 1rem 1.1rem; font-size: .9rem; line-height: 1.55; margin-top: 1.25rem; }
@@ -85,8 +90,8 @@
 
       <!-- State: ready -->
       <div id="state-ready" class="hidden">
-        <h1>Your workbook is ready.</h1>
-        <p class="sub" id="ready-copy">Here's your personally licensed copy, <b id="ready-name">there</b>. Download it and open it in Excel or Google Sheets.</p>
+        <h1>Your In The Black Toolkit Is Ready</h1>
+        <p class="sub" id="ready-copy">Here's your personally licensed copy, <b id="ready-name">there</b>.</p>
         <div class="mono-badge" id="ready-license"></div>
         <div class="details">
           <div><span>Product</span><b id="ready-product"></b></div>
@@ -96,6 +101,14 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download My Workbook
         </a>
+        <div class="next-step">
+          <h2>Start here</h2>
+          <p class="sub">Start with your licensed workbook, use the Quick Start Guide for setup, and follow the walkthrough when you want a guided tour.</p>
+          <div class="next-actions">
+            <a class="btn ghost" id="btn-guide" href="./onboarding" target="_blank" rel="noopener">Quick Start Guide</a>
+            <a class="btn ghost" id="btn-video" href="./onboarding#video-player">Watch How-To Video</a>
+          </div>
+        </div>
         <p class="note">For security, download links expire — this page creates a fresh one each time you visit, so <b>bookmark it</b>. It's also where future workbook updates will be delivered.</p>
       </div>
 
@@ -120,6 +133,18 @@
 
       var cfg = null; // { functionsBaseUrl } from content.json
       var polling = false;
+      var onboarding = {
+        essentials: { guide: './assets/onboarding/ITB_Quick_Start_Guide_Essentials.pdf' },
+        complete: { guide: './assets/onboarding/ITB_Quick_Start_Guide_Complete.pdf' },
+        premium: { guide: './assets/onboarding/ITB_Quick_Start_Guide_Premium.pdf' }
+      };
+
+      function productPlan(data) {
+        var id = String(data.productId || '').toLowerCase();
+        if (onboarding[id]) return id;
+        var name = String(data.productName || '').toLowerCase();
+        return ['essentials', 'complete', 'premium'].find(function (plan) { return name.indexOf(plan) !== -1; }) || 'essentials';
+      }
 
       function show(state) {
         ['processing', 'ready', 'failed'].forEach(function (s) {
@@ -151,6 +176,10 @@
               $('ready-license').textContent = data.licenseId;
               $('ready-product').textContent = data.productName;
               $('ready-file').textContent = data.fileName;
+              var plan = productPlan(data);
+              $('btn-guide').href = onboarding[plan].guide;
+              $('btn-guide').setAttribute('download', 'ITB_Quick_Start_Guide_' + plan.charAt(0).toUpperCase() + plan.slice(1) + '.pdf');
+              $('btn-video').href = './onboarding?plan=' + encodeURIComponent(plan) + '#video-player';
               var btn = $('btn-download');
               btn.href = data.downloadUrl;
               btn.setAttribute('download', data.fileName || '');

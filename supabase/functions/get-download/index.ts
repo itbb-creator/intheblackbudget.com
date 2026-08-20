@@ -112,6 +112,7 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({
       status: 'ready',
       licenseId: row.license_id,
+      productId: product?.id ?? row.product,
       productName: product?.name ?? row.product,
       customerName: row.customer_name ?? '',
       fileName: row.file_name ?? '',
