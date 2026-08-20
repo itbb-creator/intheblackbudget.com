@@ -47,6 +47,12 @@ export interface PipelineResult {
 
 const MAX_ID_ATTEMPTS = 5;
 
+interface CurrentRelease {
+  id: string;
+  version: string;
+  master_path: string;
+}
+
 export async function runLicensePipeline(purchase: PurchaseInfo): Promise<PipelineResult> {
   const sb = getSupabase();
   const product = getProduct(purchase.productId);
@@ -109,13 +115,24 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
 
   await logLicenseEvent(sb, { licenseId, step: STEPS.licenseGenerated, status: 'ok', detail: product.id });
 
+  // 2. Current release master workbook from private storage. Before the first
+  // versioned release is published, fall back to the original master path.
+  const { data: currentRelease, error: releaseErr } = await sb
+    .from('product_releases')
+    .select('id, version, master_path')
+    .eq('product', product.id)
+    .eq('is_current', true)
+    .maybeSingle<CurrentRelease>();
+  if (releaseErr) throw new Error(`Release lookup failed: ${releaseErr.message}`);
+  const masterPath = currentRelease?.master_path ?? product.masterPath;
+
   // 2. Master workbook from private storage.
   const { data: masterBlob, error: masterErr } = await sb.storage
     .from(BUCKETS.masters)
-    .download(product.masterPath);
+    .download(masterPath);
   if (masterErr || !masterBlob) {
     throw new Error(
-      `Master "${product.masterPath}" missing from bucket "${BUCKETS.masters}" — ` +
+      `Master "${masterPath}" missing from bucket "${BUCKETS.masters}" — ` +
         `run "npm run seed" to upload it (${masterErr?.message ?? 'not found'}).`,
     );
   }
@@ -124,7 +141,7 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
     licenseId,
     step: STEPS.masterFetched,
     status: 'ok',
-    detail: `${product.masterPath} (${masterBytes.length} bytes)`,
+    detail: `${masterPath} (${masterBytes.length} bytes)`,
   });
 
   // 3. Personalize: swap placeholders, preserve everything else byte-for-byte.
@@ -144,7 +161,9 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
 
   // 4. Upload the customer's file to private storage.
   const fileName = `${product.fileNamePrefix}_${licenseId}.xlsx`;
-  const filePath = `${product.id}/${fileName}`;
+  const filePath = currentRelease
+    ? `${product.id}/${currentRelease.version}/${fileName}`
+    : `${product.id}/${fileName}`;
   const { error: uploadErr } = await sb.storage.from(BUCKETS.licensed).upload(filePath, personalized.bytes, {
     contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     cacheControl: 'private, no-store',
@@ -205,6 +224,8 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
       status: 'issued',
       file_name: fileName,
       file_path: filePath,
+      issued_release_id: currentRelease?.id ?? null,
+      issued_version: currentRelease?.version ?? null,
       email_status: email.provider === 'resend' ? 'sent' : 'queued',
       email_provider: email.provider,
       email_preview_html: email.previewHtml,

@@ -15,6 +15,7 @@ import { handleOptions, jsonResponse } from '../_shared/cors.ts';
 import { dailyDownloadLimit, downloadLinkTtlSeconds, getProduct, siteUrl } from '../_shared/config.ts';
 import { getSupabase } from '../_shared/supabase.ts';
 import { logLicenseEvent, STEPS } from '../_shared/audit.ts';
+import { personalizeWorkbook } from '../_shared/personalize.ts';
 
 interface LicenseRow {
   license_id: string;
@@ -27,6 +28,14 @@ interface LicenseRow {
   download_count: number;
   last_download_at: string | null;
   error_message: string | null;
+  issued_release_id: string | null;
+  issued_version: string | null;
+}
+
+interface ReleaseRow {
+  id: string;
+  version: string;
+  master_path: string;
 }
 
 Deno.serve(async (req: Request) => {
@@ -87,9 +96,65 @@ Deno.serve(async (req: Request) => {
       }, 429, req);
     }
 
+    const product = getProduct(row.product);
+    let filePath = row.file_path;
+    let fileName = row.file_name ?? '';
+    let issuedVersion = row.issued_version;
+
+    // If a newer release is current, rebuild the personalized workbook before
+    // serving it. The customer's stable license-page URL never changes.
+    const { data: currentRelease, error: releaseErr } = await sb
+      .from('product_releases')
+      .select('id, version, master_path')
+      .eq('product', row.product)
+      .eq('is_current', true)
+      .maybeSingle<ReleaseRow>();
+    if (releaseErr) throw new Error(`Release lookup failed: ${releaseErr.message}`);
+
+    if (currentRelease && currentRelease.id !== row.issued_release_id) {
+      if (!product || !row.customer_name || !row.customer_email) {
+        throw new Error('License is missing the customer details required to prepare an update.');
+      }
+      const { data: masterBlob, error: masterErr } = await sb.storage
+        .from('workbook-masters')
+        .download(currentRelease.master_path);
+      if (masterErr || !masterBlob) {
+        throw new Error(`Release master could not be loaded: ${masterErr?.message ?? 'not found'}`);
+      }
+      const personalized = personalizeWorkbook({
+        masterBytes: new Uint8Array(await masterBlob.arrayBuffer()),
+        licenseId: row.license_id,
+        customerName: row.customer_name,
+        customerEmail: row.customer_email,
+      });
+      fileName = `${product.fileNamePrefix}_${row.license_id}.xlsx`;
+      filePath = `${product.id}/${currentRelease.version}/${fileName}`;
+      const { error: uploadErr } = await sb.storage.from('licensed-workbooks').upload(filePath, personalized.bytes, {
+        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        cacheControl: 'private, no-store',
+        upsert: true,
+      });
+      if (uploadErr) throw new Error(`Updated workbook upload failed: ${uploadErr.message}`);
+
+      const { error: releaseUpdateErr } = await sb.from('licenses').update({
+        file_path: filePath,
+        file_name: fileName,
+        issued_release_id: currentRelease.id,
+        issued_version: currentRelease.version,
+      }).eq('license_id', row.license_id);
+      if (releaseUpdateErr) throw new Error(`License release update failed: ${releaseUpdateErr.message}`);
+      issuedVersion = currentRelease.version;
+      await logLicenseEvent(sb, {
+        licenseId: row.license_id,
+        step: STEPS.releaseRefreshed,
+        status: 'ok',
+        detail: `${row.issued_version ?? 'unversioned'} → ${currentRelease.version}`,
+      });
+    }
+
     const { data: signed, error: signErr } = await sb.storage
       .from('licensed-workbooks')
-      .createSignedUrl(row.file_path, downloadLinkTtlSeconds());
+      .createSignedUrl(filePath, downloadLinkTtlSeconds());
     if (signErr || !signed?.signedUrl) {
       console.error('get-download: signed url failed:', signErr);
       return jsonResponse({ status: 'error', message: 'Could not prepare your download. Please try again.' }, 500, req);
@@ -108,14 +173,14 @@ Deno.serve(async (req: Request) => {
       detail: `${downloadLinkTtlSeconds()}s ttl · download #${(row.download_count ?? 0) + 1}`,
     });
 
-    const product = getProduct(row.product);
     return jsonResponse({
       status: 'ready',
       licenseId: row.license_id,
       productId: product?.id ?? row.product,
       productName: product?.name ?? row.product,
       customerName: row.customer_name ?? '',
-      fileName: row.file_name ?? '',
+      fileName,
+      version: issuedVersion,
       downloadUrl: signed.signedUrl,
       expiresInSeconds: downloadLinkTtlSeconds(),
       siteUrl: siteUrl(),

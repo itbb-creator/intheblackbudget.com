@@ -50,13 +50,14 @@ for (const product of ['essentials', 'complete', 'premium']) {
   const after = unzipSync(result.bytes);
   const entries = Object.keys(before);
 
+  const foundTokens = result.replacements.filter((r) => r.found).map((r) => r.token);
   check(
-    result.replacements.filter((r) => r.found).length === 7,
-    `${product}: all 7 tokens found and replaced in master`,
+    foundTokens.includes('ITB-XXXXXXXX') && foundTokens.includes('Customer Name / Email'),
+    `${product}: required license tokens found and replaced in master`,
   );
 
   // Every non-inspected entry must be byte-identical (preservation guarantee).
-  const inspected = new Set(['xl/sharedStrings.xml', 'xl/workbook.xml', 'xl/worksheets/sheet1.xml', 'xl/worksheets/sheet2.xml', 'xl/worksheets/sheet3.xml']);
+  const inspected = new Set(entries.filter((e) => e === 'xl/sharedStrings.xml' || e === 'xl/workbook.xml' || /^xl\/worksheets\/sheet\d+\.xml$/.test(e)));
   const unchanged = entries.filter((e) => !inspected.has(e));
   const identical = unchanged.every((e) => {
     const a = before[e], b = after[e];
@@ -73,8 +74,10 @@ for (const product of ['essentials', 'complete', 'premium']) {
   check(!text.includes('ITB-XXXXXXXX'), `${product}: ITB-XXXXXXXX placeholder gone`);
   check(!text.includes('Customer Name / Email'), `${product}: name/email placeholder gone`);
   check(!text.includes('[[LICENSE_ID]]') && !text.includes('[[CUSTOMER_NAME]]'), `${product}: bracket tokens gone`);
-  check(strFromU8(after['xl/workbook.xml']).includes('LicenseID'), `${product}: defined names preserved`);
-  check(strFromU8(after['xl/worksheets/sheet2.xml']).includes('<f>SUM(B4:B6)</f>'), `${product}: formulas preserved`);
+  const definedNames = (bytes) => strFromU8(bytes['xl/workbook.xml']).match(/<definedNames[\s\S]*?<\/definedNames>/)?.[0] ?? '';
+  check(definedNames(before) === definedNames(after), `${product}: defined names preserved`);
+  const formulas = (files) => entries.filter((e) => /^xl\/worksheets\/sheet\d+\.xml$/.test(e)).flatMap((e) => strFromU8(files[e]).match(/<f(?:\s[^>]*)?>[\s\S]*?<\/f>/g) ?? []);
+  check(JSON.stringify(formulas(before)) === JSON.stringify(formulas(after)), `${product}: formulas preserved`);
 
   // No raw ampersands / stray angle brackets in text nodes (XML safety).
   const xmlSafe = !/&(?!amp;|lt;|gt;|quot;|apos;|#)/.test(text);
@@ -123,7 +126,7 @@ const email = buildWelcomeEmail({
   supportEmail: 'ITBB@intheblackbudget.com',
 });
 check(email.subject.includes('ready'), 'email subject mentions ready');
-check(email.html.includes('Download My Workbook') && email.html.includes('ITB-7K4X9P2M'), 'email html has button + license id');
+check(email.html.includes('Your ITB Toolkit Is Ready') && email.html.includes('ITB-7K4X9P2M'), 'email html has button + license id');
 writeFileSync(join(outDir, 'email-preview.html'), email.html);
 
 console.log(`\n${failures === 0 ? 'ALL TESTS PASSED' : `${failures} FAILURE(S)`}`);

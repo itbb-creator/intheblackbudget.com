@@ -39,6 +39,45 @@ export interface EmailDispatchResult {
   previewHtml: string;
 }
 
+export interface ReleaseUpdateEmailContext {
+  productName: string;
+  customerName: string;
+  licenseId: string;
+  version: string;
+  summary?: string | null;
+  added: string[];
+  changed: string[];
+  fixed: string[];
+  downloadPageUrl: string;
+  changelogUrl: string;
+  supportEmail: string;
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
+  })[char] ?? char);
+}
+
+export function buildReleaseUpdateEmail(ctx: ReleaseUpdateEmailContext): { subject: string; html: string; text: string } {
+  const firstName = ctx.customerName.trim().split(/\s+/)[0] || 'there';
+  const groups = [
+    ['Added', ctx.added],
+    ['Changed', ctx.changed],
+    ['Fixed', ctx.fixed],
+  ] as const;
+  const textNotes = groups.filter(([, items]) => items.length).map(([label, items]) =>
+    `${label}:\n${items.map((item) => `- ${item}`).join('\n')}`
+  ).join('\n\n');
+  const htmlNotes = groups.filter(([, items]) => items.length).map(([label, items]) =>
+    `<h2 style="font-size:16px;margin:24px 0 8px;">${label}</h2><ul style="margin:0;padding-left:20px;color:#374151;">${items.map((item) => `<li style="margin:6px 0;">${escapeHtml(item)}</li>`).join('')}</ul>`
+  ).join('');
+  const subject = `${ctx.productName} ${ctx.version} is available`;
+  const text = `Hi ${firstName},\n\nVersion ${ctx.version} of ${ctx.productName} is available.${ctx.summary ? `\n\n${ctx.summary}` : ''}\n\n${textNotes}\n\nGet the latest licensed version: ${ctx.downloadPageUrl}\nFull changelog: ${ctx.changelogUrl}\n\nLicense ID: ${ctx.licenseId}\nQuestions? ${ctx.supportEmail}`;
+  const html = `<!doctype html><html lang="en"><body style="margin:0;padding:0;background:#f4f4f5;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px;"><tr><td align="center"><table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:16px;"><tr><td style="padding:36px 40px;"><p style="font-weight:800;margin:0;">IN THE BLACK</p><h1 style="font-size:24px;margin:24px 0 12px;">Your ${escapeHtml(ctx.productName)} update is ready.</h1><p style="color:#6b7280;line-height:1.6;">Hi ${escapeHtml(firstName)} — version ${escapeHtml(ctx.version)} is now available.${ctx.summary ? ` ${escapeHtml(ctx.summary)}` : ''}</p>${htmlNotes}<p style="text-align:center;margin:32px 0 10px;"><a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#0a0a0a;color:#fff;text-decoration:none;font-weight:700;padding:15px 30px;border-radius:999px;">Your ITB Toolkit Is Ready</a></p><p style="font-size:12px;color:#6b7280;text-align:center;line-height:1.6;">Your existing licensed page prepares the latest eligible version. License ID: ${escapeHtml(ctx.licenseId)}<br><a href="${ctx.changelogUrl}" style="color:#0a0a0a;">View the full changelog</a></p><p style="font-size:12px;color:#6b7280;border-top:1px solid #e5e7eb;padding-top:20px;margin-top:28px;">Questions? <a href="mailto:${ctx.supportEmail}" style="color:#0a0a0a;">${ctx.supportEmail}</a></p></td></tr></table></td></tr></table></body></html>`;
+  return { subject, html, text };
+}
+
 export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; html: string; text: string } {
   const subject = `Your ${ctx.productName} is ready ✓`;
   const firstName = ctx.customerName.trim().split(/\s+/)[0] || 'there';
@@ -83,7 +122,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
           </table>
         </td></tr>
         <tr><td align="center" style="padding:32px 40px 8px;">
-          <a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;font-size:16px;font-weight:600;padding:16px 40px;border-radius:999px;">Download My Workbook</a>
+          <a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;font-size:16px;font-weight:600;padding:16px 40px;border-radius:999px;">Your ITB Toolkit Is Ready</a>
           <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#6b7280;">
             For security, download links expire — this page creates a fresh one each time you visit, so bookmark it. It's also where future workbook updates will be delivered.
           </p>

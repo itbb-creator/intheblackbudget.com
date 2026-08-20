@@ -43,5 +43,6 @@ export const STEPS = {
   emailQueued: 'email_queued',
   emailSent: 'email_sent',
   downloadServed: 'download_served',
+  releaseRefreshed: 'release_refreshed',
   failed: 'pipeline_failed',
 } as const;

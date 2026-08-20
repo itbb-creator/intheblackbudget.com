@@ -12,6 +12,11 @@
   status = 200
 
 [[redirects]]
+  from = "/changelog"
+  to = "/changelog.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404
@@ -34,6 +39,11 @@
 
 [[headers]]
   for = "/onboarding.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/changelog.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
