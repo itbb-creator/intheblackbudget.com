@@ -97,6 +97,9 @@ Deno.serve(async (req: Request) => {
     customerName: (session.customer_details?.name ?? '').trim() || 'Valued Customer',
     customerEmail: session.customer_details?.email ?? '',
     productId: (session.metadata?.product ?? '').trim(),
+    productUpdateConsent: session.metadata?.product_update_consent === 'true',
+    marketingConsent: session.metadata?.marketing_consent === 'true',
+    consentSource: (session.metadata?.consent_source ?? '').trim() || 'stripe_checkout',
   };
 
   if (!purchase.customerEmail) {

@@ -12,3 +12,6 @@ verify_jwt = false
 
 [functions.preview-email]
 verify_jwt = false
+
+[functions.email-preferences]
+verify_jwt = false

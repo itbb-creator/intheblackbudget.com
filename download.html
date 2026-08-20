@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --ink: #0a0a0a; --muted: #6b7280; --line: #e5e7eb; }
+    :root { --ink: #0a0a0a; --muted: #374151; --line: #9ca3af; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -55,6 +55,7 @@
     }
     .btn:hover { background: #000; transform: translateY(-1px); }
     .btn:active { transform: translateY(0); }
+    a:focus-visible, button:focus-visible { outline: 3px solid #1c7a3d; outline-offset: 3px; border-radius: 6px; }
     .btn.ghost {
       background: #fff; color: var(--ink); border: 1.5px solid var(--ink);
     }
@@ -67,7 +68,7 @@
     .note a { color: var(--ink); text-decoration: underline; }
     .error { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; border-radius: .9rem; padding: 1rem 1.1rem; font-size: .9rem; line-height: 1.55; margin-top: 1.25rem; }
     .hidden { display: none !important; }
-    footer { text-align: center; color: #9ca3af; font-size: .75rem; padding: 1.5rem 1rem 2rem; }
+    footer { text-align: center; color: #4b5563; font-size: .8rem; padding: 1.5rem 1rem 2rem; }
     .kbd { font-family: 'JetBrains Mono', monospace; font-size: .75rem; background:#f4f4f5; border:1px solid var(--line); border-radius:.4rem; padding:.1rem .35rem; }
   </style>
 </head>

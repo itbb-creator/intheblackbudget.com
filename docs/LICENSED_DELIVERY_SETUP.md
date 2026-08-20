@@ -62,7 +62,7 @@ functions, and `download.html` is served by Netlify like any other page.
 
 1. [dashboard.stripe.com](https://dashboard.stripe.com) → Product catalog →
    create three one-time products (`In The Black Essentials` $19,
-   `Complete` $39, `Premium` $49 — or whatever you sell).
+   `Complete` $39, and `Premium` at the $36 founding price).
 2. Copy each **Price ID** (`price_...`) — they go into the secrets below.
 
 ### 3. Deploy the functions

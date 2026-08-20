@@ -37,7 +37,7 @@
     "offers": [
       { "@type": "Offer", "name": "In The Black Essentials", "price": "19", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
       { "@type": "Offer", "name": "In The Black Complete", "price": "39", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
-      { "@type": "Offer", "name": "In The Black Premium", "price": "49", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+      { "@type": "Offer", "name": "In The Black Premium — Founding Customer Offer", "price": "36", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
     ]
   }
   </script>
@@ -50,7 +50,7 @@
       theme: {
         extend: {
           fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['JetBrains Mono','monospace'] },
-          colors: { ink: '#0a0a0a', muted: '#4b5563', line: '#d1d5db' }
+          colors: { ink: '#0a0a0a', muted: '#374151', line: '#9ca3af' }
         }
       }
     }
@@ -101,6 +101,9 @@
     .hero-shell{background:linear-gradient(135deg,#f0fdf4 0%,#fff 48%,#fff1f2 100%);position:relative;overflow:hidden}
     .hero-shell:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(16,185,129,.13) 0 2px,transparent 2px),radial-gradient(circle at 85% 70%,rgba(244,63,94,.1) 0 2px,transparent 2px);background-size:34px 34px,42px 42px;pointer-events:none}
     .contact-pill:has(input:checked){background:#fff;color:#0a0a0a;border-color:#fff}
+    .choice-pill:has(input:focus-visible),.contact-pill:has(input:focus-visible){outline:3px solid currentColor;outline-offset:3px}
+    .product-shot{background:#f4f4f5;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+    .product-shot img{width:100%;height:100%;object-fit:contain}
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
@@ -127,7 +130,7 @@
         <a href="#faq" class="hover:text-ink transition-colors">FAQ</a>
       </nav>
       <div class="flex items-center gap-2 sm:gap-2.5">
-        <a id="nav-buy" href="#pricing" aria-label="Buy In The Black" class="bg-ink text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold hover:bg-black hover:-translate-y-px transition">Buy now</a>
+        <a id="nav-buy" href="#pricing" aria-label="View the Premium founding customer offer" class="bg-ink text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-sm font-semibold hover:bg-black hover:-translate-y-px transition">Founding offer</a>
         <button id="menu-btn" type="button" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-line bg-white" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4.5" x2="16" y2="4.5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13.5" x2="16" y2="13.5"/></svg>
           <svg id="menu-icon-close" class="hidden" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2.5" y1="2.5" x2="13.5" y2="13.5"/><line x1="13.5" y1="2.5" x2="2.5" y2="13.5"/></svg>
@@ -152,7 +155,7 @@
       
       <!-- Left Column: Copy & CTAs -->
       <div class="lg:col-span-7 reveal">
-        <p class="inline-flex items-center gap-2 text-sm font-mono font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 rounded-full px-4 py-2 mb-5 tracking-wide">ONE PAYMENT. ZERO SUBSCRIPTIONS.</p>
+        <p class="inline-flex items-center gap-2 text-sm font-mono font-bold text-emerald-950 bg-emerald-100 border border-emerald-400 rounded-full px-4 py-2 mb-5 tracking-wide">FOUNDING CUSTOMER OFFER · PREMIUM $36</p>
         <h1 class="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.03]">
           See where your money goes.<br>
           Know <span class="underline decoration-4 decoration-emerald-400 underline-offset-4">what to fix next.</span>
@@ -161,14 +164,14 @@
           A guided personal-finance system that shows what is happening now, how quickly debt can disappear, what home you can comfortably afford, and when your investments could reach your goal.
         </p>
         <div class="flex flex-wrap gap-3 mt-8">
-          <a id="hero-buy" href="#pricing" aria-label="Buy In The Black" class="bg-ink text-white px-7 py-3.5 rounded-full font-semibold hover:bg-black hover:-translate-y-0.5 transition">Buy now</a>
+          <a id="hero-buy" href="#pricing" aria-label="View the Premium founding customer offer" class="bg-ink text-white px-7 py-3.5 rounded-full font-semibold hover:bg-black hover:-translate-y-0.5 transition">View the founding offer</a>
           <a href="#inside" class="px-7 py-3.5 rounded-full font-semibold border border-line hover:bg-zinc-50 hover:-translate-y-0.5 transition">See inside</a>
         </div>
         <p class="text-sm font-semibold text-zinc-700 mt-3">Subscription-free forever • Works in Excel and Google Sheets • No bank login required</p>
       </div>
 
       <!-- Right Column: Moving Graphic -->
-      <div class="lg:col-span-5 relative reveal" style="transition-delay:120ms">
+      <div class="lg:col-span-5 relative reveal" style="transition-delay:120ms" aria-hidden="true">
         <!-- Ambient Glowing Aura -->
         <div class="absolute -top-8 -right-8 w-60 h-60 bg-emerald-300/40 rounded-full blur-3xl pointer-events-none hero-aura-green" aria-hidden="true"></div>
         <div class="absolute -bottom-8 -left-8 w-56 h-56 bg-rose-300/30 rounded-full blur-3xl pointer-events-none hero-aura-red" aria-hidden="true"></div>
@@ -300,17 +303,17 @@
       <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Three steps. That’s it.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
         <div class="bg-white border border-line rounded-2xl p-7 reveal lift">
-          <div class="font-mono text-xs text-muted">01</div>
+          <div class="font-mono text-sm text-muted">01</div>
           <h3 class="font-bold mt-2">Buy & download</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">Get the file instantly — it opens right up in Excel or Google Sheets. No account, no install.</p>
         </div>
         <div class="bg-white border border-line rounded-2xl p-7 reveal lift" style="transition-delay:90ms">
-          <div class="font-mono text-xs text-muted">02</div>
+          <div class="font-mono text-sm text-muted">02</div>
           <h3 class="font-bold mt-2">Plug in your numbers</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">Income, expenses, taxes, investing — each row colors itself automatically as you type. Green in, red out.</p>
         </div>
         <div class="bg-white border border-line rounded-2xl p-7 reveal lift" style="transition-delay:180ms">
-          <div class="font-mono text-xs text-muted">03</div>
+          <div class="font-mono text-sm text-muted">03</div>
           <h3 class="font-bold mt-2">Read your feedback</h3>
           <p class="text-sm text-muted mt-2 leading-relaxed">A feedback tab tallies everything up and tells you, category by category, where you stand — and what to fix first. All based on your standards.</p>
         </div>
@@ -320,16 +323,16 @@
 
   <!-- Inside -->
   <section id="inside" class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Multiple tabs. Every one of them doing something.</h2>
-    <p class="text-muted mt-3 max-w-2xl reveal">These product previews illustrate the workbook experience and key tools. Screen appearance may vary slightly between Excel and Google Sheets.</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">Your numbers, one connected plan.</h2>
+    <p class="text-muted mt-3 max-w-3xl reveal">Actual views from the workbooks currently delivered to customers. Screen appearance may vary slightly between Excel and Google Sheets.</p>
 
     <div class="grid gap-12 mt-12">
-      <!-- Tab 1 -->
+      <!-- Budget -->
       <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
         <div>
-          <p class="font-mono text-xs text-muted">TAB 01 — BUDGET INPUT</p>
-          <h3 class="text-xl font-bold mt-2">See it before you feel it</h3>
-          <p class="text-sm text-muted mt-3 leading-relaxed">Select “Expense” next to your rent and the row turns red. Type “Income” next to your paycheck and it turns green. Taxes go gray, investing goes purple, and subscriptions go amber. Your budget explains itself before you've read a single number.</p>
+          <p class="font-mono text-sm font-semibold text-muted">BUDGET</p>
+          <h3 class="text-xl font-bold mt-2">See where every dollar is going</h3>
+          <p class="text-base text-muted mt-3 leading-relaxed">Enter income, expenses, taxes, subscriptions, and investing in one color-coded view. Totals and rates update automatically, so the monthly picture is visible before you make the next decision.</p>
           <ul class="text-sm mt-4 space-y-1.5">
             <li><span class="inline-block w-3 h-3 bg-emerald-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Green = Income</li>
             <li><span class="inline-block w-3 h-3 bg-red-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Red = Expense</li>
@@ -337,57 +340,46 @@
             <li><span class="inline-block w-3 h-3 bg-amber-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Amber = Subscriptions</li>
           </ul>
         </div>
-        <div class="rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="budget-input.png" data-alt="Budget Input tab — rows color themselves green for income, red for expenses">
-          <img src="./images/budget-input.png" alt="Budget Input tab — rows color themselves green for income, red for expenses" class="w-full h-auto block" loading="lazy" />
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-budget.png">
+          <img src="./images/product-budget.png" alt="Actual Budget Input worksheet showing color-coded income, expenses, taxes, investing, and automatically calculated totals" loading="lazy" width="2940" height="1578" />
         </div>
       </div>
 
-      <!-- Tab 2 -->
+      <!-- Unified dashboard -->
       <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
-        <div class="rounded-2xl overflow-hidden border border-line shadow-sm md:order-first order-last" data-shot="dashboard.png" data-alt="Dashboard tab — category checks against benchmarks: housing on track, subscriptions creeping up">
-          <img src="./images/dashboard.png" alt="Dashboard tab — category checks against benchmarks: housing on track, subscriptions creeping up" class="w-full h-auto block" loading="lazy" />
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm md:order-first order-last" data-shot="product-unified-dashboard-premium.png">
+          <img src="./images/product-unified-dashboard-premium.png" alt="Actual Premium Unified Dashboard combining budget, debt, net worth, emergency fund, cash flow, and financial health score" loading="lazy" width="3444" height="950" />
         </div>
         <div>
-          <p class="font-mono text-xs text-muted">TAB 02 — FEEDBACK DASHBOARD</p>
-          <h3 class="text-xl font-bold mt-2">A dashboard that actually says something</h3>
-          <p class="text-sm text-muted mt-3 leading-relaxed">Every category gets checked against a real benchmark — is your housing under 30% of income? Is your subscription list creeping up? Cells highlight green or red automatically, and the dashboard tells you why in plain language.</p>
+          <p class="font-mono text-sm font-semibold text-emerald-800">UNIFIED DASHBOARD · PREMIUM ONLY</p>
+          <h3 class="text-xl font-bold mt-2">One place to see how everything connects</h3>
+          <p class="text-base text-muted mt-3 leading-relaxed">Premium links budget, debt, net worth, emergency savings, cash flow, and a financial health score in one live dashboard. Change an input elsewhere and the dashboard refreshes automatically.</p>
         </div>
       </div>
 
-      <!-- Tab 3 -->
+      <!-- Plan ahead -->
       <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
         <div>
-          <p class="font-mono text-xs text-muted">TAB 03 — VISUAL SUMMARY</p>
-          <h3 class="text-xl font-bold mt-2">For the visual learners</h3>
-          <p class="text-sm text-muted mt-3 leading-relaxed">Prefer a picture to a paragraph? Built-in charts — where your money comes from, where it goes, and how each category stacks up — all generated automatically.</p>
+          <p class="font-mono text-sm font-semibold text-emerald-800">PLAN AHEAD · PREMIUM INVESTMENT PROJECTION</p>
+          <h3 class="text-xl font-bold mt-2">Turn today’s inputs into a forward-looking plan</h3>
+          <p class="text-base text-muted mt-3 leading-relaxed">Complete includes debt payoff, interest-saved, net-worth, and mortgage planning. Premium adds emergency-fund planning and an investment goal projection that models goal timing, contributions, and estimated growth.</p>
+          <p class="text-sm text-muted mt-3">Educational projections are not guarantees and do not include every tax, fee, inflation, or market factor.</p>
         </div>
-        <div class="rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="charts.png" data-alt="Charts tab — money in versus money out bars and spending by category">
-          <img src="./images/charts.png" alt="Charts tab — money in versus money out bars and spending by category" class="w-full h-auto block" loading="lazy" />
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-investment-projection-premium.png">
+          <img src="./images/product-investment-projection-premium.png" alt="Actual Premium investment goal projection showing current balance, annual contribution, expected return, years to goal, and estimated growth" loading="lazy" width="1618" height="458" />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Social proof -->
+  <!-- Product assurances -->
   <section class="bg-ink text-white">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight reveal">Clarity people can keep coming back to.</h2>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight reveal">Built to be useful, private, and yours.</h2>
       <div class="grid md:grid-cols-3 gap-6 mt-10">
-        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift">
-          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“I've bought three budgeting apps and canceled all three. This is the first one that just lives in a spreadsheet I already know how to use.”</blockquote>
-          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Maya R.</figcaption>
-        </figure>
-        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift" style="transition-delay:90ms">
-          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“The red-and-green thing sounds simple but it's honestly the reason I keep opening it every week instead of avoiding it.”</blockquote>
-          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Devon T.</figcaption>
-        </figure>
-        <figure class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 reveal lift" style="transition-delay:180ms">
-          <div class="text-amber-400" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote class="text-sm mt-3 leading-relaxed text-zinc-200">“My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does.”</blockquote>
-          <figcaption class="text-xs font-mono text-zinc-500 mt-4">Priya K.</figcaption>
-        </figure>
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift"><p class="font-semibold">No bank connection</p><p class="text-base mt-3 leading-relaxed text-zinc-200">Your financial inputs stay in the workbook you control. The product does not require access to your bank account.</p></div>
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift" style="transition-delay:90ms"><p class="font-semibold">One-time purchase</p><p class="text-base mt-3 leading-relaxed text-zinc-200">No subscription and no recurring product charge. Your licensed download page remains the place to retrieve eligible updates.</p></div>
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift" style="transition-delay:180ms"><p class="font-semibold">Real support and clear guidance</p><p class="text-base mt-3 leading-relaxed text-zinc-200">Quick-start material is included, and product questions receive a response within one to two business days.</p></div>
       </div>
     </div>
   </section>
@@ -399,10 +391,23 @@
 
     <!-- Hook banner -->
     <div class="mt-6 inline-flex flex-wrap items-center gap-2 bg-ink text-white rounded-full px-5 py-2.5 text-sm font-semibold reveal">
-      <span class="bg-emerald-500 text-ink px-2 py-0.5 rounded-full text-xs font-extrabold">$49 ONCE</span>
-      crushes $109/yr — and it's yours forever.
+      <span class="bg-emerald-400 text-ink px-2 py-0.5 rounded-full text-sm font-extrabold">FOUNDING PREMIUM · $36</span>
+      Opening price while we learn from the first customer group.
     </div>
-    <p class="text-xs text-muted mt-2 reveal">All three options are one-time payments. Buy once, keep updates. No login, no bank connection.</p>
+    <p class="text-sm text-muted mt-2 reveal">All three options remain available as one-time purchases. Premium is the featured founding customer offer.</p>
+
+    <fieldset class="mt-7 max-w-3xl rounded-2xl border border-zinc-400 bg-white p-5 md:p-6">
+      <legend class="px-2 font-bold">Optional email choices</legend>
+      <label class="flex items-start gap-3 text-sm leading-relaxed cursor-pointer">
+        <input id="consent-product-updates" type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-emerald-700" />
+        <span><strong>Workbook updates and founding-customer check-ins.</strong> Email me when a licensed update is available and invite me to the optional 7- and 14-day feedback check-ins.</span>
+      </label>
+      <label class="flex items-start gap-3 text-sm leading-relaxed cursor-pointer mt-4">
+        <input id="consent-marketing" type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-emerald-700" />
+        <span><strong>Occasional marketing.</strong> Email me budgeting tips, product news, and special offers.</span>
+      </label>
+      <p class="mt-4 text-sm text-zinc-700">Both choices are optional and unchecked by default. Your purchase receipt and licensed download email are still sent because they are necessary to deliver your order. You can withdraw either choice at any time without affecting your license or download access.</p>
+    </fieldset>
 
     <div class="grid md:grid-cols-3 gap-6 mt-10 items-stretch">
       
@@ -416,7 +421,7 @@
             <span class="text-sm text-muted line-through">$29</span>
             <span class="text-[11px] font-mono bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">SAVE $10</span>
           </div>
-          <p class="text-xs text-muted mt-1">One-time · instant download</p>
+          <p class="text-sm text-muted mt-1">One-time · instant download</p>
           <ul class="text-sm mt-6 space-y-2">
             <li>✓ Color-coded Budget Inputs</li>
             <li>✓ Automatic Monthly Feedback Dashboard (Plain-English benchmark guidance per category)</li>
@@ -439,9 +444,9 @@
           <p class="text-sm text-muted mt-1.5">Debt &amp; Asset Engine</p>
           <div class="flex items-baseline gap-2 mt-4">
             <span class="text-3xl font-extrabold">$39</span>
-            <span class="text-xs font-mono bg-zinc-200 text-zinc-600 px-2 py-0.5 rounded-full">STANDALONE</span>
+            <span class="text-sm font-mono bg-zinc-200 text-zinc-700 px-2 py-0.5 rounded-full">STANDALONE</span>
           </div>
-          <p class="text-xs text-muted mt-1">One-time · instant download</p>
+          <p class="text-sm text-muted mt-1">One-time · instant download</p>
           <ul class="text-sm mt-6 space-y-2">
             <li>✓ Everything in Essentials</li>
             <li>✓ Debt payoff engine — snowball &amp; avalanche with payoff dates</li>
@@ -457,16 +462,16 @@
 
       <!-- Card 3: Premium -->
       <div class="border-2 border-ink rounded-3xl p-7 bg-white relative flex flex-col justify-between shadow-lg reveal lift" style="transition-delay:180ms">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-ink text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">MOST POPULAR • BEST VALUE</div>
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-ink text-sm font-extrabold px-4 py-1.5 rounded-full whitespace-nowrap">FOUNDING CUSTOMER OFFER</div>
         <div>
           <h3 class="font-bold text-lg leading-tight">In The Black<br>Premium</h3>
           <p class="text-sm text-muted mt-1.5">The Financial System</p>
           <div class="flex items-baseline gap-2 mt-4">
-            <span class="text-4xl font-extrabold">$49</span>
-            <span class="text-sm text-muted line-through">$58</span>
-            <span class="text-[11px] font-mono bg-emerald-500 text-white px-2 py-0.5 rounded-full">SAVE $9</span>
+            <span class="text-4xl font-extrabold">$36</span>
+            <span class="text-sm text-muted line-through">$49</span>
+            <span class="text-sm font-mono bg-emerald-700 text-white px-2 py-0.5 rounded-full">OPENING PRICE</span>
           </div>
-          <p class="text-xs text-muted mt-1">One-time · $49 once crushes $109/yr</p>
+          <p class="text-sm text-muted mt-1">One-time payment · founding launch price</p>
           <ul class="text-sm mt-5 space-y-2">
             <li class="font-semibold">✓ Everything in Essentials + Complete</li>
             <li>✓ Exclusive Annual Review tab — year-at-a-glance</li>
@@ -477,37 +482,52 @@
           </ul>
         </div>
         <div class="mt-8 pt-2">
-          <a href="#" data-stripe="premium" id="buy-button" aria-label="Get In The Black Premium — $49" class="buy-btn block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Get Premium — $49</a>
+          <a href="#" data-stripe="premium" id="buy-button" aria-label="Get In The Black Premium founding offer — $36" class="buy-btn block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Join the founding group — $36</a>
         </div>
       </div>
 
     </div>
-    <p class="text-xs text-muted mt-6 text-center">All prices one-time. No subscription. File delivered instantly. Works in Excel and Google Sheets. By purchasing, you consent to our <a href="./privacy.html" class="underline underline-offset-2 hover:text-ink">Privacy Policy</a> and agree to our <a href="./terms.html" class="underline underline-offset-2 hover:text-ink">Terms of Use</a>.</p>
+    <div class="mt-8 rounded-2xl border border-emerald-400 bg-emerald-50 p-6 md:p-7 max-w-3xl mx-auto">
+      <h3 class="text-xl font-bold">Why the founding price?</h3>
+      <p class="mt-3 text-base leading-relaxed text-zinc-800">The opening price lets us learn from real customers before spending heavily on advertising and design. Candid, structured feedback is appreciated, but it is never required to receive the discount. We will politely check in after 7 days and again after 14 days to ask what worked, what was confusing, and what almost stopped you from purchasing.</p>
+      <p class="mt-3 text-sm text-zinc-700"><strong>Founding cohort terms:</strong> Premium is $36 as a one-time founding-launch purchase. The offer may close or change for future purchasers. Your price does not create a subscription or guarantee every future product. Feedback is optional, and we will only email the 7- and 14-day invitations if you select the workbook-updates choice above. We will never publish your feedback as a testimonial without asking for separate, explicit permission.</p>
+    </div>
+    <p class="text-sm text-muted mt-6 text-center">All prices one-time. No subscription. File delivered instantly. Works in Excel and Google Sheets. Because this is a digital download delivered instantly, all sales are final. If you're having trouble opening or using the file, reach out and we'll help. By purchasing, you acknowledge our <a href="./privacy.html" class="underline underline-offset-2 hover:text-ink">Privacy Policy</a> and agree to our <a href="./terms.html" class="underline underline-offset-2 hover:text-ink">Terms of Use</a>.</p>
   </section>
 
   <!-- Feedback -->
-  <section class="bg-zinc-50 border-y border-line">
+  <section id="feedback" class="bg-zinc-50 border-y border-line scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
       <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight reveal">What would you like to see?</h2>
-      <p class="text-muted mt-2 reveal">This product gets better based on what people actually ask for. Tell us what's missing.</p>
+      <p class="text-muted mt-2 reveal">Founding customers: this is where you can share the 7-day or 14-day check-in. Feedback is appreciated, never required.</p>
       
-      <form id="feedback-form" name="feedback" method="POST" data-netlify="true" class="mt-8 bg-white border border-line rounded-2xl p-6 max-w-2xl reveal">
+      <form id="feedback-form" name="feedback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="mt-8 bg-white border border-line rounded-2xl p-6 max-w-2xl reveal">
         <input type="hidden" name="form-name" value="feedback" />
+        <p class="hidden"><label>Do not fill this out: <input name="bot-field" /></label></p>
+        <label for="feedback-stage" class="block text-sm font-semibold">Where are you in your experience?</label>
+        <select id="feedback-stage" name="stage" required class="mt-2 w-full border border-line rounded-xl p-3 text-base bg-white focus:outline-none focus:ring-2 focus:ring-ink">
+          <option value="">Choose one</option>
+          <option>Considering a purchase</option>
+          <option>Just purchased</option>
+          <option>7-day check-in</option>
+          <option>14-day check-in</option>
+          <option>Ongoing customer</option>
+        </select>
         
-        <p class="text-sm font-semibold">What are you most interested in? What would you like to see added? Any other feedback?</p>
+        <p class="text-sm font-semibold mt-5">What are you most interested in? What would you like to see added? Any other feedback?</p>
         
         <!-- Checkbox Bubbles / Pills -->
         <div class="flex flex-wrap gap-2 mt-3.5" id="feedback-choices">
-          <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
+          <label class="choice-pill border border-line rounded-full px-3.5 py-2 text-sm cursor-pointer transition hover:border-zinc-600 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
             <input type="checkbox" name="interest[]" class="sr-only" value="Web app"> Web app
           </label>
-          <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
+          <label class="choice-pill border border-line rounded-full px-3.5 py-2 text-sm cursor-pointer transition hover:border-zinc-600 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
             <input type="checkbox" name="interest[]" class="sr-only" value="Mobile app"> Mobile App
           </label>
-          <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
+          <label class="choice-pill border border-line rounded-full px-3.5 py-2 text-sm cursor-pointer transition hover:border-zinc-600 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
             <input type="checkbox" name="interest[]" class="sr-only" value="More visuals"> More Visuals
           </label>
-          <label class="border border-line rounded-full px-3.5 py-1.5 text-xs sm:text-sm cursor-pointer transition hover:border-zinc-400 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
+          <label class="choice-pill border border-line rounded-full px-3.5 py-2 text-sm cursor-pointer transition hover:border-zinc-600 has-[:checked]:bg-ink has-[:checked]:text-white has-[:checked]:border-ink">
             <input type="checkbox" name="interest[]" class="sr-only" value="Other feature idea"> Other Feature Idea
           </label>
         </div>
@@ -523,11 +543,11 @@
           <button type="submit" id="feedback-submit-btn" class="bg-ink text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition">Send feedback</button>
         </div>
         
-        <div id="feedback-success" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium flex items-center gap-2">
+        <div id="feedback-success" role="status" aria-live="polite" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-400 text-emerald-900 text-sm font-medium flex items-center gap-2">
           <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
           <span>Thank you! Your feedback has been sent directly to us.</span>
         </div>
-        <div id="feedback-error" role="status" class="hidden mt-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm font-medium">We couldn't send your feedback. Please try again or email ITBB@intheblackbudget.com.</div>
+        <div id="feedback-error" role="alert" aria-live="assertive" class="hidden mt-4 p-3.5 rounded-xl bg-red-50 border border-red-400 text-red-900 text-sm font-medium">We couldn't send your feedback. Please try again or email ITBB@intheblackbudget.com.</div>
       </form>
     </div>
   </section>
@@ -553,7 +573,7 @@
         <div class="space-y-6 text-sm text-zinc-200">
           <div><p class="font-mono text-sm text-zinc-300">EMAIL</p><p id="contact-email" class="mt-1 text-white"><a href="mailto:ITBB@intheblackbudget.com" class="underline decoration-zinc-400 hover:decoration-white">ITBB@intheblackbudget.com</a></p></div>
           <div><p class="font-mono text-sm text-zinc-300">RESPONSE TIME</p><p class="mt-1 text-white">Within 1–2 business days</p></div>
-          <div><p class="font-mono text-xs text-zinc-300">ELSEWHERE</p><div class="mt-2 flex flex-wrap gap-3"><a class="underline hover:text-white" href="https://www.facebook.com/profile.php?id=61593162213256" target="_blank" rel="noopener noreferrer">Facebook</a><a class="underline hover:text-white" href="https://www.instagram.com/intheblackbudget1/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="underline hover:text-white" href="https://www.tiktok.com/@intheblackbudget" target="_blank" rel="noopener noreferrer">TikTok</a></div></div>
+          <div><p class="font-mono text-sm text-zinc-300">ELSEWHERE</p><div class="mt-2 flex flex-wrap gap-3"><a class="underline hover:text-white" href="https://www.facebook.com/profile.php?id=61593162213256" target="_blank" rel="noopener noreferrer">Facebook</a><a class="underline hover:text-white" href="https://www.instagram.com/intheblackbudget1/" target="_blank" rel="noopener noreferrer">Instagram</a><a class="underline hover:text-white" href="https://www.tiktok.com/@intheblackbudget" target="_blank" rel="noopener noreferrer">TikTok</a></div></div>
         </div>
         
         <form id="contact-form" name="contact" method="POST" data-netlify="true" class="md:col-span-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
@@ -579,11 +599,11 @@
             <button type="submit" id="contact-submit-btn" class="bg-white text-ink px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-100 transition">Send message</button>
           </div>
           
-          <div id="contact-success" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-300 text-sm font-medium flex items-center gap-2">
+          <div id="contact-success" role="status" aria-live="polite" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-950 border border-emerald-600 text-emerald-200 text-sm font-medium flex items-center gap-2">
             <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             <span>Thank you! Your message has been sent directly to us. We'll reply within 1–2 business days.</span>
           </div>
-          <div id="contact-error" role="status" class="hidden mt-4 p-3.5 rounded-xl bg-red-950 border border-red-800 text-red-300 text-sm font-medium">We couldn't send your message. Please try again or email ITBB@intheblackbudget.com.</div>
+          <div id="contact-error" role="alert" aria-live="assertive" class="hidden mt-4 p-3.5 rounded-xl bg-red-950 border border-red-600 text-red-200 text-sm font-medium">We couldn't send your message. Please try again or email ITBB@intheblackbudget.com.</div>
         </form>
       </div>
       
@@ -641,7 +661,11 @@
               const res = await fetch(fnBase + '/create-checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ product: key })
+                body: JSON.stringify({
+                  product: key,
+                  productUpdateConsent: document.getElementById('consent-product-updates')?.checked === true,
+                  marketingConsent: document.getElementById('consent-marketing')?.checked === true
+                })
               });
               const data = await res.json().catch(()=>({}));
               if (data.url) { window.location.href = data.url; return; }

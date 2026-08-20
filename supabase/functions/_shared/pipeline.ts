@@ -33,6 +33,9 @@ export interface PurchaseInfo {
   customerName: string;
   customerEmail: string;
   productId: string;
+  productUpdateConsent?: boolean;
+  marketingConsent?: boolean;
+  consentSource?: string;
 }
 
 export interface PipelineResult {
@@ -106,6 +109,10 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
     stripe_payment_intent: purchase.paymentIntent ?? null,
     customer_name: purchase.customerName,
     customer_email: purchase.customerEmail,
+    product_update_consent: purchase.productUpdateConsent === true,
+    marketing_consent: purchase.marketingConsent === true,
+    consent_recorded_at: new Date().toISOString(),
+    consent_source: purchase.consentSource ?? 'stripe_checkout',
     status: 'pending',
   };
   const { error: upsertErr } = existing

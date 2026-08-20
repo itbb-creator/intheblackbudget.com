@@ -17,6 +17,17 @@
   status = 200
 
 [[redirects]]
+  from = "/email-preferences"
+  to = "/email-preferences.html"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/email-preferences"
+  to = "https://vtrdkoeydzvrhtiuykja.supabase.co/functions/v1/email-preferences"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

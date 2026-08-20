@@ -4,6 +4,8 @@
 
 # Pipeline test/demo output
 test-output/
+tmp/
+supabase/.temp/
 
 # Dependencies
 node_modules/

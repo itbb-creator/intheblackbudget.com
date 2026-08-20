@@ -21,7 +21,7 @@ Deno.serve(async (req: Request) => {
       return jsonResponse({ error: 'Method not allowed' }, 405, req);
     }
 
-    const body = await readJson<{ product?: string }>(req);
+    const body = await readJson<{ product?: string; productUpdateConsent?: boolean; marketingConsent?: boolean }>(req);
     const product = getProduct(body.product ?? '');
     if (!product) {
       return jsonResponse(
@@ -54,9 +54,20 @@ Deno.serve(async (req: Request) => {
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${siteUrl()}/download.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl()}/#pricing`,
-      metadata: { product: product.id, source: 'intheblackbudget.com' },
+      metadata: {
+        product: product.id,
+        source: 'intheblackbudget.com',
+        product_update_consent: body.productUpdateConsent === true ? 'true' : 'false',
+        marketing_consent: body.marketingConsent === true ? 'true' : 'false',
+        consent_source: 'website_checkout_2026_08',
+      },
       // Let customers type their name + email at checkout (drives personalization).
       allow_promotion_codes: true,
+      custom_text: {
+        submit: {
+          message: "Because this is a digital download delivered instantly, all sales are final. If you're having trouble opening or using the file, reach out and we'll help.",
+        },
+      },
     });
 
     return jsonResponse({ url: session.url }, 200, req);

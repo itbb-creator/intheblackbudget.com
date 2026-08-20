@@ -80,7 +80,7 @@ Same general steps work for **Cloudflare Pages**.
 | Change price / Stripe link / email | `content.json` | `pricing.*`, `stripeLinks.*`, `contactEmail` |
 | Change headline | `index.html` | `Budgeting apps want` |
 | Change pricing cards (features) | `index.html` | `In The Black<br>Essentials` / `Complete` / `Premium` |
-| Change hook banner | `index.html` | `$49 ONCE` `crushes $109/yr` |
+| Change hook banner | `index.html` | `FOUNDING PREMIUM · $36` |
 | Swap screenshots | `index.html` | `/images/budget-input.png` — replace with real files in `/images/` |
 | Change logo / favicon | `images/logo.svg` + `favicon.svg` + `images/logo.png` / `favicon.png` | See below |
 | Change FAQ | `index.html` | `Good questions` section → edit `<details>` blocks |
@@ -140,7 +140,7 @@ and the tab uses:
 
 - **In The Black Essentials — $19** (was $29): Basic budget sheet only. Starter.
 - **In The Black Complete — $39**: Advanced alone — debt snowball/avalanche, net worth, mortgage, multi-month. 
-- **In The Black Premium — $49** (was $58): **Both combined + Exclusive Annual Review tab**. Marked MOST POPULAR • BEST VALUE. `$49 once crushes $109/yr` hook is the black pill banner under the pricing title.
+- **In The Black Premium — $36 founding price** (regularly $49): **Everything in Essentials + Complete, plus Premium planning tools**. Marked FOUNDING CUSTOMER OFFER. The founding-price explanation appears directly beneath the pricing cards.
 
 Edit prices/links in `content.json` → `pricing` and `stripeLinks`.
 

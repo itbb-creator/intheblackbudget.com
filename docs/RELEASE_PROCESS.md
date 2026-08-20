@@ -16,8 +16,13 @@
    - `SITE_URL=https://intheblackbudget.com`
    - `SUPPORT_EMAIL=ITBB@intheblackbudget.com`
 
-5. Redeploy `stripe-webhook`, then complete a test purchase and confirm the
-   welcome email arrives with the customer's stable licensed-download page.
+5. Supabase secrets are available to hosted Edge Functions immediately. Deploy
+   `stripe-webhook` only when its code changed, then complete a test purchase
+   and confirm the welcome email arrives with the customer's stable
+   licensed-download page.
+
+For the full account, domain, test, and release-email walkthrough, see
+`docs/RESEND_AND_UPDATE_EMAIL_SETUP.md`.
 
 ## Publish a workbook release
 
@@ -31,7 +36,8 @@
 5. In one database transaction, unset the previous release's `is_current` flag
    and set the new release to `is_current = true` with `published_at = now()`.
 6. Add the same public-facing notes to `changelog.html` and publish the site.
-7. Preview the update audience without sending:
+7. Confirm the recipients have `product_update_consent=true` and no
+   `unsubscribed_at`, then preview the update audience without sending:
 
    `npm run email-release -- premium 1.1.0`
 
@@ -42,4 +48,6 @@
 Each message contains that customer's existing
 `/download.html?license=ITB-...` page. When opened, the page detects the current
 release, personalizes the new master, stores the updated licensed copy, and
-returns a fresh temporary download URL.
+returns a fresh temporary download URL. Each update email also contains a
+preference link and one-click unsubscribe headers. Unsubscribing does not
+remove access to the licensed download page.

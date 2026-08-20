@@ -24,29 +24,15 @@
     },
     "premium": {
       "name": "In The Black Premium",
-      "price": "$49",
-      "compareAt": "$58",
+      "price": "$36",
+      "compareAt": "$49",
       "blurb": "The Financial System",
-      "hook": "$49 once crushes $109/yr"
+      "hook": "Founding customer offer"
     }
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/profile.php?id=61593162213256",
     "instagram": "https://www.instagram.com/intheblackbudget1/",
     "tiktok": "https://www.tiktok.com/@intheblackbudget"
-  },
-  "testimonials": [
-    {
-      "name": "Maya R.",
-      "text": "I've bought three budgeting apps and canceled all three. This is the first one that just lives in a spreadsheet I already know how to use."
-    },
-    {
-      "name": "Devon T.",
-      "text": "The red-and-green thing sounds simple but it's honestly the reason I keep opening it every week instead of avoiding it."
-    },
-    {
-      "name": "Priya K.",
-      "text": "My favorite part is the dashboard flagging my subscriptions creeping up before my bank statement ever does."
-    }
-  ]
+  }
 }

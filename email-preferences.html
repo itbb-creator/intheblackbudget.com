@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email preferences — In The Black</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#fafafa;color:#0a0a0a;font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:620px;margin:auto;padding:32px 20px 64px}.brand{display:inline-flex;align-items:center;gap:10px;color:#0a0a0a;text-decoration:none;font-weight:800}.brand img{width:34px;height:34px;border-radius:50%}.card{margin-top:28px;background:#fff;border:1px solid #9ca3af;border-radius:20px;padding:28px}h1{font-size:30px;line-height:1.2;margin:0 0 10px}p{color:#374151}.choice{display:flex;align-items:flex-start;gap:12px;margin-top:22px}.choice input{width:20px;height:20px;margin-top:3px;accent-color:#047857;flex:none}.choice span{display:block}.note{font-size:14px}.button{width:100%;margin-top:26px;border:0;border-radius:999px;background:#0a0a0a;color:#fff;font:inherit;font-weight:700;padding:14px 24px;cursor:pointer}.button:hover{background:#000}.button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1c7a3d;outline-offset:3px}.button:disabled{opacity:.6;cursor:wait}.status{min-height:26px;margin-top:16px;font-weight:600}.error{color:#b91c1c}.success{color:#047857}@media(max-width:480px){.card{padding:22px}h1{font-size:26px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="./"><img src="./images/logo.png" alt="" /> IN THE BLACK</a>
+    <section class="card" aria-labelledby="page-title">
+      <h1 id="page-title">Email preferences</h1>
+      <p id="intro">Loading your choices…</p>
+      <form id="preferences" hidden>
+        <label class="choice"><input id="updates" type="checkbox" /><span><strong>Workbook updates and founding-customer check-ins</strong><br />Release notices and optional 7- and 14-day feedback invitations.</span></label>
+        <label class="choice"><input id="marketing" type="checkbox" /><span><strong>Occasional marketing</strong><br />Budgeting tips, product news, and special offers.</span></label>
+        <p class="note">Clear both boxes to unsubscribe from all optional email. Purchase receipts and requested support messages may still be sent. Your license and download access are never affected.</p>
+        <button class="button" type="submit">Save email preferences</button>
+      </form>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+  <script>
+    const token = new URLSearchParams(location.search).get('token') || '';
+    const form = document.getElementById('preferences');
+    const status = document.getElementById('status');
+    const intro = document.getElementById('intro');
+    const updates = document.getElementById('updates');
+    const marketing = document.getElementById('marketing');
+    const endpoint = '/.netlify/functions/email-preferences?token=' + encodeURIComponent(token);
+    const setError = message => { status.textContent = message; status.className = 'status error'; };
+    if (!token) setError('This preference link is incomplete. Please use the link in your email.');
+    else fetch(endpoint).then(async response => {
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Could not load your preferences.');
+      updates.checked = data.productUpdateConsent;
+      marketing.checked = data.marketingConsent;
+      intro.textContent = data.email ? 'Choose what we may send to ' + data.email + '.' : 'Choose what we may send you.';
+      form.hidden = false;
+    }).catch(error => setError(error.message));
+    form.addEventListener('submit', async event => {
+      event.preventDefault(); status.textContent = ''; form.querySelector('button').disabled = true;
+      try {
+        const response = await fetch(endpoint, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({productUpdateConsent:updates.checked,marketingConsent:marketing.checked})});
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Could not save your preferences.');
+        status.textContent = data.unsubscribed ? 'You are unsubscribed from all optional email.' : 'Your email preferences are saved.';
+        status.className = 'status success';
+      } catch (error) { setError(error.message); }
+      form.querySelector('button').disabled = false;
+    });
+  </script>
+</body>
+</html>

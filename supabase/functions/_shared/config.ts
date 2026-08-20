@@ -35,7 +35,7 @@ export const PRODUCTS: ProductConfig[] = [
     name: 'In The Black Premium Toolkit',
     masterPath: 'premium.xlsx',
     fileNamePrefix: 'ITB_Premium_Toolkit',
-    priceEnv: 'STRIPE_PRICE_PREMIUM',
+    priceEnv: 'STRIPE_PRICE_PREMIUM_FOUNDING',
   },
 ];
 

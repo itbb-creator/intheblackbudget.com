@@ -144,7 +144,7 @@ const DEMO_CHECKOUT_PAGE = `<!DOCTYPE html>
         <div class="row"><label for="exp">Expiry</label><input id="exp" value="12 / 34" disabled /></div>
         <div class="row"><label for="cvc">CVC</label><input id="cvc" value="123" disabled /></div>
       </div>
-      <div class="total"><span>Total (one-time)</span><span id="price">$49</span></div>
+      <div class="total"><span>Total (one-time)</span><span id="price">$36</span></div>
       <div class="err" id="err"></div>
       <button class="btn" id="pay" type="submit">Pay</button>
     </form>
@@ -153,7 +153,7 @@ const DEMO_CHECKOUT_PAGE = `<!DOCTYPE html>
 </div>
 <script>
   var q = new URLSearchParams(location.search);
-  var PRODUCTS = { essentials: {name:'In The Black Essentials',price:'$19'}, complete:{name:'In The Black Complete',price:'$39'}, premium:{name:'In The Black Premium Toolkit',price:'$49'} };
+  var PRODUCTS = { essentials: {name:'In The Black Essentials',price:'$19'}, complete:{name:'In The Black Complete',price:'$39'}, premium:{name:'In The Black Premium Toolkit — Founding Offer',price:'$36'} };
   var p = PRODUCTS[q.get('product')] || PRODUCTS.premium;
   document.getElementById('product-name').textContent = p.name;
   document.getElementById('price').textContent = p.price;
