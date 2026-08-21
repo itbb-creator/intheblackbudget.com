@@ -102,8 +102,26 @@
     .hero-shell:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(16,185,129,.13) 0 2px,transparent 2px),radial-gradient(circle at 85% 70%,rgba(244,63,94,.1) 0 2px,transparent 2px);background-size:34px 34px,42px 42px;pointer-events:none}
     .contact-pill:has(input:checked){background:#fff;color:#0a0a0a;border-color:#fff}
     .choice-pill:has(input:focus-visible),.contact-pill:has(input:focus-visible){outline:3px solid currentColor;outline-offset:3px}
-    .product-shot{background:#f4f4f5;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
-    .product-shot img{width:100%;height:100%;object-fit:contain}
+    .product-shot{background:#fff;position:relative}
+    .product-shot img{width:100%;height:auto;display:block}
+    .product-zoom-trigger{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;text-align:left}
+    .product-zoom-trigger:focus-visible{outline:3px solid #0a0a0a;outline-offset:4px}
+    .product-zoom-hint{position:absolute;right:.75rem;bottom:.75rem;padding:.4rem .65rem;border-radius:999px;background:rgba(10,10,10,.82);color:#fff;font-size:.75rem;font-weight:700;pointer-events:none}
+    .product-lightbox{width:min(96vw,90rem);height:min(92vh,60rem);padding:0;border:0;border-radius:1rem;background:#111;color:#fff;overflow:hidden}
+    .product-lightbox::backdrop{background:rgba(0,0,0,.82)}
+    .product-lightbox-shell{height:100%;display:flex;flex-direction:column}
+    .product-lightbox-toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 1rem;background:#18181b;border-bottom:1px solid #3f3f46}
+    .product-lightbox-controls{display:flex;align-items:center;gap:.5rem}
+    .product-lightbox-controls button{min-width:2.75rem;min-height:2.75rem;border:1px solid #71717a;border-radius:999px;background:#27272a;color:#fff;font-weight:800}
+    .product-lightbox-controls button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+    .product-lightbox-viewport{flex:1;overflow:hidden;display:grid;place-items:center;touch-action:none;cursor:grab;background:#09090b}
+    .product-lightbox-viewport.dragging{cursor:grabbing}
+    .product-lightbox-image{max-width:100%;max-height:100%;width:auto;height:auto;user-select:none;-webkit-user-drag:none;transform-origin:center;will-change:transform}
+    @media (max-width:520px){
+      .product-lightbox-toolbar{align-items:flex-start;flex-wrap:wrap}
+      .product-lightbox-toolbar>div:first-child{width:100%}
+      .product-lightbox-controls{width:100%;justify-content:flex-end}
+    }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
@@ -340,16 +358,12 @@
             <li><span class="inline-block w-3 h-3 bg-amber-500 rounded-sm align-middle mr-2" aria-hidden="true"></span> Amber = Subscriptions</li>
           </ul>
         </div>
-        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-budget.png">
-          <img src="./images/product-budget.png" alt="Actual Budget Input worksheet showing color-coded income, expenses, taxes, investing, and automatically calculated totals" loading="lazy" width="2940" height="1578" />
-        </div>
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-budget.png"><button type="button" class="product-zoom-trigger" aria-label="Enlarge the Budget worksheet screenshot"><img src="./images/product-budget.png" alt="Actual Budget Input worksheet showing color-coded income, expenses, taxes, investing, and automatically calculated totals" loading="lazy" width="2940" height="1578" /><span class="product-zoom-hint" aria-hidden="true">Click to zoom</span></button></div>
       </div>
 
       <!-- Unified dashboard -->
       <div class="grid md:grid-cols-2 gap-8 items-center border border-line rounded-3xl p-6 md:p-8 reveal">
-        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm md:order-first order-last" data-shot="product-unified-dashboard-premium.png">
-          <img src="./images/product-unified-dashboard-premium.png" alt="Actual Premium Unified Dashboard combining budget, debt, net worth, emergency fund, cash flow, and financial health score" loading="lazy" width="3444" height="950" />
-        </div>
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm md:order-first order-last" data-shot="product-unified-dashboard-premium.png"><button type="button" class="product-zoom-trigger" aria-label="Enlarge the Premium Unified Dashboard screenshot"><img src="./images/product-unified-dashboard-premium.png" alt="Actual Premium Unified Dashboard combining budget, debt, net worth, emergency fund, cash flow, and financial health score" loading="lazy" width="3444" height="950" /><span class="product-zoom-hint" aria-hidden="true">Click to zoom</span></button></div>
         <div>
           <p class="font-mono text-sm font-semibold text-emerald-800">UNIFIED DASHBOARD · PREMIUM ONLY</p>
           <h3 class="text-xl font-bold mt-2">One place to see how everything connects</h3>
@@ -365,9 +379,7 @@
           <p class="text-base text-muted mt-3 leading-relaxed">Complete includes debt payoff, interest-saved, net-worth, and mortgage planning. Premium adds emergency-fund planning and an investment goal projection that models goal timing, contributions, and estimated growth.</p>
           <p class="text-sm text-muted mt-3">Educational projections are not guarantees and do not include every tax, fee, inflation, or market factor.</p>
         </div>
-        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-investment-projection-premium.png">
-          <img src="./images/product-investment-projection-premium.png" alt="Actual Premium investment goal projection showing current balance, annual contribution, expected return, years to goal, and estimated growth" loading="lazy" width="1618" height="458" />
-        </div>
+        <div class="product-shot rounded-2xl overflow-hidden border border-line shadow-sm" data-shot="product-investment-projection-premium.png"><button type="button" class="product-zoom-trigger" aria-label="Enlarge the Premium investment projection screenshot"><img src="./images/product-investment-projection-premium.png?v=20260821" alt="Actual Premium investment goal projection showing assumptions, outlook, and a graph of projected investment growth compared with contributions" loading="lazy" width="1947" height="1658" /><span class="product-zoom-hint" aria-hidden="true">Click to zoom</span></button></div>
       </div>
     </div>
   </section>
@@ -379,7 +391,7 @@
       <div class="grid md:grid-cols-3 gap-6 mt-10">
         <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift"><p class="font-semibold">No bank connection</p><p class="text-base mt-3 leading-relaxed text-zinc-200">Your financial inputs stay in the workbook you control. The product does not require access to your bank account.</p></div>
         <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift" style="transition-delay:90ms"><p class="font-semibold">One-time purchase</p><p class="text-base mt-3 leading-relaxed text-zinc-200">No subscription and no recurring product charge. Your licensed download page remains the place to retrieve eligible updates.</p></div>
-        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift" style="transition-delay:180ms"><p class="font-semibold">Real support and clear guidance</p><p class="text-base mt-3 leading-relaxed text-zinc-200">Quick-start material is included, and product questions receive a response within one to two business days.</p></div>
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 reveal lift" style="transition-delay:180ms"><p class="font-semibold">Real support and clear guidance</p><p class="text-base mt-3 leading-relaxed text-zinc-200">Quick start and onboarding material is included, and product questions receive a response within one to two business days.</p></div>
       </div>
     </div>
   </section>
@@ -400,7 +412,7 @@
       <legend class="px-2 font-bold">Optional email choices</legend>
       <label class="flex items-start gap-3 text-sm leading-relaxed cursor-pointer">
         <input id="consent-product-updates" type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-emerald-700" />
-        <span><strong>Workbook updates and founding-customer check-ins.</strong> Email me when a licensed update is available and invite me to the optional 7- and 14-day feedback check-ins.</span>
+        <span><strong>Workbook updates and founding-customer check-ins.</strong> Email me when a licensed update is available and invite me to the optional 7- and 14-day feedback check-ins (exclusive to the founding offer).</span>
       </label>
       <label class="flex items-start gap-3 text-sm leading-relaxed cursor-pointer mt-4">
         <input id="consent-marketing" type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-emerald-700" />
@@ -433,7 +445,7 @@
           </ul>
         </div>
         <div class="mt-8 pt-2">
-          <a href="#" data-stripe="essentials" aria-label="Buy In The Black Essentials — $19" class="buy-btn block text-center bg-white border-2 border-ink text-ink py-3 rounded-full font-semibold hover:bg-zinc-50 transition">Buy Essentials — $19</a>
+          <a href="#" data-stripe="essentials" aria-label="Buy In The Black Essentials — $19" class="buy-btn block text-center bg-white border-2 border-ink text-ink py-3 rounded-full font-semibold hover:bg-zinc-50 transition">Buy Essentials</a>
         </div>
       </div>
 
@@ -456,7 +468,7 @@
           </ul>
         </div>
         <div class="mt-8 pt-2">
-          <a href="#" data-stripe="complete" aria-label="Buy In The Black Complete — $39" class="buy-btn block text-center bg-ink text-white py-3 rounded-full font-semibold hover:bg-black transition">Buy Complete — $39</a>
+          <a href="#" data-stripe="complete" aria-label="Buy In The Black Complete — $39" class="buy-btn block text-center bg-ink text-white py-3 rounded-full font-semibold hover:bg-black transition">Buy Complete</a>
         </div>
       </div>
 
@@ -469,7 +481,7 @@
           <div class="flex items-baseline gap-2 mt-4">
             <span class="text-4xl font-extrabold">$36</span>
             <span class="text-sm text-muted line-through">$49</span>
-            <span class="text-sm font-mono bg-emerald-700 text-white px-2 py-0.5 rounded-full">OPENING PRICE</span>
+            <span class="inline-flex min-w-[8.75rem] items-center justify-center text-sm font-mono bg-emerald-500 text-ink px-3 py-0.5 rounded-full">OPENING PRICE</span>
           </div>
           <p class="text-sm text-muted mt-1">One-time payment · founding launch price</p>
           <ul class="text-sm mt-5 space-y-2">
@@ -482,15 +494,16 @@
           </ul>
         </div>
         <div class="mt-8 pt-2">
-          <a href="#" data-stripe="premium" id="buy-button" aria-label="Get In The Black Premium founding offer — $36" class="buy-btn block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Join the founding group — $36</a>
+          <a href="#" data-stripe="premium" id="buy-button" aria-label="Get In The Black Premium founding offer — $36" class="buy-btn block text-center bg-ink text-white py-3.5 rounded-full font-semibold hover:bg-black transition">Join the Founding Group</a>
         </div>
       </div>
 
     </div>
     <div class="mt-8 rounded-2xl border border-emerald-400 bg-emerald-50 p-6 md:p-7 max-w-3xl mx-auto">
       <h3 class="text-xl font-bold">Why the founding price?</h3>
-      <p class="mt-3 text-base leading-relaxed text-zinc-800">The opening price lets us learn from real customers before spending heavily on advertising and design. Candid, structured feedback is appreciated, but it is never required to receive the discount. We will politely check in after 7 days and again after 14 days to ask what worked, what was confusing, and what almost stopped you from purchasing.</p>
-      <p class="mt-3 text-sm text-zinc-700"><strong>Founding cohort terms:</strong> Premium is $36 as a one-time founding-launch purchase. The offer may close or change for future purchasers. Your price does not create a subscription or guarantee every future product. Feedback is optional, and we will only email the 7- and 14-day invitations if you select the workbook-updates choice above. We will never publish your feedback as a testimonial without asking for separate, explicit permission.</p>
+      <p class="mt-3 text-base leading-relaxed text-zinc-800">The opening price lets us learn from real customers before increasing spending on advertising and design. It also allows us to optimize and deliver the best product to customers! Candid, structured feedback is appreciated, but it is never required to receive the discount. If you opt in, we will politely check in after 7 days and again after 14 days to ask what worked, what was confusing, and if anything almost stopped you from purchasing.</p>
+      <p class="mt-3 text-sm text-zinc-700"><strong>Founding cohort terms:</strong> Premium is $36 as a one-time founding-launch purchase. The offer may close or change for future purchasers. Your price does not create a subscription or guarantee every future product. Feedback is optional, and we will only email the 7- and 14-day check-ins if you select the workbook-updates choice above. We will never publish your feedback as a testimonial without asking for separate, explicit permission.</p>
+      <p class="mt-3 text-sm text-zinc-700"><strong>What separate permission means:</strong> If you allow us to contact you, we will email the exact quote, attribution, and intended placement for your review. We will publish it only after you reply with approval. No response is not permission, and you can always decline.</p>
     </div>
     <p class="text-sm text-muted mt-6 text-center">All prices one-time. No subscription. File delivered instantly. Works in Excel and Google Sheets. Because this is a digital download delivered instantly, all sales are final. If you're having trouble opening or using the file, reach out and we'll help. By purchasing, you acknowledge our <a href="./privacy.html" class="underline underline-offset-2 hover:text-ink">Privacy Policy</a> and agree to our <a href="./terms.html" class="underline underline-offset-2 hover:text-ink">Terms of Use</a>.</p>
   </section>
@@ -537,7 +550,7 @@
         
         <label for="feedback-email" class="sr-only">Email address, optional</label>
         <input id="feedback-email" name="email" type="email" autocomplete="email" placeholder="Email (optional — only if you'd like a reply)" class="mt-3 w-full border border-line rounded-xl p-3 text-base focus:outline-none focus:ring-2 focus:ring-ink" />
-        <label class="mt-4 flex items-start gap-2 text-sm text-zinc-700"><input type="checkbox" name="testimonial_permission" value="yes" class="mt-1"> <span>You may contact me to ask permission to use this feedback as a testimonial. Nothing will be published without my approval.</span></label>
+        <label class="mt-4 flex items-start gap-2 text-sm text-zinc-700"><input type="checkbox" name="testimonial_permission" value="yes" class="mt-1"> <span>You may contact me to request separate testimonial permission. If you do, send me the exact quote, attribution, and intended placement; nothing may be published until I approve it.</span></label>
         
         <div class="mt-4 flex items-center gap-3">
           <button type="submit" id="feedback-submit-btn" class="bg-ink text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition">Send feedback</button>
@@ -564,6 +577,16 @@
     </div>
   </section>
   </main>
+
+  <dialog id="product-lightbox" class="product-lightbox" aria-labelledby="product-lightbox-title">
+    <div class="product-lightbox-shell">
+      <div class="product-lightbox-toolbar">
+        <div><p id="product-lightbox-title" class="font-bold">Workbook preview</p><p class="text-xs text-zinc-300">Drag or swipe to move. Use the controls or mouse wheel to zoom.</p></div>
+        <div class="product-lightbox-controls" aria-label="Image zoom controls"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-reset aria-label="Reset zoom">Reset</button><button type="button" data-zoom-in aria-label="Zoom in">+</button><button type="button" data-zoom-close aria-label="Close preview">×</button></div>
+      </div>
+      <div class="product-lightbox-viewport"><img class="product-lightbox-image" alt="" /></div>
+    </div>
+  </dialog>
 
   <!-- Contact / footer -->
   <footer class="bg-ink text-white">
@@ -707,6 +730,55 @@
     }
     menuBtn?.addEventListener('click',()=>setMenu(mobileMenu.classList.contains('hidden')));
     mobileMenu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+    // PRODUCT IMAGE VIEWER — accessible dialog with mouse, touch, and keyboard controls
+    const lightbox = document.getElementById('product-lightbox');
+    const lightboxViewport = lightbox?.querySelector('.product-lightbox-viewport');
+    const lightboxImage = lightbox?.querySelector('.product-lightbox-image');
+    let lightboxScale = 1, lightboxX = 0, lightboxY = 0, dragStart = null;
+    const clampScale = value => Math.min(4, Math.max(1, value));
+    const paintLightbox = () => {
+      if (!lightboxImage) return;
+      if (lightboxScale === 1) { lightboxX = 0; lightboxY = 0; }
+      lightboxImage.style.transform = `translate(${lightboxX}px, ${lightboxY}px) scale(${lightboxScale})`;
+    };
+    const setLightboxScale = next => { lightboxScale = clampScale(next); paintLightbox(); };
+    document.querySelectorAll('.product-zoom-trigger').forEach(trigger => trigger.addEventListener('click', () => {
+      const source = trigger.querySelector('img');
+      if (!lightbox || !lightboxImage || !source) return;
+      lightboxImage.src = source.currentSrc || source.src;
+      lightboxImage.alt = source.alt;
+      lightboxScale = 1; lightboxX = 0; lightboxY = 0; paintLightbox();
+      lightbox.showModal();
+    }));
+    lightbox?.querySelector('[data-zoom-in]')?.addEventListener('click', () => setLightboxScale(lightboxScale + .35));
+    lightbox?.querySelector('[data-zoom-out]')?.addEventListener('click', () => setLightboxScale(lightboxScale - .35));
+    lightbox?.querySelector('[data-zoom-reset]')?.addEventListener('click', () => { lightboxScale = 1; lightboxX = 0; lightboxY = 0; paintLightbox(); });
+    lightbox?.querySelector('[data-zoom-close]')?.addEventListener('click', () => lightbox.close());
+    lightboxViewport?.addEventListener('wheel', event => {
+      event.preventDefault();
+      setLightboxScale(lightboxScale + (event.deltaY < 0 ? .2 : -.2));
+    }, { passive: false });
+    lightboxViewport?.addEventListener('pointerdown', event => {
+      if (lightboxScale <= 1) return;
+      dragStart = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, imageX: lightboxX, imageY: lightboxY };
+      lightboxViewport.setPointerCapture(event.pointerId);
+      lightboxViewport.classList.add('dragging');
+    });
+    lightboxViewport?.addEventListener('pointermove', event => {
+      if (!dragStart || event.pointerId !== dragStart.pointerId) return;
+      lightboxX = dragStart.imageX + event.clientX - dragStart.x;
+      lightboxY = dragStart.imageY + event.clientY - dragStart.y;
+      paintLightbox();
+    });
+    const endLightboxDrag = event => {
+      if (!dragStart || event.pointerId !== dragStart.pointerId) return;
+      dragStart = null;
+      lightboxViewport?.classList.remove('dragging');
+    };
+    lightboxViewport?.addEventListener('pointerup', endLightboxDrag);
+    lightboxViewport?.addEventListener('pointercancel', endLightboxDrag);
+    lightbox?.addEventListener('click', event => { if (event.target === lightbox) lightbox.close(); });
 
     // REVEAL ON SCROLL
     const io=new IntersectionObserver(es=>es.forEach(e=>{
