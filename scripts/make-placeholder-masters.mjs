@@ -126,13 +126,13 @@ function coreXml(title) {
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <dc:title>${esc(title)}</dc:title>
-<dc:creator>In The Black Budget</dc:creator>
+<dc:creator>Pravely</dc:creator>
 </cp:coreProperties>`;
 }
 
 const APP_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-<Application>In The Black Budget</Application>
+<Application>Pravely</Application>
 </Properties>`;
 
 function buildWorkbook(product) {
@@ -194,9 +194,9 @@ function buildWorkbook(product) {
 }
 
 const products = [
-  { id: 'essentials', name: 'In The Black Essentials' },
-  { id: 'complete', name: 'In The Black Complete' },
-  { id: 'premium', name: 'In The Black Premium Toolkit' },
+  { id: 'essentials', name: 'Pravely Essentials' },
+  { id: 'complete', name: 'Pravely Complete' },
+  { id: 'premium', name: 'Pravely Premium Toolkit' },
 ];
 
 const outDir = join(ROOT, 'assets/masters');

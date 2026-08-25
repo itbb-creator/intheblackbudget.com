@@ -5,7 +5,7 @@
 
 export interface ProductConfig {
   id: string;
-  /** Display name, e.g. "In The Black Premium Toolkit". */
+  /** Display name, e.g. "Pravely Premium Toolkit". */
   name: string;
   /** Master file inside the workbook-masters bucket. */
   masterPath: string;
@@ -18,21 +18,21 @@ export interface ProductConfig {
 export const PRODUCTS: ProductConfig[] = [
   {
     id: 'essentials',
-    name: 'In The Black Essentials',
+    name: 'Pravely Essentials',
     masterPath: 'essentials.xlsx',
     fileNamePrefix: 'ITB_Essentials',
     priceEnv: 'STRIPE_PRICE_ESSENTIALS',
   },
   {
     id: 'complete',
-    name: 'In The Black Complete',
+    name: 'Pravely Complete',
     masterPath: 'complete.xlsx',
     fileNamePrefix: 'ITB_Complete',
     priceEnv: 'STRIPE_PRICE_COMPLETE',
   },
   {
     id: 'premium',
-    name: 'In The Black Premium Toolkit',
+    name: 'Pravely Premium Toolkit',
     masterPath: 'premium.xlsx',
     fileNamePrefix: 'ITB_Premium_Toolkit',
     priceEnv: 'STRIPE_PRICE_PREMIUM_FOUNDING',

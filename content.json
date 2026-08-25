@@ -12,18 +12,18 @@
   },
   "pricing": {
     "essentials": {
-      "name": "In The Black Essentials",
+      "name": "Pravely Essentials",
       "price": "$19",
       "compareAt": "$29",
       "blurb": "Monthly Clarity"
     },
     "complete": {
-      "name": "In The Black Complete",
+      "name": "Pravely Complete",
       "price": "$39",
       "blurb": "Debt & Asset Engine"
     },
     "premium": {
-      "name": "In The Black Premium",
+      "name": "Pravely Premium",
       "price": "$36",
       "compareAt": "$49",
       "blurb": "The Financial System",

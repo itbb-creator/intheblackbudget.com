@@ -117,7 +117,7 @@ function zipLikeWithoutToken() {
 
 // --- email template ---
 const email = buildWelcomeEmail({
-  productName: 'In The Black Premium Toolkit',
+  productName: 'Pravely Premium Toolkit',
   customerName: 'John Smith',
   customerEmail: 'john@email.com',
   licenseId: 'ITB-7K4X9P2M',
@@ -126,7 +126,7 @@ const email = buildWelcomeEmail({
   supportEmail: 'ITBB@intheblackbudget.com',
 });
 check(email.subject.includes('ready'), 'email subject mentions ready');
-check(email.html.includes('Your ITB Toolkit Is Ready') && email.html.includes('ITB-7K4X9P2M'), 'email html has button + license id');
+check(email.html.includes('Your Pravely Toolkit Is Ready') && email.html.includes('ITB-7K4X9P2M'), 'email html has button + license id');
 writeFileSync(join(outDir, 'email-preview.html'), email.html);
 
 console.log(`\n${failures === 0 ? 'ALL TESTS PASSED' : `${failures} FAILURE(S)`}`);

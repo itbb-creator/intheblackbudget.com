@@ -107,7 +107,7 @@ const DEMO_CHECKOUT_PAGE = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Checkout (DEMO) — In The Black Budget</title>
+<title>Checkout (DEMO) — Pravely</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
@@ -134,7 +134,7 @@ const DEMO_CHECKOUT_PAGE = `<!DOCTYPE html>
 <div class="wrap">
   <div class="banner">⚠ DEMO MODE — this is a sandbox checkout. No real payment is processed.</div>
   <div class="card">
-    <h1 id="product-name">In The Black Premium Toolkit</h1>
+    <h1 id="product-name">Pravely Premium Toolkit</h1>
     <p class="sub">This demo stands in for Stripe Checkout. Enter any name and email — they'll be stamped into your licensed workbook.</p>
     <form id="form">
       <div class="row"><label for="name">Full name</label><input id="name" name="name" placeholder="John Smith" required /></div>
@@ -153,7 +153,7 @@ const DEMO_CHECKOUT_PAGE = `<!DOCTYPE html>
 </div>
 <script>
   var q = new URLSearchParams(location.search);
-  var PRODUCTS = { essentials: {name:'In The Black Essentials',price:'$19'}, complete:{name:'In The Black Complete',price:'$39'}, premium:{name:'In The Black Premium Toolkit — Founding Offer',price:'$36'} };
+  var PRODUCTS = { essentials: {name:'Pravely Essentials',price:'$19'}, complete:{name:'Pravely Complete',price:'$39'}, premium:{name:'Pravely Premium Toolkit — Founding Offer',price:'$36'} };
   var p = PRODUCTS[q.get('product')] || PRODUCTS.premium;
   document.getElementById('product-name').textContent = p.name;
   document.getElementById('price').textContent = p.price;
@@ -268,7 +268,7 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log('');
-  console.log('═══ In The Black — licensed checkout demo ═══');
+  console.log('═══ Pravely — licensed checkout demo ═══');
   console.log(`  Site:        http://localhost:${PORT}`);
   console.log(`  Try: Buy now → demo checkout → Pay → personalized download`);
   console.log(`  Products:    ${PRODUCTS.map((p) => p.id).join(', ')}`);

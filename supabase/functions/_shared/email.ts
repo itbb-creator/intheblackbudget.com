@@ -11,7 +11,7 @@
  *   EMAIL_PROVIDER=resend  (+ RESEND_API_KEY, EMAIL_FROM)
  *     Sends through the Resend API with a plain fetch — no SDK dependency.
  *     When you're ready: create resend.com account, verify your domain,
- *     add RESEND_API_KEY, set EMAIL_FROM=In The Black <noreply@yourdomain.com>,
+ *     add RESEND_API_KEY, set EMAIL_FROM=Pravely <noreply@yourdomain.com>,
  *     flip EMAIL_PROVIDER=resend. Done — no code changes.
  */
 
@@ -75,7 +75,7 @@ export function buildReleaseUpdateEmail(ctx: ReleaseUpdateEmailContext): { subje
   ).join('');
   const subject = `${ctx.productName} ${ctx.version} is available`;
   const text = `Hi ${firstName},\n\nVersion ${ctx.version} of ${ctx.productName} is available.${ctx.summary ? `\n\n${ctx.summary}` : ''}\n\n${textNotes}\n\nGet the latest licensed version: ${ctx.downloadPageUrl}\nFull changelog: ${ctx.changelogUrl}\n\nLicense ID: ${ctx.licenseId}\nManage email preferences or unsubscribe: ${ctx.preferencesUrl}\nQuestions? ${ctx.supportEmail}`;
-  const html = `<!doctype html><html lang="en"><body style="margin:0;padding:0;background:#f4f4f5;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px;"><tr><td align="center"><table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:16px;"><tr><td style="padding:36px 40px;"><p style="font-weight:800;margin:0;">IN THE BLACK</p><h1 style="font-size:24px;margin:24px 0 12px;">Your ${escapeHtml(ctx.productName)} update is ready.</h1><p style="color:#4b5563;line-height:1.6;">Hi ${escapeHtml(firstName)} — version ${escapeHtml(ctx.version)} is now available.${ctx.summary ? ` ${escapeHtml(ctx.summary)}` : ''}</p>${htmlNotes}<p style="text-align:center;margin:32px 0 10px;"><a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#0a0a0a;color:#fff;text-decoration:none;font-weight:700;padding:15px 30px;border-radius:999px;">Get the latest licensed version</a></p><p style="font-size:13px;color:#4b5563;text-align:center;line-height:1.6;">Your existing licensed page prepares the latest eligible version. License ID: ${escapeHtml(ctx.licenseId)}<br><a href="${ctx.changelogUrl}" style="color:#0a0a0a;">View the full changelog</a></p><p style="font-size:13px;color:#4b5563;border-top:1px solid #d1d5db;padding-top:20px;margin-top:28px;">Questions? <a href="mailto:${ctx.supportEmail}" style="color:#0a0a0a;">${ctx.supportEmail}</a><br><a href="${ctx.preferencesUrl}" style="color:#0a0a0a;">Manage email preferences or unsubscribe</a></p></td></tr></table></td></tr></table></body></html>`;
+  const html = `<!doctype html><html lang="en"><body style="margin:0;padding:0;background:#f4f4f5;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px;"><tr><td align="center"><table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:16px;"><tr><td style="padding:36px 40px;"><p style="font-weight:800;margin:0;">PRAVELY</p><h1 style="font-size:24px;margin:24px 0 12px;">Your ${escapeHtml(ctx.productName)} update is ready.</h1><p style="color:#4b5563;line-height:1.6;">Hi ${escapeHtml(firstName)} — version ${escapeHtml(ctx.version)} is now available.${ctx.summary ? ` ${escapeHtml(ctx.summary)}` : ''}</p>${htmlNotes}<p style="text-align:center;margin:32px 0 10px;"><a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#075c42;color:#fff;text-decoration:none;font-weight:700;padding:15px 30px;border-radius:999px;">Get the latest licensed version</a></p><p style="font-size:13px;color:#4b5563;text-align:center;line-height:1.6;">Your existing licensed page prepares the latest eligible version. License ID: ${escapeHtml(ctx.licenseId)}<br><a href="${ctx.changelogUrl}" style="color:#0a0a0a;">View the full changelog</a></p><p style="font-size:13px;color:#4b5563;border-top:1px solid #d1d5db;padding-top:20px;margin-top:28px;">Questions? <a href="mailto:${ctx.supportEmail}" style="color:#0a0a0a;">${ctx.supportEmail}</a><br><a href="${ctx.preferencesUrl}" style="color:#0a0a0a;">Manage email preferences or unsubscribe</a></p></td></tr></table></td></tr></table></body></html>`;
   return { subject, html, text };
 }
 
@@ -91,7 +91,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
     `Download: ${ctx.downloadPageUrl}\n\n` +
     `This page gives you a fresh, secure download link every time you visit, so bookmark it — you'll also get future workbook updates there.\n\n` +
     `Questions? Reply to this email or write to ${ctx.supportEmail}.\n\n` +
-    `— In The Black Budget`;
+    `— Pravely`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -101,8 +101,8 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;">
         <tr><td style="padding:36px 40px 8px;">
           <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-            <td><img src="${ctx.siteUrl}/images/logo.png" alt="In The Black" width="36" height="36" style="display:block;border-radius:50%;"/></td>
-            <td style="padding-left:12px;font-weight:800;font-size:16px;letter-spacing:-0.01em;color:#0a0a0a;">IN THE BLACK</td>
+            <td><img src="${ctx.siteUrl}/images/pravely-app-icon.png" alt="Pravely" width="36" height="36" style="display:block;border-radius:8px;"/></td>
+            <td style="padding-left:12px;font-weight:800;font-size:16px;letter-spacing:-0.01em;color:#0a0a0a;">PRAVELY</td>
           </tr></table>
         </td></tr>
         <tr><td style="padding:24px 40px 0;">
@@ -123,7 +123,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
           </table>
         </td></tr>
         <tr><td align="center" style="padding:32px 40px 8px;">
-          <a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;font-size:16px;font-weight:600;padding:16px 40px;border-radius:999px;">Your ITB Toolkit Is Ready</a>
+          <a href="${ctx.downloadPageUrl}" style="display:inline-block;background:#075c42;color:#ffffff;text-decoration:none;font-size:16px;font-weight:600;padding:16px 40px;border-radius:999px;">Your Pravely Toolkit Is Ready</a>
           <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#6b7280;">
             For security, download links expire — this page creates a fresh one each time you visit, so bookmark it. It's also where future workbook updates will be delivered.
           </p>
@@ -135,7 +135,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
           </p>
         </td></tr>
       </table>
-      <p style="font-size:11px;color:#9ca3af;margin-top:16px;">© ${new Date().getFullYear()} In The Black Budget · You're receiving this because you purchased ${ctx.productName}.</p>
+      <p style="font-size:11px;color:#9ca3af;margin-top:16px;">© ${new Date().getFullYear()} Pravely · You're receiving this because you purchased ${ctx.productName}.</p>
     </td></tr>
   </table>
 </body>
@@ -162,7 +162,7 @@ export async function dispatchWelcomeEmail(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: env.emailFrom || 'In The Black Budget <onboarding@resend.dev>',
+        from: env.emailFrom || 'Pravely <onboarding@resend.dev>',
         to: [ctx.customerEmail],
         subject,
         html,
