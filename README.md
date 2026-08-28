@@ -1,6 +1,6 @@
-# intheblackbudget.com — Editable Site + Marketing Hooks
+# pravely.com — Editable Site + Marketing Hooks
 
-This repo is now your **editable source of truth** for intheblackbudget.com. No more hunting through hosting dashboards.
+This repo is now your **editable source of truth** for pravely.com. No more hunting through hosting dashboards.
 
 ## ⚡ Quick Edit (30 seconds, no code)
 
@@ -20,7 +20,7 @@ Or just tell your Arena agent: **"Change the price to $X"** — I'll do it.
 ## 🚀 First-time setup (do once)
 
 Connect to Vercel (free):
-1. vercel.com → Import `itbb-creator/intheblackbudget.com`
+1. vercel.com → Import `itbb-creator/pravely.com`
 2. Framework: Other, no build command
 3. In Squarespace Domains → DNS → point to Vercel (they give you the record)
 4. Future edits auto-deploy in 30s
@@ -29,7 +29,7 @@ See `EDITING_GUIDE.md` for full steps + how to wire forms with Formspree (free).
 
 ## 💳 Selling — licensed workbook delivery (automated)
 
-Buy buttons → Stripe Checkout → webhook → license ID (`ITB-7K4X9P2M`) →
+Buy buttons → Stripe Checkout → webhook → license ID (`PRV-7K4X9P2M`) →
 your master workbook personalized ("Licensed To: John Smith / john@email.com")
 → private storage → temporary download link → "Your toolkit is ready" email.
 

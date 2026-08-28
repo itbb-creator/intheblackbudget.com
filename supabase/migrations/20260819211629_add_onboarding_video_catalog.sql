@@ -24,9 +24,9 @@ using (is_active = true);
 
 insert into public.onboarding_videos (plan,title,vimeo_video_id,embed_url,public_url,onboarding_url,guide_file_name,aspect_ratio,is_active,updated_at)
 values
-('essentials','ITB Essentials Onboarding','1219674330','https://player.vimeo.com/video/1219674330?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219674330?share=copy&fl=sv&fe=ci','https://intheblackbudget.com/onboarding?plan=essentials','ITB_Quick_Start_Guide_Essentials_Updated.pdf','16:9',true,now()),
-('complete','ITB Complete Onboarding','1219418665','https://player.vimeo.com/video/1219418665?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219418665?share=copy&fl=sv&fe=ci','https://intheblackbudget.com/onboarding?plan=complete','ITB_Quick_Start_Guide_Complete_Updated.pdf','4:3',true,now()),
-('premium','ITB Premium Onboarding','1219411827','https://player.vimeo.com/video/1219411827?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219411827?share=copy','https://intheblackbudget.com/onboarding?plan=premium','ITB_Quick_Start_Guide_Premium_Updated.pdf','16:9',true,now())
+('essentials','Pravely Essentials Onboarding','1219674330','https://player.vimeo.com/video/1219674330?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219674330?share=copy&fl=sv&fe=ci','https://pravely.com/onboarding?plan=essentials','Pravely_Quick_Start_Guide_Essentials_Updated.pdf','16:9',true,now()),
+('complete','Pravely Complete Onboarding','1219418665','https://player.vimeo.com/video/1219418665?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219418665?share=copy&fl=sv&fe=ci','https://pravely.com/onboarding?plan=complete','Pravely_Quick_Start_Guide_Complete_Updated.pdf','4:3',true,now()),
+('premium','Pravely Premium Onboarding','1219411827','https://player.vimeo.com/video/1219411827?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1','https://vimeo.com/1219411827?share=copy','https://pravely.com/onboarding?plan=premium','Pravely_Quick_Start_Guide_Premium_Updated.pdf','16:9',true,now())
 on conflict (plan) do update set
 title=excluded.title,
 vimeo_video_id=excluded.vimeo_video_id,

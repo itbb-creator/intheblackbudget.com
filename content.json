@@ -1,6 +1,6 @@
 {
   "_comment": "EDIT THIS FILE TO CHANGE YOUR SITE — pricing, Stripe links, email. No HTML needed. Replace # with your real Stripe Payment Links when ready.",
-  "contactEmail": "ITBB@intheblackbudget.com",
+  "contactEmail": "support@pravely.com",
   "price": "$19",
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",
@@ -32,7 +32,7 @@
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/profile.php?id=61593162213256",
-    "instagram": "https://www.instagram.com/intheblackbudget1/",
-    "tiktok": "https://www.tiktok.com/@intheblackbudget"
+    "instagram": "#",
+    "tiktok": "#"
   }
 }

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /ads/
 
-Sitemap: https://intheblackbudget.com/sitemap.xml
+Sitemap: https://pravely.com/sitemap.xml

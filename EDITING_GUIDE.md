@@ -1,4 +1,4 @@
-# How to edit intheblackbudget.com — the easiest way
+# How to edit pravely.com — the easiest way
 
 You have 3 options, from easiest (no code) to most powerful. Pick one.
 
@@ -20,11 +20,11 @@ I will edit `index.html` / `content.json` and push the change live. No hosting d
 
 This is the best long-term if you don't want to touch code or ask an AI.
 
-1. Go to `https://github.com/itbb-creator/intheblackbudget.com` on your phone or laptop
+1. Go to `https://github.com/itbb-creator/pravely.com` on your phone or laptop
 2. Open `content.json` → click ✏️ pencil icon
 3. Change what you want:
    ```json
-   "contactEmail": "ITBB@intheblackbudget.com",
+   "contactEmail": "support@pravely.com",
    "stripeLinks": {
      "essentials": "https://buy.stripe.com/...essentials",
      "complete": "https://buy.stripe.com/...complete",
@@ -46,7 +46,7 @@ If you connect this repo to **Netlify / Vercel / Cloudflare Pages** (one-time, 2
 
 Your live site is currently on **AWS (IP 75.2.60.5 via CloudFront)** and your domain is managed at **Squarespace (formerly Google Domains)**. So:
 
-- **Domain (Squarespace):** You do NOT need to touch this to edit the site. It just points `intheblackbudget.com` → your host's IP. Leave it.
+- **Domain (Squarespace):** You do NOT need to touch this to edit the site. It just points `pravely.com` → your host's IP. Leave it.
 - **Site files (AWS S3 + CloudFront):** 
   - Log into AWS Console → S3 → find your bucket → upload a new `index.html`
   - Then CloudFront → Invalidate cache `/*` so visitors see the change
@@ -56,17 +56,17 @@ This works but is slower than Option 2. **Recommended: move hosting to Vercel/Ne
 ### One-time setup to make Option 2 auto-deploy (do this once):
 
 **Vercel (recommended, free):**
-1. Go to vercel.com → Add New Project → Import `itbb-creator/intheblackbudget.com`
+1. Go to vercel.com → Add New Project → Import `itbb-creator/pravely.com`
 2. Framework: `Other` (static), no build command needed
 3. Deploy → copy the Vercel URL
 4. In Squarespace → Domains → DNS → change A record / CNAME to point to Vercel (Vercel shows you exactly what to paste)
 5. Done. Every future `content.json` edit auto-deploys in ~30 seconds.
 
 **Netlify (also free) — this repo is pre-configured:**
-1. Go to app.netlify.com → **Add new site → Import an existing project → GitHub** → pick `itbb-creator/intheblackbudget.com`
+1. Go to app.netlify.com → **Add new site → Import an existing project → GitHub** → pick `itbb-creator/pravely.com`
 2. Netlify auto-reads `netlify.toml` in this repo (publish: repo root, no build command, branded 404) — just click **Deploy**
 3. Site goes live on a `*.netlify.app` URL instantly. Future commits to your deploy branch auto-publish.
-4. In Squarespace → Domains → DNS → point `intheblackbudget.com` to Netlify (they show the exact A/CNAME records), or transfer DNS to Netlify DNS.
+4. In Squarespace → Domains → DNS → point `pravely.com` to Netlify (they show the exact A/CNAME records), or transfer DNS to Netlify DNS.
 5. Optional CLI: `npm i -g netlify-cli` → `netlify deploy --prod` from the repo folder.
 
 Same general steps work for **Cloudflare Pages**.
@@ -79,7 +79,7 @@ Same general steps work for **Cloudflare Pages**.
 |---|---|---|
 | Change price / Stripe link / email | `content.json` | `pricing.*`, `stripeLinks.*`, `contactEmail` |
 | Change headline | `index.html` | `Budgeting apps want` |
-| Change pricing cards (features) | `index.html` | `In The Black<br>Essentials` / `Complete` / `Premium` |
+| Change pricing cards (features) | `index.html` | `Pravely<br>Essentials` / `Complete` / `Premium` |
 | Change hook banner | `index.html` | `FOUNDING PREMIUM · $36` |
 | Swap screenshots | `index.html` | `/images/budget-input.png` — replace with real files in `/images/` |
 | Change logo / favicon | `images/logo.svg` + `favicon.svg` + `images/logo.png` / `favicon.png` | See below |
@@ -90,10 +90,10 @@ Same general steps work for **Cloudflare Pages**.
 
 ## How forms work now (Send feedback + Send message)
 
-**Both buttons now work out-of-the-box — no Formspree needed.** They open the visitor's own email app with a pre-filled email to `ITBB@intheblackbudget.com`.
+**Both buttons now work out-of-the-box — no Formspree needed.** They open the visitor's own email app with a pre-filled email to `support@pravely.com`.
 
-- **Get in touch → Send message:** grabs Name + Email + Message → `mailto:ITBB@intheblackbudget.com?subject=Message from [Name]&body=...` — visitor just hits Send in Apple Mail / Gmail.
-- **Feedback → Send feedback:** grabs the pills they checked (Debt payoff, Home affordability…) + "Tell us more" + optional email → `mailto:ITBB@intheblackbudget.com?subject=Feedback — [picked]&body=...`
+- **Get in touch → Send message:** grabs Name + Email + Message → `mailto:support@pravely.com?subject=Message from [Name]&body=...` — visitor just hits Send in Apple Mail / Gmail.
+- **Feedback → Send feedback:** grabs the pills they checked (Debt payoff, Home affordability…) + "Tell us more" + optional email → `mailto:support@pravely.com?subject=Feedback — [picked]&body=...`
 
 **Why mailto?** It's free, no backend, no spam database, and the email lands in your real inbox. The tradeoff: if the visitor doesn't have a mail app set up (rare on mobile, more common on desktop), it will prompt them to open one.
 
@@ -105,7 +105,7 @@ Same general steps work for **Cloudflare Pages**.
 
 Your current `EDITING_GUIDE.md` → Forms section still has the 2-minute Formspree steps if you decide to switch.
 
-**To change the destination email:** edit `content.json` → `contactEmail` *and* search `ITBB@intheblackbudget.com` in `index.html` (appears in 4 places: contact section + 2 forms + JS).
+**To change the destination email:** edit `content.json` → `contactEmail` *and* search `support@pravely.com` in `index.html` (appears in 4 places: contact section + 2 forms + JS).
 
 ---
 
@@ -138,9 +138,9 @@ and the tab uses:
 
 ## Pricing — 3 products
 
-- **In The Black Essentials — $19** (was $29): Basic budget sheet only. Starter.
-- **In The Black Complete — $39**: Advanced alone — debt snowball/avalanche, net worth, mortgage, multi-month. 
-- **In The Black Premium — $36 founding price** (regularly $49): **Everything in Essentials + Complete, plus Premium planning tools**. Marked FOUNDING CUSTOMER OFFER. The founding-price explanation appears directly beneath the pricing cards.
+- **Pravely Essentials — $19** (was $29): Basic budget sheet only. Starter.
+- **Pravely Complete — $39**: Advanced alone — debt snowball/avalanche, net worth, mortgage, multi-month.
+- **Pravely Premium — $36 founding price** (regularly $49): **Everything in Essentials + Complete, plus Premium planning tools**. Marked FOUNDING CUSTOMER OFFER. The founding-price explanation appears directly beneath the pricing cards.
 
 Edit prices/links in `content.json` → `pricing` and `stripeLinks`.
 

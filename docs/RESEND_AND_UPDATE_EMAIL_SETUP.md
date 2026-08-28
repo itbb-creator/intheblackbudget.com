@@ -9,21 +9,21 @@ The codebase already sends two kinds of transactional email:
 
 1. Create the account at https://resend.com using the business owner's email address.
 2. Turn on multi-factor authentication.
-3. Add the sending subdomain `updates.intheblackbudget.com` under **Domains**.
+3. Add the sending subdomain `updates.pravely.com` under **Domains**.
 4. Add every SPF and DKIM record Resend provides to the domain's DNS provider.
 5. Return to Resend and wait for the domain to show **Verified**.
 6. Add DMARC after test messages are arriving correctly. Start with a monitoring policy before enforcing quarantine or rejection.
 
 Use a sender such as:
 
-`In The Black Budget <updates@updates.intheblackbudget.com>`
+`Pravely <updates@updates.pravely.com>`
 
-Make sure replies reach `ITBB@intheblackbudget.com`. Either configure forwarding for the sender or add a reply-to address in the sending code before telling customers to reply.
+Make sure replies reach `support@pravely.com`. Either configure forwarding for the sender or add a reply-to address in the sending code before telling customers to reply.
 
 ## 2. Create a restricted API key
 
-1. In Resend, open **API Keys** and create `itb-production-supabase`.
-2. Choose sending access and restrict the key to `updates.intheblackbudget.com` when available.
+1. In Resend, open **API Keys** and create `pravely-production-supabase`.
+2. Choose sending access and restrict the key to `updates.pravely.com` when available.
 3. Copy the key once and store it in a password manager. Never commit it to this repository.
 
 ## 3. Add Supabase Edge Function secrets
@@ -33,9 +33,9 @@ In the Supabase dashboard, open **Edge Functions → Secrets** and add:
 ```text
 EMAIL_PROVIDER=resend
 RESEND_API_KEY=re_...
-EMAIL_FROM=In The Black Budget <updates@updates.intheblackbudget.com>
-SITE_URL=https://intheblackbudget.com
-SUPPORT_EMAIL=ITBB@intheblackbudget.com
+EMAIL_FROM=Pravely <updates@updates.pravely.com>
+SITE_URL=https://pravely.com
+SUPPORT_EMAIL=support@pravely.com
 ```
 
 Also create the Stripe $36 one-time Premium price and add its Price ID as:
@@ -82,7 +82,7 @@ npm run email-release -- premium 1.1.0 --send
 
 Each message contains the customer's existing link in this form:
 
-`https://intheblackbudget.com/download.html?license=ITB-...`
+`https://pravely.com/download.html?license=PRV-...`
 
 That stable page checks the current eligible release, personalizes the new workbook when needed, stores the licensed copy privately, and issues a new time-limited download URL.
 

@@ -11,7 +11,8 @@
  *
  * Supported placeholder tokens (any of these will be replaced if present):
  *
- *   ITB-XXXXXXXX            → license ID       (e.g. ITB-7K4X9P2M)
+ *   PRV-XXXXXXXX            → license ID       (e.g. PRV-7K4X9P2M)
+ *   ITB-XXXXXXXX            → license ID       (legacy master compatibility)
  *   Customer Name / Email   → "John Smith / john@email.com"
  *   [[LICENSE_ID]]          → license ID
  *   [[CUSTOMER_NAME]]       → "John Smith"
@@ -19,9 +20,8 @@
  *   [[CUSTOMER_NAME_EMAIL]] → "John Smith / john@email.com"
  *   [[LICENSED_TO]]         → "John Smith / john@email.com"
  *
- * The two canonical tokens (ITB-XXXXXXXX and Customer Name / Email) are
- * required by default — if either is missing the function throws, so we can
- * never silently ship an unpersonalized file.
+ * A license token (new or legacy) and Customer Name / Email are required by
+ * default, so existing masters remain usable during the rebrand.
  *
  * Keep placeholders as plain single-run text in a cell (just type them in —
  * do not apply partial-cell formatting to the placeholder text).
@@ -32,7 +32,7 @@ import { unzipSync, zipSync, strFromU8, strToU8 } from './vendor/fflate.mjs';
 export interface PersonalizeInput {
   /** Raw bytes of the master .xlsx file. */
   masterBytes: Uint8Array;
-  /** e.g. ITB-7K4X9P2M */
+  /** e.g. PRV-7K4X9P2M */
   licenseId: string;
   /** e.g. John Smith */
   customerName: string;
@@ -71,7 +71,8 @@ function nameEmail(customerName: string, customerEmail: string): string {
 
 export function buildTokenMap(input: PersonalizeInput): Array<{ token: string; value: string; canonical?: boolean }> {
   return [
-    { token: 'ITB-XXXXXXXX', value: input.licenseId, canonical: true },
+    { token: 'PRV-XXXXXXXX', value: input.licenseId },
+    { token: 'ITB-XXXXXXXX', value: input.licenseId },
     { token: 'Customer Name / Email', value: nameEmail(input.customerName, input.customerEmail), canonical: true },
     { token: '[[LICENSE_ID]]', value: input.licenseId },
     { token: '[[CUSTOMER_NAME]]', value: input.customerName },
@@ -140,6 +141,12 @@ export function personalizeWorkbook(input: PersonalizeInput): PersonalizeResult 
         `Add those exact strings to the cells you want personalized (see docs/MASTER_WORKBOOK_GUIDE.md).`,
     );
   }
+  const licensePlaceholderFound = found.get('PRV-XXXXXXXX') || found.get('ITB-XXXXXXXX');
+  if (requireCanonical && !licensePlaceholderFound) {
+    throw new Error(
+      'Master workbook is missing a required license placeholder. Add PRV-XXXXXXXX to the license cell.',
+    );
+  }
 
   const replacements: TokenReplacement[] = tokenMap.map((t) => ({
     token: t.token,
@@ -172,6 +179,9 @@ export function personalizeWorkbook(input: PersonalizeInput): PersonalizeResult 
           `The placeholder may be split across rich-text runs; re-type it as a single plain value in the master.`,
       );
     }
+  }
+  if (licensePlaceholderFound && !combinedText.includes(xmlEscape(input.licenseId))) {
+    throw new Error('Verification failed — personalized license ID not found in output.');
   }
 
   return { bytes, replacements };

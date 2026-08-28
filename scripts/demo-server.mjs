@@ -95,7 +95,7 @@ function runPipeline(productId, customerName, customerEmail) {
     licenseId,
     downloadPageUrl: `/download.html?license=${licenseId}`,
     siteUrl: '',
-    supportEmail: 'ITBB@intheblackbudget.com',
+    supportEmail: 'support@pravely.com',
   });
   writeFileSync(join(outDir, 'demo-email-preview.html'), email.html);
 

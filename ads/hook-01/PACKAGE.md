@@ -97,7 +97,7 @@ If you want video (recommended — video gets 1.5x the CTR of static in finance)
 1.  When your Stripe Payment Link is ready, set it in `content.json` → `stripePaymentLink`.
 2.  Use this URL for the ad with UTMs:
 ```
-https://intheblackbudget.com/?utm_source=meta&utm_medium=paid&utm_campaign=hook01_payments_broke&utm_content=feed-final
+https://pravely.com/?utm_source=meta&utm_medium=paid&utm_campaign=hook01_payments_broke&utm_content=feed-final
 ```
 3.  Add the same `?utm_...` to the Stripe Payment Link's `?client_reference_id=` or just watch sales spike in Stripe Dashboard → Payments → filtered by date.
 

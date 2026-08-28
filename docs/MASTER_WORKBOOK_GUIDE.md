@@ -10,13 +10,13 @@ in the cells you want personalized.
 
 | Cell you want | Type exactly | Becomes at purchase |
 |---|---|---|
-| License ID | `ITB-XXXXXXXX` | `ITB-7K4X9P2M` |
+| License ID | `PRV-XXXXXXXX` | `PRV-7K4X9P2M` |
 | Licensed To | `Customer Name / Email` | `John Smith / john@email.com` |
 
 For example, a "License" sheet:
 
 ```
-A3:  License ID      B3:  ITB-XXXXXXXX
+A3:  License ID      B3:  PRV-XXXXXXXX
 A4:  Licensed To     B4:  Customer Name / Email
 ```
 
@@ -31,7 +31,7 @@ welcome sheets, dashboard headers, chart notes:
 
 | Token | Becomes |
 |---|---|
-| `[[LICENSE_ID]]` | `ITB-7K4X9P2M` |
+| `[[LICENSE_ID]]` | `PRV-7K4X9P2M` |
 | `[[CUSTOMER_NAME]]` | `John Smith` |
 | `[[CUSTOMER_EMAIL]]` | `john@email.com` |
 | `[[CUSTOMER_NAME_EMAIL]]` | `John Smith / john@email.com` |
@@ -44,7 +44,7 @@ in Excel to see them in context (the License sheet doubles as a reference).
 
 1. **Plain text in a single cell.** Type the token as one normal text value.
 2. **No partial formatting of the token.** Don't bold *half* of
-   `ITB-XXXXXXXX` inside the cell (Excel splits such strings into multiple
+   `PRV-XXXXXXXX` inside the cell (Excel splits such strings into multiple
    runs internally). Whole-cell formatting is fine — that's stored separately
    from the text.
 3. **Exact match.** Uppercase, same punctuation, no trailing spaces.
@@ -67,7 +67,7 @@ in Excel to see them in context (the License sheet doubles as a reference).
    - `assets/masters/premium.xlsx`
 2. `npm run seed` — uploads to the private `workbook-masters` bucket.
 3. `npm run simulate -- --product premium` — sanity check; open
-   `test-output/ITB_Premium_Toolkit_*.xlsx` and confirm the two fields.
+   `test-output/Pravely_Premium_Toolkit_*.xlsx` and confirm the two fields.
 4. Optionally check the email preview in `test-output/email-preview.html`.
 
 ## Naming & paths (if you want different ones)
@@ -77,8 +77,8 @@ and output filename prefix:
 
 ```ts
 { id: 'premium', masterPath: 'premium.xlsx',
-  fileNamePrefix: 'ITB_Premium_Toolkit' }
-// → customer file: ITB_Premium_Toolkit_ITB-7K4X9P2M.xlsx
+  fileNamePrefix: 'Pravely_Premium_Toolkit' }
+// → customer file: Pravely_Premium_Toolkit_PRV-7K4X9P2M.xlsx
 ```
 
 Change the prefix there (and redeploy the functions) if you settle on a

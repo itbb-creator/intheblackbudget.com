@@ -4,7 +4,7 @@
  * is set, the pipeline stores the rendered HTML on the license record; this
  * endpoint lets you see it.
  *
- *   GET ?license=ITB-7K4X9P2M&key=<ADMIN_KEY>
+ *   GET ?license=PRV-7K4X9P2M&key=<ADMIN_KEY>
  *
  * ADMIN_KEY is a secret you set in the function secrets.
  */

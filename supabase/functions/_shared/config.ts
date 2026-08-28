@@ -20,21 +20,21 @@ export const PRODUCTS: ProductConfig[] = [
     id: 'essentials',
     name: 'Pravely Essentials',
     masterPath: 'essentials.xlsx',
-    fileNamePrefix: 'ITB_Essentials',
+    fileNamePrefix: 'Pravely_Essentials',
     priceEnv: 'STRIPE_PRICE_ESSENTIALS',
   },
   {
     id: 'complete',
     name: 'Pravely Complete',
     masterPath: 'complete.xlsx',
-    fileNamePrefix: 'ITB_Complete',
+    fileNamePrefix: 'Pravely_Complete',
     priceEnv: 'STRIPE_PRICE_COMPLETE',
   },
   {
     id: 'premium',
     name: 'Pravely Premium Toolkit',
     masterPath: 'premium.xlsx',
-    fileNamePrefix: 'ITB_Premium_Toolkit',
+    fileNamePrefix: 'Pravely_Premium_Toolkit',
     priceEnv: 'STRIPE_PRICE_PREMIUM_FOUNDING',
   },
 ];
@@ -60,11 +60,15 @@ export function envGet(name: string, fallback = ''): string {
 }
 
 export function siteUrl(): string {
-  return envGet('SITE_URL', 'https://intheblackbudget.com').replace(/\/+$/, '');
+  return envGet('SITE_URL', 'https://pravely.com').replace(/\/+$/, '');
+}
+
+export function appUrl(): string {
+  return envGet('APP_URL', 'https://app.pravely.com').replace(/\/+$/, '');
 }
 
 export function supportEmail(): string {
-  return envGet('SUPPORT_EMAIL', 'ITBB@intheblackbudget.com');
+  return envGet('SUPPORT_EMAIL', 'support@pravely.com');
 }
 
 /** Seconds a signed download URL stays valid (default 72h). */
@@ -80,8 +84,8 @@ export function dailyDownloadLimit(): number {
 }
 
 /**
- * Origin allow-list for CORS. `*` when SITE_URL is unset (e.g. first-time
- * local testing); otherwise the configured site plus localhost/dev hosts.
+ * Origin allow-list for CORS. Both the public site and the authenticated app
+ * may call the shared Edge Functions, plus known local/preview hosts.
  */
 export function originAllowed(origin: string | null): boolean {
   if (!origin) return true; // non-browser callers (curl, webhooks)
@@ -89,8 +93,10 @@ export function originAllowed(origin: string | null): boolean {
   if (!site) return true;
   try {
     const o = new URL(origin);
-    const s = new URL(site);
-    if (o.host === s.host) return true;
+    const allowedHosts = [site, appUrl()]
+      .filter(Boolean)
+      .map((value) => new URL(value).host);
+    if (allowedHosts.includes(o.host)) return true;
     return (
       o.hostname === 'localhost' ||
       o.hostname === '127.0.0.1' ||

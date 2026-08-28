@@ -1,5 +1,5 @@
 -- ============================================================================
--- In The Black Budget — licensing schema
+-- Pravely — licensing schema
 -- Run this in the Supabase SQL editor (or `supabase db push`).
 --
 -- Creates:
@@ -18,7 +18,7 @@
 
 create table if not exists public.licenses (
   id                    uuid primary key default gen_random_uuid(),
-  license_id            text unique not null,          -- ITB-7K4X9P2M
+  license_id            text unique not null,          -- PRV-7K4X9P2M
   product               text not null,                 -- essentials | complete | premium
   status                text not null default 'pending'
                         check (status in ('pending', 'issued', 'failed')),
@@ -28,7 +28,7 @@ create table if not exists public.licenses (
   customer_name         text,
   customer_email        text,
   file_path             text,                          -- object path in licensed-workbooks
-  file_name             text,                          -- ITB_Premium_Toolkit_ITB-7K4X9P2M.xlsx
+  file_name             text,                          -- Pravely_Premium_Toolkit_PRV-7K4X9P2M.xlsx
   download_count        integer not null default 0,
   last_download_at      timestamptz,
   email_status          text not null default 'pending',   -- pending | queued | sent
@@ -47,7 +47,7 @@ create index if not exists licenses_created_idx         on public.licenses (crea
 -- Audit trail: every pipeline step for every license.
 -- Query with:
 --   select created_at, step, status, detail
---   from license_events where license_id = 'ITB-7K4X9P2M' order by created_at;
+--   from license_events where license_id = 'PRV-7K4X9P2M' order by created_at;
 -- ----------------------------------------------------------------------------
 create table if not exists public.license_events (
   id         bigint generated always as identity primary key,

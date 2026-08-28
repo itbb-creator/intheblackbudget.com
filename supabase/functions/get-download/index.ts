@@ -1,7 +1,7 @@
 /**
  * get-download — the customer-facing lookup behind download.html.
  *
- *   GET ?license=ITB-7K4X9P2M    → the email link (stable, bookmarkable)
+ *   GET ?license=PRV-7K4X9P2M    → the email link (stable, bookmarkable)
  *   GET ?session_id=cs_test_...  → the post-checkout redirect (polls until
  *                                   the webhook has issued the license)
  *
@@ -72,7 +72,7 @@ Deno.serve(async (req: Request) => {
       return jsonResponse({
         status: 'failed',
         message: row.error_message ?? 'Something went wrong preparing your workbook.',
-        contact: 'ITBB@intheblackbudget.com',
+        contact: 'support@pravely.com',
       }, 200, req);
     }
     if (row.status !== 'issued' || !row.file_path) {
@@ -92,7 +92,7 @@ Deno.serve(async (req: Request) => {
       return jsonResponse({
         status: 'rate_limited',
         message: 'Download limit reached — please try again tomorrow or contact support.',
-        contact: 'ITBB@intheblackbudget.com',
+        contact: 'support@pravely.com',
       }, 429, req);
     }
 

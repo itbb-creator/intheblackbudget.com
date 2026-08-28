@@ -8,24 +8,24 @@ future web/mobile app will plug into.
 ## The flow (your 8 steps, as built)
 
 ```
-1. Customer clicks Buy Now on intheblackbudget.com
+1. Customer clicks Buy Now on pravely.com
 2. Site calls create-checkout (Supabase Edge Function) → Stripe Checkout opens
       Customer enters: name, email, payment
 3. Stripe processes the payment
 4. Stripe calls stripe-webhook (Edge Function) — signature verified
 5. Pipeline:
-      license id  ITB-7K4X9P2M            (unique, DB-enforced)
+      license id  PRV-7K4X9P2M            (unique, DB-enforced)
       license + audit records written to Supabase
 6. Master workbook copied; placeholders replaced:
-      "License ID"    ITB-XXXXXXXX      → ITB-7K4X9P2M
+      "License ID"    PRV-XXXXXXXX      → PRV-7K4X9P2M
       "Licensed To"   Customer Name / Email → John Smith / john@email.com
       (every other byte of the file — styling, charts, formulas — untouched)
 7. File saved to private storage as:
-      ITB_Premium_Toolkit_ITB-7K4X9P2M.xlsx
+      Pravely_Premium_Toolkit_PRV-7K4X9P2M.xlsx
       Customer is redirected to download.html?session_id=... which polls
       get-download → fresh signed URL (temporary, expires) → file downloads
-8. Welcome email built ("Your In The Black Premium Toolkit is ready" +
-      "Download My Workbook" button → download.html?license=ITB-7K4X9P2M)
+8. Welcome email built ("Your Pravely Premium Toolkit is ready" +
+      "Download My Workbook" button → download.html?license=PRV-7K4X9P2M)
 ```
 
 Everything runs in **Supabase Edge Functions** (database + private storage +
@@ -61,7 +61,7 @@ functions, and `download.html` is served by Netlify like any other page.
 ### 2. Stripe products + prices
 
 1. [dashboard.stripe.com](https://dashboard.stripe.com) → Product catalog →
-   create three one-time products (`In The Black Essentials` $19,
+   create three one-time products (`Pravely Essentials` $19,
    `Complete` $39, and `Premium` at the $36 founding price).
 2. Copy each **Price ID** (`price_...`) — they go into the secrets below.
 
@@ -133,7 +133,7 @@ Then run a **real Stripe test**:
 - Check the download page works, then look at the audit trail:
 
 ```sql
-select * from license_audit where license_id = 'ITB-XXXXXXXX';
+select * from license_audit where license_id = 'PRV-XXXXXXXX';
 ```
 
 ### 8. Email (later — the pipeline is already ready)
@@ -142,7 +142,7 @@ Until you connect a provider, emails are **rendered and stored** on each
 license record (status `queued`). See exactly what the customer would get:
 
 ```
-https://YOUR-PROJECT-REF.supabase.co/functions/v1/preview-email?license=ITB-XXXXXXXX&key=YOUR_ADMIN_KEY
+https://YOUR-PROJECT-REF.supabase.co/functions/v1/preview-email?license=PRV-XXXXXXXX&key=YOUR_ADMIN_KEY
 ```
 
 When you're ready (recommended: [resend.com](https://resend.com), free tier
@@ -150,7 +150,7 @@ When you're ready (recommended: [resend.com](https://resend.com), free tier
 
 ```bash
 supabase secrets set EMAIL_PROVIDER=resend RESEND_API_KEY=re_... \
-  EMAIL_FROM="In The Black Budget <noreply@intheblackbudget.com>"
+  EMAIL_FROM="Pravely <noreply@pravely.com>"
 supabase functions deploy stripe-webhook
 ```
 
@@ -165,7 +165,7 @@ event in Stripe dashboard → **Resend webhook**, or re-run
 
 **Customer lost their download:** they click their email link (or you look up
 their license and send them
-`https://intheblackbudget.com/download.html?license=ITB-XXXXXXXX`). The page
+`https://pravely.com/download.html?license=PRV-XXXXXXXX`). The page
 mints a fresh signed link. Links are rate-limited per license (default 20/day).
 
 **Workbook update:** edit your master, `npm run seed`. New purchases get the
@@ -177,7 +177,7 @@ will point them to updates via their license row).
 ```sql
 -- every step for one license, in order
 select created_at, step, status, detail
-from license_events where license_id = 'ITB-XXXXXXXX' order by created_at;
+from license_events where license_id = 'PRV-XXXXXXXX' order by created_at;
 
 -- all issued licenses
 select license_id, product, customer_name, customer_email, created_at

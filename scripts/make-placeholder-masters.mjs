@@ -4,7 +4,7 @@
  * These are REAL .xlsx files (Excel and Google Sheets can open them)
  * containing exactly the placeholder tokens the pipeline replaces:
  *
- *   License sheet:  License ID = ITB-XXXXXXXX
+ *   License sheet:  License ID = PRV-XXXXXXXX
  *                   Licensed To = Customer Name / Email
  *   plus [[LICENSE_ID]], [[CUSTOMER_NAME]], [[CUSTOMER_EMAIL]] tokens
  *   elsewhere, and two defined names (LicenseID, LicensedTo) so you can
@@ -140,13 +140,13 @@ function buildWorkbook(product) {
   const licenseSheet = sheetXml(sst, [
     [cell(sst, 'A1', product.name, { bold: true })],
     [],
-    [cell(sst, 'A3', 'License ID', { bold: true }), cell(sst, 'B3', 'ITB-XXXXXXXX')],
+    [cell(sst, 'A3', 'License ID', { bold: true }), cell(sst, 'B3', 'PRV-XXXXXXXX')],
     [cell(sst, 'A4', 'Licensed To', { bold: true }), cell(sst, 'B4', 'Customer Name / Email')],
     [],
-    [cell(sst, 'A6', 'This copy is licensed to [[CUSTOMER_NAME]] ([[CUSTOMER_EMAIL]]). License: [[LICENSE_ID]]. Questions? ITBB@intheblackbudget.com')],
+    [cell(sst, 'A6', 'This copy is licensed to [[CUSTOMER_NAME]] ([[CUSTOMER_EMAIL]]). License: [[LICENSE_ID]]. Questions? support@pravely.com')],
     [],
     [cell(sst, 'A8', 'Supported placeholders — replaced automatically at purchase:', { bold: true })],
-    [cell(sst, 'A9', 'ITB-XXXXXXXX · Customer Name / Email · [[LICENSE_ID]] · [[CUSTOMER_NAME]] · [[CUSTOMER_EMAIL]]')],
+    [cell(sst, 'A9', 'PRV-XXXXXXXX · Customer Name / Email · [[LICENSE_ID]] · [[CUSTOMER_NAME]] · [[CUSTOMER_EMAIL]]')],
     [cell(sst, 'A10', '[[CUSTOMER_NAME_EMAIL]] · [[LICENSED_TO]]')],
   ]);
   const budgetSheet = sheetXml(sst, [

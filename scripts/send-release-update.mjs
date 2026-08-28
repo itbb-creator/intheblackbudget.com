@@ -27,7 +27,7 @@ const releases = await query(`product_releases?product=eq.${encodeURIComponent(p
 if (releases.length !== 1) throw new Error(`Release ${product} ${version} was not found.`);
 const release = releases[0];
 const licenses = await query(`licenses?product=eq.${encodeURIComponent(product)}&status=eq.issued&product_update_consent=eq.true&unsubscribed_at=is.null&customer_email=not.is.null&select=license_id,customer_name,customer_email,unsubscribe_token&order=created_at.asc`);
-const siteUrl = (process.env.SITE_URL || 'https://intheblackbudget.com').replace(/\/+$/, '');
+const siteUrl = (process.env.SITE_URL || 'https://pravely.com').replace(/\/+$/, '');
 
 console.log(`${send ? 'SEND' : 'DRY RUN'}: ${product} ${version} → ${licenses.length} customer(s)`);
 for (const license of licenses) {
@@ -43,7 +43,7 @@ for (const license of licenses) {
     downloadPageUrl: `${siteUrl}/download.html?license=${encodeURIComponent(license.license_id)}`,
     changelogUrl: `${siteUrl}/changelog`,
     preferencesUrl: `${siteUrl}/email-preferences.html?token=${encodeURIComponent(license.unsubscribe_token)}`,
-    supportEmail: process.env.SUPPORT_EMAIL || 'ITBB@intheblackbudget.com',
+    supportEmail: process.env.SUPPORT_EMAIL || 'support@pravely.com',
   });
   console.log(`- ${license.customer_email} · ${license.license_id}`);
   if (!send) continue;

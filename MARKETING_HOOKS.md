@@ -1,4 +1,4 @@
-# Marketing Hooks for In The Black Budget — Make It Impossible Not To Click
+# Marketing Hooks for Pravely — Make It Impossible Not To Click
 
 > Research-backed hooks built for your exact product: a **$19 one-time spreadsheet** vs **$12-15/mo budgeting apps**. These are engineered with loss aversion, curiosity gap, anchoring, and subscription-fatigue — the 4 levers that actually drive clicks in finance.
 

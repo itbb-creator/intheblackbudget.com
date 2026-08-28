@@ -19,7 +19,7 @@ Both forms submit without taking the visitor away from the page. Spam honeypot p
 ## 2. Configure notifications
 
 1. Open **Project configuration → Notifications → Form submission notifications**.
-2. Add an email notification for `feedback` to `ITBB@intheblackbudget.com`.
+2. Add an email notification for `feedback` to `support@pravely.com`.
 3. Add a separate notification for `contact` to the same inbox.
 4. Use distinct subject lines so support requests are not mixed with research responses.
 5. If spam becomes a problem, enable Netlify's additional spam controls or add a CAPTCHA later; do not add friction before it is needed.
@@ -30,7 +30,7 @@ Both forms submit without taking the visitor away from the page. Spam honeypot p
 
 Send the customer a short personal note with a link to:
 
-`https://intheblackbudget.com/#feedback`
+`https://pravely.com/#feedback`
 
 Ask them to choose **7-day check-in** and answer:
 

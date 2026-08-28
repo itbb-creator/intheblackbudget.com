@@ -3,7 +3,7 @@
 ## One-time Resend setup
 
 1. Create a Resend account and add a sending subdomain such as
-   `updates.intheblackbudget.com`.
+   `updates.pravely.com`.
 2. Add the SPF and DKIM records Resend provides to the domain's DNS. Add DMARC
    after delivery is confirmed.
 3. Create a **Sending access** API key restricted to that domain.
@@ -12,9 +12,9 @@
 
    - `EMAIL_PROVIDER=resend`
    - `RESEND_API_KEY=re_...`
-   - `EMAIL_FROM=In The Black <updates@updates.intheblackbudget.com>`
-   - `SITE_URL=https://intheblackbudget.com`
-   - `SUPPORT_EMAIL=ITBB@intheblackbudget.com`
+   - `EMAIL_FROM=Pravely <updates@updates.pravely.com>`
+   - `SITE_URL=https://pravely.com`
+   - `SUPPORT_EMAIL=support@pravely.com`
 
 5. Supabase secrets are available to hosted Edge Functions immediately. Deploy
    `stripe-webhook` only when its code changed, then complete a test purchase
@@ -46,7 +46,7 @@ For the full account, domain, test, and release-email walkthrough, see
    `npm run email-release -- premium 1.1.0 --send`
 
 Each message contains that customer's existing
-`/download.html?license=ITB-...` page. When opened, the page detects the current
+`/download.html?license=PRV-...` page. When opened, the page detects the current
 release, personalizes the new master, stores the updated licensed copy, and
 returns a fresh temporary download URL. Each update email also contains a
 preference link and one-click unsubscribe headers. Unsubscribing does not

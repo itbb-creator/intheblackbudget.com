@@ -45,8 +45,8 @@ if (existsSync(join(ROOT, '.env'))) {
   }
 }
 
-const siteUrl = envGet('SITE_URL', 'https://intheblackbudget.com');
-const supportEmail = envGet('SUPPORT_EMAIL', 'ITBB@intheblackbudget.com');
+const siteUrl = envGet('SITE_URL', 'https://pravely.com');
+const supportEmail = envGet('SUPPORT_EMAIL', 'support@pravely.com');
 const ttlSeconds = Number(envGet('DOWNLOAD_LINK_TTL_HOURS', '72')) * 3600;
 
 const trail = [];

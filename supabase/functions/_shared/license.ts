@@ -1,7 +1,7 @@
 /**
  * License ID generation — portable (Deno edge runtime + Node.js).
  *
- * Format: ITB-XXXXXXXX (e.g. ITB-7K4X9P2M)
+ * Format: PRV-XXXXXXXX (e.g. PRV-7K4X9P2M)
  *
  * The alphabet intentionally drops characters that people misread or mistype:
  * 0, O, 1, I, L are excluded. 8 chars over a 31-char alphabet gives ~8.5e11
@@ -9,7 +9,7 @@
  * uniqueness anyway (see migrations/20260814000000_licensing.sql).
  */
 
-const LICENSE_PREFIX = 'ITB-';
+const LICENSE_PREFIX = 'PRV-';
 const LICENSE_LENGTH = 8;
 // No 0/O/1/I/L — all remaining glyphs are unambiguous in any font.
 const ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
@@ -27,7 +27,7 @@ function randomInt(maxExclusive: number): number {
   return x % maxExclusive;
 }
 
-/** Generates a fresh license ID like `ITB-7K4X9P2M`. */
+/** Generates a fresh license ID like `PRV-7K4X9P2M`. */
 export function generateLicenseId(
   prefix: string = LICENSE_PREFIX,
   length: number = LICENSE_LENGTH,
@@ -41,8 +41,9 @@ export function generateLicenseId(
 
 /** True if a string looks like a license ID we issued. */
 export function isLicenseId(value: string): boolean {
-  if (!value.startsWith(LICENSE_PREFIX)) return false;
-  const body = value.slice(LICENSE_PREFIX.length);
+  const matchedPrefix = [LICENSE_PREFIX, 'ITB-'].find((prefix) => value.startsWith(prefix));
+  if (!matchedPrefix) return false;
+  const body = value.slice(matchedPrefix.length);
   if (body.length !== LICENSE_LENGTH) return false;
   return [...body].every((ch) => ALPHABET.includes(ch));
 }

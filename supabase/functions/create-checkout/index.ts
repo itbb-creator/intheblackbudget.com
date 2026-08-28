@@ -56,7 +56,7 @@ Deno.serve(async (req: Request) => {
       cancel_url: `${siteUrl()}/#pricing`,
       metadata: {
         product: product.id,
-        source: 'intheblackbudget.com',
+        source: 'pravely.com',
         product_update_consent: body.productUpdateConsent === true ? 'true' : 'false',
         marketing_consent: body.marketingConsent === true ? 'true' : 'false',
         consent_source: 'website_checkout_2026_08',
