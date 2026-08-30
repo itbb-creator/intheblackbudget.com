@@ -1,6 +1,8 @@
 {
   "_comment": "EDIT THIS FILE TO CHANGE YOUR SITE — pricing, Stripe links, email. No HTML needed. Replace # with your real Stripe Payment Links when ready.",
   "contactEmail": "support@pravely.com",
+  "supabaseUrl": "https://vtrdkoeydzvrhtiuykja.supabase.co",
+  "supabasePublishableKey": "sb_publishable_bbOnYkVtIaUQ-droE1k0yA_e_AF8xO4",
   "price": "$19",
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",

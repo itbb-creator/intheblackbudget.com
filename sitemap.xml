@@ -2,13 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pravely.com/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url><loc>https://pravely.com/terms.html</loc><lastmod>2026-08-17</lastmod><priority>0.3</priority></url>
   <url><loc>https://pravely.com/privacy.html</loc><lastmod>2026-08-20</lastmod><priority>0.3</priority></url>
-  <url><loc>https://pravely.com/changelog</loc><lastmod>2026-08-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pravely.com/changelog</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pravely.com/account.html</loc><lastmod>2026-08-28</lastmod><priority>0.7</priority></url>
+  <url><loc>https://pravely.com/contact.html</loc><lastmod>2026-08-28</lastmod><priority>0.5</priority></url>
   <url>
     <loc>https://pravely.com/onboarding</loc>
     <lastmod>2026-08-18</lastmod>
