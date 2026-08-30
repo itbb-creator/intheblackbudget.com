@@ -30,6 +30,8 @@ interface LicenseRow {
   error_message: string | null;
   issued_release_id: string | null;
   issued_version: string | null;
+  user_id: string | null;
+  license_source: 'purchase' | 'account_free';
 }
 
 interface ReleaseRow {
@@ -66,6 +68,18 @@ Deno.serve(async (req: Request) => {
       // Most likely: the customer landed here seconds after paying and the
       // webhook hasn't finished yet. The page polls until it does.
       return jsonResponse({ status: 'processing', retryInSeconds: 3 }, 200, req);
+    }
+
+    // Free Essentials copies are account benefits, not bearer-link downloads.
+    // Require the verified account that owns the license before minting a URL.
+    if (row.license_source === 'account_free') {
+      const token = req.headers.get('Authorization')?.replace(/^Bearer\s+/i, '') ?? '';
+      const { data: authData, error: authError } = token
+        ? await sb.auth.getUser(token)
+        : { data: { user: null }, error: new Error('Missing authorization') };
+      if (authError || !authData.user || authData.user.id !== row.user_id) {
+        return jsonResponse({ status: 'unauthorized', message: 'Sign in to access this workbook.' }, 401, req);
+      }
     }
 
     if (row.status === 'failed') {

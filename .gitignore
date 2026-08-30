@@ -9,3 +9,4 @@ supabase/.temp/
 
 # Dependencies
 node_modules/
+assets/masters/*.xlsx

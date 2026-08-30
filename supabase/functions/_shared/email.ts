@@ -135,7 +135,7 @@ export function buildWelcomeEmail(ctx: WelcomeEmailContext): { subject: string; 
           </p>
         </td></tr>
       </table>
-      <p style="font-size:11px;color:#9ca3af;margin-top:16px;">© ${new Date().getFullYear()} Pravely · You're receiving this because you purchased ${ctx.productName}.</p>
+      <p style="font-size:11px;color:#9ca3af;margin-top:16px;">© ${new Date().getFullYear()} Pravely · You're receiving this because ${ctx.productName} was issued to this email address.</p>
     </td></tr>
   </table>
 </body>

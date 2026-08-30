@@ -9,8 +9,7 @@
     "seed": "node scripts/seed-masters.mjs",
     "simulate": "node --experimental-strip-types scripts/simulate-purchase.mjs",
     "email-release": "node --experimental-strip-types scripts/send-release-update.mjs",
-    "test": "node --experimental-strip-types scripts/test-personalize.mjs",
-    "demo": "node --experimental-strip-types scripts/demo-server.mjs"
+    "test": "node --experimental-strip-types scripts/test-personalize.mjs"
   },
   "engines": {
     "node": ">=20"

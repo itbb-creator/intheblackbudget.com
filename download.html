@@ -100,7 +100,7 @@
         </div>
         <a class="btn" id="btn-download" href="#" download>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Your ITB Toolkit Is Ready
+          Download my Pravely toolkit
         </a>
         <div class="next-step">
           <h2>Start here</h2>
@@ -115,23 +115,25 @@
       <!-- State: failed -->
       <div id="state-failed" class="hidden">
         <h1>We hit a snag.</h1>
-        <div class="error" id="fail-message">We couldn't find your purchase just yet. If you paid a moment ago, give it a few seconds and refresh this page.</div>
-        <a class="btn ghost" href="./#faq">Back to pravely.com</a>
+        <div class="error" id="fail-message">We couldn't find your licensed workbook just yet. Give it a few seconds and refresh this page.</div>
+        <a class="btn ghost" id="fail-action" href="./">Back to pravely.com</a>
         <p class="note">Still stuck? Email <a href="mailto:support@pravely.com">support@pravely.com</a> with your receipt — we'll sort it out fast.</p>
       </div>
     </div>
   </main>
 
-  <footer>Pravely · One spreadsheet, one payment. · <a href="./changelog">Changelog</a></footer>
+  <footer>Pravely · Clear money decisions, one step at a time. · <a href="./changelog">Changelog</a></footer>
 
-  <script>
-    (function () {
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.4';
+    (async function () {
       var $ = function (id) { return document.getElementById(id); };
       var params = new URLSearchParams(window.location.search);
       var license = params.get('license');
       var sessionId = params.get('session_id');
 
       var cfg = null; // { functionsBaseUrl } from content.json
+      var accessToken = '';
       var polling = false;
       var onboarding = {
         essentials: {},
@@ -159,7 +161,7 @@
 
       function tryLookup() {
         if (!cfg || !cfg.functionsBaseUrl) {
-          fail('Checkout is still being connected on this site. If you already paid, email support@pravely.com with your receipt and we\'ll send your workbook right away.');
+          fail('Workbook delivery is still being connected. Email support@pravely.com and we\'ll help you access your licensed copy.');
           return;
         }
         var q = license
@@ -168,7 +170,8 @@
         if (!q) { fail('No license or session was found in this link. Use the link from your email.'); return; }
 
         var base = cfg.functionsBaseUrl.replace(/\/+$/, '');
-        fetch(base + '/get-download?' + q)
+        var headers = accessToken ? { Authorization: 'Bearer ' + accessToken } : {};
+        fetch(base + '/get-download?' + q, { headers: headers })
           .then(function (r) { return r.json(); })
           .then(function (data) {
             if (data.status === 'ready') {
@@ -189,6 +192,10 @@
               // Webhook hasn't finished issuing the license yet — poll briefly.
               polling = true;
               setTimeout(tryLookup, (data.retryInSeconds || 3) * 1000);
+            } else if (data.status === 'unauthorized') {
+              $('fail-action').href = './account.html';
+              $('fail-action').textContent = 'Sign in to Pravely';
+              fail(data.message || 'Sign in to access this licensed workbook.');
             } else if (data.status === 'rate_limited' || data.status === 'failed') {
               fail(data.message || 'We couldn\'t prepare your download.');
             } else {
@@ -198,10 +205,15 @@
           .catch(function () { fail('We couldn\'t reach the download service. Check your connection and try again.'); });
       }
 
-      fetch('./content.json')
-        .then(function (r) { return r.json(); })
-        .then(function (c) { cfg = c; tryLookup(); })
-        .catch(function () { cfg = {}; tryLookup(); });
+      try {
+        cfg = await fetch('./content.json', { cache: 'no-store' }).then(function (r) { return r.json(); });
+        if (cfg.supabaseUrl && cfg.supabasePublishableKey) {
+          var authClient = createClient(cfg.supabaseUrl, cfg.supabasePublishableKey);
+          var sessionResult = await authClient.auth.getSession();
+          accessToken = sessionResult.data.session ? sessionResult.data.session.access_token : '';
+        }
+      } catch (_) { cfg = {}; }
+      tryLookup();
 
       // Safety: stop polling after 2 minutes regardless.
       setTimeout(function () { if (polling) fail('Your download is taking longer than expected. Don\'t worry — you\'ll also get the link by email. If not, contact us and we\'ll resend it.'); }, 120000);

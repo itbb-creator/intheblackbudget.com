@@ -1,3 +1,17 @@
+# Hosted Auth settings are configured in the Supabase dashboard. These values
+# keep local Auth tests aligned with production.
+[auth]
+site_url = "https://pravely.com"
+additional_redirect_urls = ["https://pravely.com/account.html", "http://localhost:4173/account.html"]
+
+[auth.email.template.confirmation]
+subject = "Verify your Pravely account"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Reset your Pravely password"
+content_path = "./supabase/templates/recovery.html"
+
 # Public entry points called by the static site or Stripe. Each function applies
 # its own authorization/validation in code; none accepts database credentials
 # from the browser.
@@ -15,3 +29,6 @@ verify_jwt = false
 
 [functions.email-preferences]
 verify_jwt = false
+
+[functions.claim-essentials]
+verify_jwt = true

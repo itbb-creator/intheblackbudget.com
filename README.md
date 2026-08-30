@@ -34,10 +34,9 @@ your master workbook personalized ("Licensed To: John Smith / john@email.com")
 → private storage → temporary download link → "Your toolkit is ready" email.
 
 It runs on **Supabase Edge Functions** (this site stays static). Full walkthrough:
-**`docs/LICENSED_DELIVERY_SETUP.md`** — and a clickable demo of the whole flow:
+**`docs/LICENSED_DELIVERY_SETUP.md`**.
 
 ```bash
-npm run demo          # localhost:4321 — Buy → mock checkout → real personalized download
 npm test              # verifies personalization on all three masters
 npm run simulate -- --product premium --name "Test Buyer" --email test@example.com
 ```

@@ -45,7 +45,6 @@ functions, and `download.html` is served by Netlify like any other page.
 | `assets/masters/*.xlsx` | Master workbooks (placeholders — swap in yours) |
 | `scripts/seed-masters.mjs` | Upload masters to Supabase |
 | `scripts/simulate-purchase.mjs` | Test the whole pipeline without Stripe |
-| `scripts/demo-server.mjs` | Clickable demo of the full flow (`npm run demo`) |
 | `download.html` | Customer delivery page (bookmarkable, mints fresh links) |
 
 ## Setup (one-time, ~30 minutes)

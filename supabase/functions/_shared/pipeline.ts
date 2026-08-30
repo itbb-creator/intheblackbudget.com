@@ -36,6 +36,8 @@ export interface PurchaseInfo {
   productUpdateConsent?: boolean;
   marketingConsent?: boolean;
   consentSource?: string;
+  userId?: string | null;
+  licenseSource?: 'purchase' | 'account_free';
 }
 
 export interface PipelineResult {
@@ -83,18 +85,14 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
     };
   }
 
-  // 1. License ID (uniqueness enforced by the DB; retry on the rare collision).
-  let licenseId = '';
-  for (let attempt = 1; attempt <= MAX_ID_ATTEMPTS; attempt++) {
+  // 1. License ID (reuse the existing ID on a safe retry; otherwise allocate
+  // a new collision-checked ID).
+  let licenseId = existing?.license_id ?? '';
+  for (let attempt = 1; !licenseId && attempt <= MAX_ID_ATTEMPTS; attempt++) {
     const candidate = generateLicenseId();
-    const { count } = await sb
-      .from('licenses')
-      .select('id', { count: 'exact', head: true })
+    const { count } = await sb.from('licenses').select('id', { count: 'exact', head: true })
       .eq('license_id', candidate);
-    if (!count) {
-      licenseId = candidate;
-      break;
-    }
+    if (!count) licenseId = candidate;
   }
   if (!licenseId) {
     throw new Error(`Could not allocate a unique license id after ${MAX_ID_ATTEMPTS} attempts.`);
@@ -113,6 +111,8 @@ export async function runLicensePipeline(purchase: PurchaseInfo): Promise<Pipeli
     marketing_consent: purchase.marketingConsent === true,
     consent_recorded_at: new Date().toISOString(),
     consent_source: purchase.consentSource ?? 'stripe_checkout',
+    user_id: purchase.userId ?? null,
+    license_source: purchase.licenseSource ?? 'purchase',
     status: 'pending',
   };
   const { error: upsertErr } = existing
