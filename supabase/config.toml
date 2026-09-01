@@ -32,3 +32,9 @@ verify_jwt = false
 
 [functions.claim-essentials]
 verify_jwt = true
+
+[functions.delete-account]
+verify_jwt = true
+
+[functions.create-app-checkout]
+verify_jwt = true

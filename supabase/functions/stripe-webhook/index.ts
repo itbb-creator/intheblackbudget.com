@@ -24,6 +24,10 @@ import { runLicensePipeline, recordPipelineFailure, type PurchaseInfo } from '..
 const PROCESSED_TYPES = new Set([
   'checkout.session.completed',
   'checkout.session.async_payment_succeeded',
+  'checkout.session.async_payment_failed',
+  'checkout.session.expired',
+  'charge.refunded',
+  'charge.dispute.created',
 ]);
 
 Deno.serve(async (req: Request) => {
@@ -78,8 +82,25 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ received: true, ignored: event.type }, 200, req);
   }
 
+  if (event.type === 'charge.refunded' || event.type === 'charge.dispute.created') {
+    const charge = event.data.object as Stripe.Charge;
+    const transactionId = typeof charge.payment_intent === 'string' ? charge.payment_intent : null;
+    if (transactionId) {
+      await sb.from('app_entitlements').update({
+        status: event.type === 'charge.refunded' ? 'refunded' : 'revoked',
+        updated_at: new Date().toISOString(),
+      }).eq('provider', 'stripe').eq('provider_transaction_id', transactionId);
+    }
+    await sb.from('stripe_events').update({ processed: true, processed_at: new Date().toISOString() }).eq('id', event.id);
+    return jsonResponse({ received: true, entitlementUpdated: Boolean(transactionId) }, 200, req);
+  }
+
   const session = event.data.object as Stripe.Checkout.Session;
   const sessionId = session.id;
+  if (event.type === 'checkout.session.async_payment_failed' || event.type === 'checkout.session.expired') {
+    await sb.from('stripe_events').update({ processed: true, processed_at: new Date().toISOString() }).eq('id', event.id);
+    return jsonResponse({ received: true, paymentIncomplete: true }, 200, req);
+  }
   const paid =
     event.type === 'checkout.session.async_payment_succeeded' ||
     session.payment_status === 'paid';
@@ -88,6 +109,29 @@ Deno.serve(async (req: Request) => {
     console.warn(`stripe-webhook: ${event.type} for ${sessionId} was not paid (${session.payment_status}).`);
     await sb.from('stripe_events').update({ processed: true, processed_at: new Date().toISOString() }).eq('id', event.id);
     return jsonResponse({ received: true, notPaid: true }, 200, req);
+  }
+
+  if (session.metadata?.purchase_type === 'app_plan') {
+    const userId = session.metadata.user_id;
+    const planId = session.metadata.plan_id;
+    if (!userId || (planId !== 'plus' && planId !== 'complete')) {
+      await sb.from('stripe_events').update({ processed: true, processed_at: new Date().toISOString() }).eq('id', event.id);
+      return jsonResponse({ received: true, error: 'invalid app entitlement metadata' }, 200, req);
+    }
+    const transactionId = typeof session.payment_intent === 'string' ? session.payment_intent : null;
+    const { error: entitlementError } = await sb.from('app_entitlements').upsert({
+      user_id: userId,
+      plan_id: planId,
+      status: 'active',
+      provider: 'stripe',
+      provider_customer_id: typeof session.customer === 'string' ? session.customer : null,
+      provider_transaction_id: transactionId,
+      purchased_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' });
+    if (entitlementError) throw entitlementError;
+    await sb.from('stripe_events').update({ processed: true, processed_at: new Date().toISOString() }).eq('id', event.id);
+    return jsonResponse({ received: true, entitlement: planId }, 200, req);
   }
 
   const purchase: PurchaseInfo = {

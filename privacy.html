@@ -12,11 +12,23 @@
 <body class="bg-zinc-50 text-zinc-950 font-sans">
   <header class="bg-white border-b"><div class="max-w-4xl mx-auto px-6 py-5"><a href="./" class="font-extrabold">← PRAVELY</a></div></header>
   <main class="max-w-4xl mx-auto px-6 py-14">
+    <section aria-labelledby="app-data-title" class="mb-8 bg-white border-2 border-emerald-700 rounded-2xl p-6 md:p-8 text-zinc-800 leading-relaxed">
+      <h1 id="app-data-title" class="text-2xl font-extrabold text-zinc-950">How the Pravely app handles financial data</h1>
+      <p class="mt-3">When you use the Pravely app, we process the information you choose to enter—such as budgets, income and expense categories, debts, assets, liabilities, goals, calculator inputs, preferences, and generated reports—to save, synchronize, display, and secure your private workspace. Depending on applicable law and context, some financial information may be considered sensitive personal information.</p>
+      <ul class="mt-4 list-disc pl-6 space-y-2">
+        <li><strong>Private by account.</strong> Customer financial rows are linked to the signed-in user and protected by database access rules designed to prevent one customer from accessing another customer’s information.</li>
+        <li><strong>No advertising sale.</strong> We do not sell customer-entered financial data or authorize service providers to use it for their own advertising.</li>
+        <li><strong>Limited operations access.</strong> Our routine support and product-health tools are designed to avoid showing budgets, balances, debts, goals, and net worth. Access may occur only when needed for security, troubleshooting you request, legal compliance, or maintaining the Service.</li>
+        <li><strong>Deletion.</strong> You may permanently delete your account and customer-entered financial workspace in app Settings or contact <a class="underline" href="mailto:support@pravely.com">support@pravely.com</a>. Limited purchase, tax, fraud-prevention, security, or dispute records may be retained where reasonably necessary or legally required.</li>
+        <li><strong>Payments.</strong> Stripe, Apple, or Google process payment information. Pravely receives purchase and entitlement records, but does not store full payment-card numbers.</li>
+      </ul>
+      <p class="mt-4">This app-data update supplements the notice below. If an older statement below conflicts with this section—for example, a statement that no sensitive information is processed—this more specific section controls for customer-entered app financial data. The effective date for this update is August 31, 2026.</p>
+    </section>
     <section aria-labelledby="service-providers-title" class="mb-8 bg-emerald-50 border border-emerald-400 rounded-2xl p-6 md:p-8 text-zinc-800 leading-relaxed">
       <h1 id="service-providers-title" class="text-2xl font-extrabold text-zinc-950">Service provider update</h1>
       <p class="mt-3">We use trusted service providers only as needed to operate purchases, licensed delivery, customer support, and product communications:</p>
       <ul class="mt-4 list-disc pl-6 space-y-2">
-        <li><strong>Supabase</strong> provides database, private file storage, and server-side functions used to create and deliver licensed workbook copies. Purchase and license information may include your name, email address, product, license ID, delivery status, and related technical records.</li>
+        <li><strong>Supabase</strong> provides authentication, database, private file storage, synchronization, and server-side functions for the app and licensed workbook delivery. Information may include account details, customer-entered financial data, purchase and license records, support messages, and limited operational events.</li>
         <li><strong>Resend</strong> provides transactional email delivery for purchase confirmations, licensed download links, and eligible product-update notices. Resend processes recipient email addresses and message-delivery information for those purposes.</li>
       </ul>
       <p class="mt-4">We do not authorize these providers to use customer information for their own advertising. Stripe remains our payment processor as described in this notice.</p>
