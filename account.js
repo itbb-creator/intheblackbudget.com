@@ -136,3 +136,4 @@ async function renderSession(session) {
 supabase.auth.onAuthStateChange((_event, session) => { renderSession(session); });
 const { data: { session } } = await supabase.auth.getSession();
 await renderSession(session);
+if (location.hash === '#forgot' && !session) showAuthForm('forgot');

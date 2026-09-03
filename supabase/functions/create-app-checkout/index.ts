@@ -18,7 +18,11 @@ Deno.serve(async (req: Request) => {
 
     const body = await readJson<{ plan?: string }>(req);
     if (body.plan !== 'plus' && body.plan !== 'complete') return jsonResponse({ error: 'Choose Plus or Complete.' }, 400, req);
-    const priceId = envGet(PRICES[body.plan]);
+    const { data: entitlement } = await sb.from('app_entitlements').select('plan_id,status').eq('user_id', data.user.id).maybeSingle();
+    if (entitlement?.status === 'active' && entitlement.plan_id === body.plan) return jsonResponse({ error: 'You already own this plan.' }, 409, req);
+    const isCompleteUpgrade = body.plan === 'complete' && entitlement?.status === 'active' && entitlement.plan_id === 'plus';
+    const priceEnv = isCompleteUpgrade ? 'STRIPE_PRICE_APP_COMPLETE_UPGRADE' : PRICES[body.plan];
+    const priceId = envGet(priceEnv);
     if (!priceId) return jsonResponse({ error: 'App checkout is not configured yet.' }, 503, req);
 
     const stripe = new Stripe(envGet('STRIPE_SECRET_KEY'), { apiVersion: '2025-02-24.acacia', httpClient: Stripe.createFetchHttpClient() });
@@ -30,7 +34,7 @@ Deno.serve(async (req: Request) => {
       success_url: `${appUrl()}/?checkout=success#/plans`,
       cancel_url: `${appUrl()}/#/plans`,
       allow_promotion_codes: true,
-      metadata: { purchase_type: 'app_plan', user_id: data.user.id, plan_id: body.plan, source: 'pravely_web' },
+      metadata: { purchase_type: 'app_plan', user_id: data.user.id, plan_id: body.plan, source: 'pravely_web', upgrade_from: isCompleteUpgrade ? 'plus' : '' },
       custom_text: { submit: { message: 'One-time purchase. Core product updates are included; separately priced add-ons are not included.' } },
     });
     return jsonResponse({ url: session.url, returnSite: siteUrl() }, 200, req);
