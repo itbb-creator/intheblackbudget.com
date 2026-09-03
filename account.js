@@ -10,8 +10,10 @@ const loading = byId('loading'), authView = byId('auth-view'), accountView = byI
 const authStatus = byId('auth-status'), accountStatus = byId('account-status');
 const signupForm = byId('signup-form'), loginForm = byId('login-form'), forgotForm = byId('forgot-form');
 const changePasswordForm = byId('change-password-form');
-const productionAccountUrl = 'https://pravely.com/account.html';
-const accountUrl = location.hostname === 'localhost' ? `${location.origin}/account.html` : productionAccountUrl;
+const productionSiteUrl = 'https://pravely.com';
+const siteUrl = ['localhost', '127.0.0.1'].includes(location.hostname) ? location.origin : productionSiteUrl;
+const confirmationUrl = `${siteUrl}/confirmation.html`;
+const recoveryUrl = `${siteUrl}/recovery.html`;
 
 byId('year').textContent = new Date().getFullYear();
 
@@ -62,7 +64,7 @@ signupForm.addEventListener('submit', async (event) => {
   const firstName = byId('first-name').value.trim(), lastName = byId('last-name').value.trim();
   const { data, error } = await supabase.auth.signUp({
     email: byId('signup-email').value.trim(), password: byId('signup-password').value,
-    options: { emailRedirectTo: accountUrl, data: {
+    options: { emailRedirectTo: confirmationUrl, data: {
       first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`,
       avatar_initials: initials({ first_name: firstName, last_name: lastName }),
     } },
@@ -70,8 +72,8 @@ signupForm.addEventListener('submit', async (event) => {
   setBusy(signupForm, false);
   if (error) return showStatus(authStatus, error.message, 'bad');
   if (data.session) return renderSession(data.session);
-  signupForm.reset(); updatePreviewAvatar();
-  showStatus(authStatus, 'Check your inbox for the Pravely verification email. After confirming, return here to access your workbook.');
+  const email = byId('signup-email').value.trim();
+  location.assign(`./confirmation.html?sent=1&email=${encodeURIComponent(email)}`);
 });
 
 loginForm.addEventListener('submit', async (event) => {
@@ -87,11 +89,11 @@ loginForm.addEventListener('submit', async (event) => {
 forgotForm.addEventListener('submit', async (event) => {
   event.preventDefault(); clearStatus(authStatus); setBusy(forgotForm, true, 'Sending reset link…');
   const { error } = await supabase.auth.resetPasswordForEmail(byId('forgot-email').value.trim(), {
-    redirectTo: `${productionAccountUrl}?mode=recovery`,
+    redirectTo: recoveryUrl,
   });
   setBusy(forgotForm, false);
   if (error) return showStatus(authStatus, error.message, 'bad');
-  showStatus(authStatus, 'If an account exists for that email, a password-reset link is on its way.');
+  location.assign(`./recovery.html?sent=1&email=${encodeURIComponent(byId('forgot-email').value.trim())}`);
 });
 
 changePasswordForm.addEventListener('submit', async (event) => {
@@ -129,10 +131,6 @@ async function renderSession(session) {
   byId('account-avatar').textContent = initials(metadata);
   byId('account-name').textContent = metadata.full_name || [metadata.first_name, metadata.last_name].filter(Boolean).join(' ') || 'Your account';
   byId('account-email').textContent = session.user.email || '';
-  if (new URLSearchParams(location.search).get('mode') === 'recovery') {
-    changePasswordForm.classList.remove('hide');
-    showStatus(accountStatus, 'Choose a new password to finish recovering your account.');
-  }
 }
 
 supabase.auth.onAuthStateChange((_event, session) => { renderSession(session); });

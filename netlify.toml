@@ -23,6 +23,16 @@
   status = 200
 
 [[redirects]]
+  from = "/confirmation"
+  to = "/confirmation.html"
+  status = 200
+
+[[redirects]]
+  from = "/recovery"
+  to = "/recovery.html"
+  status = 200
+
+[[redirects]]
   from = "/email-preferences"
   to = "/email-preferences.html"
   status = 200
@@ -56,6 +66,16 @@
 
 [[headers]]
   for = "/account.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/confirmation.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/recovery.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 

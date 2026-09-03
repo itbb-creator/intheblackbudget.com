@@ -7,6 +7,7 @@
   "compareAtPrice": "$29",
   "stripePaymentLink": "#",
   "functionsBaseUrl": "https://vtrdkoeydzvrhtiuykja.supabase.co/functions/v1",
+  "appUrl": "https://app.pravely.com",
   "stripeLinks": {
     "essentials": "#",
     "complete": "#",
