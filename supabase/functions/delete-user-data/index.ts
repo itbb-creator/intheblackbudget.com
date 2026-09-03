@@ -1,7 +1,7 @@
 import { handleOptions, jsonResponse, readJson } from '../_shared/cors.ts';
 import { getSupabase } from '../_shared/supabase.ts';
 
-const TABLES = ['budget_entries', 'goals', 'debts', 'net_worth_items', 'user_settings', 'push_device_tokens'] as const;
+const TABLES = ['budget_entries', 'debts', 'net_worth_items', 'goals', 'push_device_tokens', 'user_settings'] as const;
 
 Deno.serve(async (req: Request) => {
   const options = handleOptions(req);
@@ -17,6 +17,13 @@ Deno.serve(async (req: Request) => {
     for (const table of TABLES) {
       const { error: deleteError } = await sb.from(table).delete().eq('user_id', data.user.id);
       if (deleteError) throw deleteError;
+    }
+    const verification = await Promise.all(
+      TABLES.map((table) => sb.from(table).select('user_id', { count: 'exact', head: true }).eq('user_id', data.user.id)),
+    );
+    const remaining = verification.reduce((sum, result) => sum + (result.count ?? 0), 0);
+    if (verification.some((result) => result.error) || remaining > 0) {
+      throw new Error('Data deletion verification failed.');
     }
     return jsonResponse({ deleted: true }, 200, req);
   } catch (error) {
