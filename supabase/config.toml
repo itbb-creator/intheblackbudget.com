@@ -2,7 +2,7 @@
 # keep local Auth tests aligned with production.
 [auth]
 site_url = "https://pravely.com"
-additional_redirect_urls = ["https://pravely.com/account.html", "http://localhost:4173/account.html"]
+additional_redirect_urls = ["https://pravely.com/account.html", "https://pravely.com/confirmation.html", "https://pravely.com/recovery.html", "https://app.pravely.com", "http://localhost:4173/account.html", "http://127.0.0.1:4174/confirmation.html", "http://127.0.0.1:4174/recovery.html"]
 
 [auth.email.template.confirmation]
 subject = "Verify your Pravely account"
@@ -31,6 +31,9 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.claim-essentials]
+verify_jwt = true
+
+[functions.health-coach]
 verify_jwt = true
 
 [functions.delete-account]

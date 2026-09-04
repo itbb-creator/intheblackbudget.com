@@ -9,6 +9,20 @@ const email = params.get('email');
 if (email) document.getElementById('email').textContent = email;
 document.getElementById('open-app').href = config.appUrl || 'https://app.pravely.com';
 
+document.getElementById('prepare-workbook').addEventListener('click', async (event) => {
+  const button = event.currentTarget;
+  button.disabled = true;
+  button.textContent = 'Preparing your licensed copy…';
+  const { data, error } = await supabase.functions.invoke('claim-essentials', { body: {} });
+  button.disabled = false;
+  button.textContent = 'Prepare my workbook';
+  if (error || !data?.downloadUrl) {
+    showError(data?.error || error?.message || 'We could not prepare your workbook. Please try again.');
+    return;
+  }
+  location.assign(data.downloadUrl);
+});
+
 function showVerified() {
   document.getElementById('waiting').classList.add('hide');
   document.getElementById('verified').classList.remove('hide');
@@ -27,3 +41,4 @@ supabase.auth.onAuthStateChange((event, session) => {
 });
 const { data: { session } } = await supabase.auth.getSession();
 if (session?.user && !params.has('sent')) showVerified();
+if (['localhost', '127.0.0.1'].includes(location.hostname) && params.has('preview')) showVerified();

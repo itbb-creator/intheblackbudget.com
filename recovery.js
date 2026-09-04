@@ -8,6 +8,12 @@ const byId = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 if (params.get('email')) byId('email').textContent = params.get('email');
 let recoveryAuthorized = false;
+const hash = new URLSearchParams(location.hash.slice(1));
+const recoveryIntent =
+  hash.get('type') === 'recovery' ||
+  params.get('type') === 'recovery' ||
+  params.has('code') ||
+  params.has('token_hash');
 
 function show(view) {
   ['sent', 'reset-form', 'invalid'].forEach((id) => byId(id).classList.toggle('hide', id !== view));
@@ -18,19 +24,30 @@ function status(message, bad = false) {
 }
 if (params.has('sent')) show('sent'); else show('invalid');
 
-supabase.auth.onAuthStateChange((event) => {
-  if (event === 'PASSWORD_RECOVERY') {
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'PASSWORD_RECOVERY' || (session && recoveryIntent && event === 'SIGNED_IN')) {
     recoveryAuthorized = true;
     show('reset-form');
     history.replaceState({}, '', './recovery.html?authorized=1');
   }
 });
-const hash = new URLSearchParams(location.hash.slice(1));
 if (hash.get('type') === 'recovery') {
   recoveryAuthorized = true;
   show('reset-form');
 }
 if (hash.get('error_description')) status(hash.get('error_description').replaceAll('+', ' '), true);
+
+const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+if (session && recoveryIntent) {
+  recoveryAuthorized = true;
+  show('reset-form');
+  history.replaceState({}, '', './recovery.html?authorized=1');
+} else if (sessionError) {
+  status(sessionError.message, true);
+}
+if (['localhost', '127.0.0.1'].includes(location.hostname) && params.has('preview')) {
+  show('reset-form');
+}
 
 byId('reset-form').addEventListener('submit', async (event) => {
   event.preventDefault();
