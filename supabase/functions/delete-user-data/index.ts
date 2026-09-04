@@ -1,7 +1,7 @@
 import { handleOptions, jsonResponse, readJson } from '../_shared/cors.ts';
 import { getSupabase } from '../_shared/supabase.ts';
 
-const TABLES = ['budget_entries', 'debts', 'net_worth_items', 'goals', 'push_device_tokens', 'user_settings'] as const;
+const TABLES = ['budget_entries', 'debts', 'net_worth_items', 'goals', 'app_feedback', 'push_device_tokens', 'user_settings'] as const;
 
 Deno.serve(async (req: Request) => {
   const options = handleOptions(req);
